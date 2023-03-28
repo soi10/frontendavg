@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords"
+		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+	<link href="css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
+		rel="stylesheet" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+					<span class="align-middle">AdminKit</span>
+				</a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Pages
+					</li>
+
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="index.html">
+							<i class="align-middle" data-feather="sliders"></i> <span
+								class="align-middle">1.คำนวน</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="holiday.html">
+							<i class="align-middle" data-feather="user"></i> <span
+								class="align-middle">2.เพิ่มวันหยุด</span>
+						</a>
+					</li>
+
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+					<i class="hamburger align-self-center"></i>
+				</a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+								data-bs-toggle="dropdown">
+								<i class="align-middle" data-feather="settings"></i>
+							</a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+								data-bs-toggle="dropdown">
+								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
+									alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+										data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="pie-chart"></i> Analytics</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="index.html"><i class="align-middle me-1"
+										data-feather="settings"></i> Settings & Privacy</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1"
+										data-feather="help-circle"></i> Help Center</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+					<div id="page1" class="my-2">
+						<div class="mb-3">
+							<label class="form-label">ชื่อ</label>
+							<input type="text" class="form-control" />
+						</div>
+						<div class="mb-3">
+							<label class="form-label">หมายเลข</label>
+							<input type="text" class="form-control" />
+						</div>
+						<div class="row">
+							<div class="col">
+								<!-- <button type="button" class="btn btn-secondary" id="back1">กลับ</button> -->
+							</div>
+							<div class="col">
+								<button type="button" class="btn btn-success float-end" id="next1">
+									ต่อไป
+								</button>
+							</div>
+						</div>
+					</div>
+					<div id="page2" class="my-2">
+						<div class="row">
+							<div class="col">
+								<div class="card">
+									<h5 class="card-header">วันที่ชำรุด</h5>
+									<div class="card-body">
+										<label for="start-date">วันที่เริ่มต้น:</label>
+										<input class="form-control" type="text" id="start-date" name="start-date" />
+										<br />
+										<label for="end-date">วันที่สิ้นสุด:</label>
+										<input class="form-control" type="text" id="end-date" name="end-date" />
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="card">
+									<h5 class="card-header">Featured</h5>
+									<div class="card-body">
+										<label for="start-date">วันที่เริ่มต้น:</label>
+										<input class="form-control" type="text" id="start-date-nor"
+											name="start-date-nor" />
+										<br />
+										<label for="end-date">วันที่สิ้นสุด:</label>
+										<input class="form-control" type="text" id="end-date-nor" name="end-date-nor" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="text-center">
+							<button type="button" class="btn btn-primary my-2" id="submit-btn" name="#submit-btn">
+								ดำเนินการ
+							</button>
+						</div>
+						<div id="result"></div>
+						<div id="result1"></div>
+						<div id="result2"></div>
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-secondary" id="back2">
+									กลับ
+								</button>
+							</div>
+							<div class="col">
+								<button type="button" class="btn btn-success float-end" id="next2">
+									ต่อไป
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+
+		</div>
+	</div>
+
+	<script src="js/app.js"></script>
+
+</body>
+
+</html>
+
+
+<script>
+    $(document).ready(function () {
+      $("#page1").show();
+      $("#page2").hide();
+
+      // ใช้ datepicker กับ input ของวันที่เริ่มต้น
+      $("#start-date").datepicker({
+        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+      });
+
+      // ใช้ datepicker กับ input ของวันที่สิ้นสุด
+      $("#end-date").datepicker({
+        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+      });
+
+      $("#start-date-nor").datepicker({
+        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+      });
+
+      // ใช้ datepicker กับ input ของวันที่สิ้นสุด
+      $("#end-date-nor").datepicker({
+        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+      });
+    });
+
+    $("#next1").click(function () {
+      $("#page1").hide();
+      $("#page2").show();
+    });
+
+	$("#back2").click(function () {
+      $("#page1").show();
+      $("#page2").hide();
+    });
+
+    $("#submit-btn").click(function (event) {
+      event.preventDefault(); // ปิดการทำงานของปุ่ม submit หน้า HTML
+
+      // ดึงค่าจาก input ของวันที่เริ่มต้น
+      var startDate = $("#start-date").val();
+
+      // ดึงค่าจาก input ของวันที่สิ้นสุด
+      var endDate = $("#end-date").val();
+
+        var startDateNor = $("#start-date-nor").val();
+
+        var endDateNor = $("#end-date-nor").val();
+		
+
+      $.ajax({
+        url: "http://localhost:442/day/calculate-days",
+        type: "POST",
+        data: {
+          "start-date": startDate,
+          "end-date": endDate,
+          "start-date-nor": startDateNor,
+          "end-date-nor": endDateNor,
+        },
+        success: function (data) {
+          // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
+          console.log(data);
+          $("#result").text("จำนวนวันที่ระบุ: " + data.countDay + " วัน");
+          $("#result1").text("จำนวนวันธรรมดา: " + data.workDay + " วัน");
+          $("#result2").text("จำนวนวันหยุด: " + data.offkDay + " วัน");
+        },
+      });
+
+      // $.ajax({
+      //     url: "http://localhost:442/day/calculate-daysh",
+      //     type: "POST",
+      //     data: {
+      //         "start-date": startDate,
+      //         "end-date": endDate,
+      //     },
+      //     success: function (data) {
+      //         // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
+      //         $('#result1').text('จำนวนวันหยุด: ' + data + ' วัน');
+      //     },
+      // });
+    });
+  </script>
