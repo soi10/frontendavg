@@ -95,28 +95,237 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-					<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+					
 					<div id="page1" class="my-2">
-						<div class="mb-3">
-							<label class="form-label">ชื่อ</label>
-							<input type="text" class="form-control" />
-						</div>
-						<div class="mb-3">
-							<label class="form-label">หมายเลข</label>
-							<input type="text" class="form-control" />
+						<div class="container-fluid p-0">
+
+							<h1 class="h3 mb-3">กรอกข้อมูลผู้ใช้ไฟฟ้า</h1>
+							<div class="row">
+								<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+									<div class="card flex-fill">
+										<div class="card-body">
+												<div class="row">
+													<div class="col-3">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">ระบุการไฟฟ้า</label>
+															<select class="form-select mb-3" id="contractor">
+																<option value="">--เลือกข้อมูล--</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-3">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
+															<input type="text" class="form-control" id="" placeholder="0200xxxxx">
+														</div>
+													</div>
+													<div class="col-2">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">ตัวคูณ</label>
+															<input type="text" class="form-control" id="" placeholder="">
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-3">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">ชื่อ</label>
+															<input type="text" class="form-control" id="" placeholder="ชื่อ">
+														</div>
+													</div>
+													<div class="col-2">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">อัตรา</label>
+															<select class="form-select mb-3" id="contractor">
+																<option value="">--เลือกข้อมูล--</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-3">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">PEA No.</label>
+															<input type="text" class="form-control" id="" placeholder="pea no">
+														</div>
+													</div>
+													<div class="col-2">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">รอบบิลที่ต้องการทำการเฉลี่ย</label>
+															<select class="form-select mb-3" id="contractor">
+																<option value="">--เลือกข้อมูล--</option>
+															</select>
+														</div>
+													</div>
+												</div>
+		
+										</div>
+									</div>
+								</div>
+							</div>
+		
 						</div>
 						<div class="row">
 							<div class="col">
 								<!-- <button type="button" class="btn btn-secondary" id="back1">กลับ</button> -->
 							</div>
 							<div class="col">
-								<button type="button" class="btn btn-success float-end" id="next1">
-									ต่อไป
+								<button type="button" class="btn btn-facebook float-end" id="next1">
+									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span class="align-middle">ต่อไป</span>
 								</button>
 							</div>
 						</div>
 					</div>
 					<div id="page2" class="my-2">
+						<div class="container-fluid p-0">
+							<div class="row">
+								<div class="col d-flex justify-content-center">
+									<div class="card flex-fill">
+										<div class="card-body">
+												<div class="row">
+													<div class="col-5">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">กรณีชำรุด</label>
+															<select class="form-select mb-3" id="case-ex" onchange="showDiv(this)">
+																<option selected  value="0">--เลือกข้อมูล--</option>
+																<option value="1">เฉลี่ยจากข้อมูลในรอบบิลเดียวกัน (ข้อมูลที่เริ่มชำรุด และสับเปลี่ยนทันภายในเดือน)
+																</option>
+																<option value="2">เฉลี่ยจากสถิติการใช้ไฟฟ้า
+																</option>
+																<option value="3">เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อยของมิเตอร์
+																</option>
+															</select>
+														</div>
+													</div>
+												</div>
+		
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+						<div id="1" style="display:none;">
+							<div class="container-fluid p-0">
+								<h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
+								<div class="row">
+									<div class="col d-flex justify-content-center">
+										<div class="card flex-fill">
+											<div class="card-body">
+													<div class="row">
+														<div class="col-3">
+															<div class="card-header">
+																<h5 class="card-title mb-0">ช่วงปกติ</h5>
+															</div>
+															<div class="mb-3">
+																<label for="start-date">วันที่เริ่มต้น:</label>
+																<input class="form-control" type="text" id="start-date-normal" name="start-date-normal" />
+																<br />
+																<label for="end-date">วันที่สิ้นสุด:</label>
+																<input class="form-control" type="text" id="end-date-normal" name="end-date-normal" />
+															</div>
+														</div>
+														<div class="col-3">
+															<div class="card-header">
+																<h5 class="card-title mb-0">ช่วงชำรุด</h5>
+															</div>
+															<div class="mb-3">
+																<label for="start-date">วันที่เริ่มต้น:</label>
+																<input class="form-control" type="text" id="start-date-not" name="start-date-not" />
+																<br />
+																<label for="end-date">วันที่สิ้นสุด:</label>
+																<input class="form-control" type="text" id="end-date-not" name="end-date-not" />
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="container text-center">
+															<div class="row row-cols-auto">
+															<div class="col">
+																<button type="button" class="btn btn-facebook my-2" id="submit-btn" name="#submit-btn">
+																	<i class="align-middle me-2" data-feather="check-circle"></i> <span class="align-middle">ดำเนินการ</span>
+																</button>
+															</div>
+															</div>
+														</div>											
+													</div>
+													<div class="row">
+														<div class="col-3">
+															<div id="result"></div>
+															<div id="result1"></div>
+															<div id="result2"></div>
+														</div>
+														<div class="col-3">
+															
+															<div id="result-countDay-not"></div>
+															<div id="result-workDay-not"></div>
+															<div id="result-offkDay-not"></div>
+															
+														</div>
+													</div>
+			
+											</div>
+										</div>
+									</div>
+								</div>
+			
+							</div>
+						</div>
+<!--
+						<div class="container-fluid p-0">
+							<h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
+							<div class="row">
+								<div class="col d-flex justify-content-center">
+									<div class="card flex-fill">
+										<div class="card-body">
+												<div class="row">
+													<div class="col-5">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">กรณีชำรุด</label>
+															<select class="form-select mb-3" id="contractor">
+																<option value="">--เลือกข้อมูล--</option>
+															</select>
+														</div>
+													</div>
+												</div>
+		
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+-->
+<!--
+						<div class="container-fluid p-0">
+							<h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
+							<div class="row">
+								<div class="col d-flex justify-content-center">
+									<div class="card flex-fill">
+										<div class="card-body">
+												<div class="row">
+													<div class="col-5">
+														<div class="mb-3">
+															<label for="start-date">วันที่เริ่มต้น:</label>
+															<input class="form-control" type="text" id="start-date" name="start-date" />
+															<br />
+															<label for="end-date">วันที่สิ้นสุด:</label>
+															<input class="form-control" type="text" id="end-date" name="end-date" />
+														</div>
+													</div>
+												</div>
+		
+										</div>
+									</div>
+								</div>
+							</div>
+		
+						</div>
+-->
+
+<!--
 						<div class="row">
 							<div class="col">
 								<div class="card">
@@ -144,28 +353,27 @@
 								</div>
 							</div>
 						</div>
+-->
 
-						<div class="text-center">
-							<button type="button" class="btn btn-primary my-2" id="submit-btn" name="#submit-btn">
-								ดำเนินการ
-							</button>
-						</div>
+						
+					
 						<div id="result"></div>
 						<div id="result1"></div>
 						<div id="result2"></div>
 						<div class="row">
 							<div class="col">
 								<button type="button" class="btn btn-secondary" id="back2">
-									กลับ
+									<i class="align-middle me-2" data-feather="arrow-left-circle"></i> <span class="align-middle">กลับ</span>
 								</button>
 							</div>
 							<div class="col">
-								<button type="button" class="btn btn-success float-end" id="next2">
-									ต่อไป
+								<button type="button" class="btn btn-facebook float-end" id="next2">
+									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span class="align-middle">ต่อไป</span>
 								</button>
 							</div>
 						</div>
 					</div>
+					<!--end div id="page2"-->
 				</div>
 			</main>
 
@@ -185,21 +393,21 @@
       $("#page2").hide();
 
       // ใช้ datepicker กับ input ของวันที่เริ่มต้น
-      $("#start-date").datepicker({
+      $("#start-date-normal").datepicker({
         dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
       });
 
       // ใช้ datepicker กับ input ของวันที่สิ้นสุด
-      $("#end-date").datepicker({
+      $("#end-date-normal").datepicker({
         dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
       });
 
-      $("#start-date-nor").datepicker({
+      $("#start-date-not").datepicker({
         dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
       });
 
       // ใช้ datepicker กับ input ของวันที่สิ้นสุด
-      $("#end-date-nor").datepicker({
+      $("#end-date-not").datepicker({
         dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
       });
     });
@@ -214,18 +422,27 @@
       $("#page2").hide();
     });
 
+	$("#1").hide();
+	function showDiv(select){
+		if(select.value==0){
+		 document.getElementById('1').style.display = "none";
+		} else if(select.value==1){
+		 document.getElementById('1').style.display = "block";
+		}
+	 }
+
     $("#submit-btn").click(function (event) {
       event.preventDefault(); // ปิดการทำงานของปุ่ม submit หน้า HTML
 
       // ดึงค่าจาก input ของวันที่เริ่มต้น
-      var startDate = $("#start-date").val();
+      var startDate = $("#start-date-normal").val();
 
       // ดึงค่าจาก input ของวันที่สิ้นสุด
-      var endDate = $("#end-date").val();
+      var endDate = $("#end-date-normal").val();
 
-        var startDateNor = $("#start-date-nor").val();
+        var startDateNor = $("#start-date-not").val();
 
-        var endDateNor = $("#end-date-nor").val();
+        var endDateNor = $("#end-date-not").val();
 		
 
       $.ajax({
@@ -243,6 +460,9 @@
           $("#result").text("จำนวนวันที่ระบุ: " + data.countDay + " วัน");
           $("#result1").text("จำนวนวันธรรมดา: " + data.workDay + " วัน");
           $("#result2").text("จำนวนวันหยุด: " + data.offkDay + " วัน");
+		  $("#result-countDay-not").text("จำนวนวันที่ระบุ: " + data.countDayNor + " วัน");
+          $("#result-workDay-not").text("จำนวนวันธรรมดา: " + data.workDayNor + " วัน");
+          $("#result-offkDay-not").text("จำนวนวันหยุด: " + data.offkDayNor + " วัน");
         },
       });
 
