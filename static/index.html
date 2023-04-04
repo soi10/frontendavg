@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
+	<script src="js/sweetalert2v10.js"></script>
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -23,8 +23,17 @@
 
 	<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
 		rel="stylesheet" />
+	<link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<style>
+		body {
+			font-family: 'Kanit';
+			font-size: 14px;
+		}
+	</style>
 </head>
 
 <body>
@@ -72,21 +81,12 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-									alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+								<span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span> <span id="BaName"></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-										data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1"
-										data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1"
-										data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1"
-										data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Log out</a>
+								<span id="outer">
+									<a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+								</span>
 							</div>
 						</li>
 					</ul>
@@ -95,7 +95,7 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-					
+
 					<div id="page1" class="my-2">
 						<div class="container-fluid p-0">
 
@@ -104,277 +104,617 @@
 								<div class="col-12 col-lg-12 col-xxl-12 d-flex">
 									<div class="card flex-fill">
 										<div class="card-body">
-												<div class="row">
-													<div class="col-3">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">ระบุการไฟฟ้า</label>
-															<select class="form-select mb-3" id="contractor">
-																<option value="">--เลือกข้อมูล--</option>
-															</select>
-														</div>
+											<div class="row">
+												<div class="col-3">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">ระบุการไฟฟ้า</label>
+														<select class="form-select mb-3" id="office">
+															<option value="">--เลือกข้อมูล--</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-3">
+													<div class="mb-3">
+														<label for="formFile"
+															class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
+														<input type="text" class="form-control" id="ca"
+															placeholder="0200xxxxx">
+													</div>
+												</div>
+												<!-- <div class="col-2">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">ตัวคูณ</label>
+														<input type="text" class="form-control" id="multiplier"
+															placeholder="">
+													</div>
+												</div> -->
+											</div>
+											<div class="row">
+												<div class="col-3">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">ชื่อ</label>
+														<input type="text" class="form-control" id="customer-name"
+															placeholder="ชื่อ">
+													</div>
+												</div>
+												<div class="col-4">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">อัตรา</label>
+														<select class="form-select mb-3" id="rate">
+
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-3">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">PEA No.</label>
+														<input type="text" class="form-control" id="peano"
+															placeholder="pea no">
+													</div>
+												</div>
+												<div class="col-2">
+													<div class="mb-3">
+														<label for="formFile"
+															class="form-label">รอบบิลที่ต้องการทำการเฉลี่ย</label>
+														<select class="form-select mb-3" id="month">
+															<option value="">--เลือกข้อมูล--</option>
+															<option value="มกราคม">มกราคม</option>
+															<option value="กุมภาพันธ์">กุมภาพันธ์</option>
+															<option value="มีนาคม">มีนาคม</option>
+															<option value="เมษายน">เมษายน</option>
+															<option value="พฤษภาคม">พฤษภาคม</option>
+															<option value="มิถุนายน">มิถุนายน</option>
+															<option value="กรกฎาคม">กรกฎาคม</option>
+															<option value="สิงหาคม">สิงหาคม</option>
+															<option value="กันยายน">กันยายน</option>
+															<option value="ตุลาคม">ตุลาคม</option>
+															<option value="พฤศจิกายน">พฤศจิกายน</option>
+															<option value="ธันวาคม">ธันวาคม</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-2">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">ปี</label>
+														<select class="form-select mb-3" id="year">
+
+														</select>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-3">
 														<div class="mb-3">
-															<label for="formFile" class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
-															<input type="text" class="form-control" id="" placeholder="0200xxxxx">
+															<label for="formFile"
+																class="form-label">สาเหตุที่ชำรุด</label>
+															<input type="text" class="form-control" id="case"
+																placeholder="">
 														</div>
 													</div>
-													<div class="col-2">
+													<!-- <div class="col-2">
 														<div class="mb-3">
 															<label for="formFile" class="form-label">ตัวคูณ</label>
-															<input type="text" class="form-control" id="" placeholder="">
+															<input type="text" class="form-control" id="multiplier"
+																placeholder="">
 														</div>
-													</div>
+													</div> -->
 												</div>
-												<div class="row">
-													<div class="col-3">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">ชื่อ</label>
-															<input type="text" class="form-control" id="" placeholder="ชื่อ">
-														</div>
-													</div>
-													<div class="col-2">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">อัตรา</label>
-															<select class="form-select mb-3" id="contractor">
-																<option value="">--เลือกข้อมูล--</option>
-															</select>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-3">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">PEA No.</label>
-															<input type="text" class="form-control" id="" placeholder="pea no">
-														</div>
-													</div>
-													<div class="col-2">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">รอบบิลที่ต้องการทำการเฉลี่ย</label>
-															<select class="form-select mb-3" id="contractor">
-																<option value="">--เลือกข้อมูล--</option>
-															</select>
-														</div>
-													</div>
-												</div>
-		
+											</div>
+
 										</div>
 									</div>
 								</div>
 							</div>
-		
+
 						</div>
 						<div class="row">
 							<div class="col">
 								<!-- <button type="button" class="btn btn-secondary" id="back1">กลับ</button> -->
 							</div>
 							<div class="col">
-								<button type="button" class="btn btn-facebook float-end" id="next1">
-									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span class="align-middle">ต่อไป</span>
+								<button type="button" class="btn btn-facebook float-end" id="nextpage2">
+									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
+										class="align-middle">ยืนยัน/ดำเนินการต่อไป</span>
 								</button>
 							</div>
 						</div>
 					</div>
+					<!-- End page1 -->
+
 					<div id="page2" class="my-2">
 						<div class="container-fluid p-0">
 							<div class="row">
 								<div class="col d-flex justify-content-center">
 									<div class="card flex-fill">
 										<div class="card-body">
-												<div class="row">
-													<div class="col-5">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">กรณีชำรุด</label>
-															<select class="form-select mb-3" id="case-ex" onchange="showDiv(this)">
-																<option selected  value="0">--เลือกข้อมูล--</option>
-																<option value="1">เฉลี่ยจากข้อมูลในรอบบิลเดียวกัน (ข้อมูลที่เริ่มชำรุด และสับเปลี่ยนทันภายในเดือน)
-																</option>
-																<option value="2">เฉลี่ยจากสถิติการใช้ไฟฟ้า
-																</option>
-																<option value="3">เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อยของมิเตอร์
-																</option>
-															</select>
-														</div>
+											<div class="row">
+												<div class="col-5">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">กรณีชำรุด</label>
+														<select class="form-select mb-3" id="case-ex"
+															onchange="showDiv(this)">
+															<option selected value="0">--เลือกข้อมูล--</option>
+															<option value="1">เฉลี่ยจากข้อมูลในรอบบิลเดียวกัน
+																(ข้อมูลที่เริ่มชำรุด และสับเปลี่ยนทันภายในเดือน)
+															</option>
+															<option value="2">เฉลี่ยจากสถิติการใช้ไฟฟ้า
+															</option>
+															<option value="3">
+																เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อยของมิเตอร์
+															</option>
+														</select>
 													</div>
 												</div>
-		
+											</div>
+
 										</div>
 									</div>
 								</div>
 							</div>
-		
+
 						</div>
-						<div id="1" style="display:none;">
+						<div id="step1" style="display:none;">
 							<div class="container-fluid p-0">
 								<h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
 								<div class="row">
 									<div class="col d-flex justify-content-center">
 										<div class="card flex-fill">
 											<div class="card-body">
+												<div class="container text-center">
 													<div class="row">
-														<div class="col-3">
-															<div class="card-header">
-																<h5 class="card-title mb-0">ช่วงปกติ</h5>
-															</div>
+														<div class="col">
+															<h5 class="card-title mb-0">ช่วงที่ปกติ</h5>
+														</div>
+														<div class="col">
+															&nbsp;
+														</div>
+														<div class="col">
+															<h5 class="card-title mb-0">ช่วงที่ชำรุด</h5>
+
+														</div>
+													</div>
+												</div>
+												<div class="container text-center">
+													<div class="row">
+														<div class="col">
 															<div class="mb-3">
 																<label for="start-date">วันที่เริ่มต้น:</label>
-																<input class="form-control" type="text" id="start-date-normal" name="start-date-normal" />
-																<br />
-																<label for="end-date">วันที่สิ้นสุด:</label>
-																<input class="form-control" type="text" id="end-date-normal" name="end-date-normal" />
+																<input class="form-control" type="text"
+																	id="start-date-normal" name="start-date-normal" />
 															</div>
 														</div>
-														<div class="col-3">
-															<div class="card-header">
-																<h5 class="card-title mb-0">ช่วงชำรุด</h5>
+														<div class="col-1">
+															ถึง
+														</div>
+														<div class="col">
+															<div class="mb-3">
+																<label for="end-date">วันที่สิ้นสุด:</label>
+																<input class="form-control" type="text"
+																	id="end-date-normal" name="end-date-normal" />
 															</div>
+														</div>
+														<div class="col">
+															&nbsp;
+														</div>
+														<div class="col">
 															<div class="mb-3">
 																<label for="start-date">วันที่เริ่มต้น:</label>
-																<input class="form-control" type="text" id="start-date-not" name="start-date-not" />
-																<br />
+																<input class="form-control" type="text"
+																	id="start-date-not" name="start-date-not" />
+															</div>
+														</div>
+														<div class="col-1">
+															ถึง
+														</div>
+														<div class="col">
+															<div class="mb-3">
 																<label for="end-date">วันที่สิ้นสุด:</label>
-																<input class="form-control" type="text" id="end-date-not" name="end-date-not" />
+																<input class="form-control" type="text"
+																	id="end-date-not" name="end-date-not" />
 															</div>
 														</div>
 													</div>
+												</div>
+												<div class="container text-center">
 													<div class="row">
-														<div class="container text-center">
-															<div class="row row-cols-auto">
-															<div class="col">
-																<button type="button" class="btn btn-facebook my-2" id="submit-btn" name="#submit-btn">
-																	<i class="align-middle me-2" data-feather="check-circle"></i> <span class="align-middle">ดำเนินการ</span>
-																</button>
-															</div>
-															</div>
-														</div>											
+														<div class="col">
+															<button type="button" class="btn btn-facebook my-2"
+																id="submit-btn" name="#submit-btn">
+																<i class="align-middle me-2"
+																	data-feather="check-circle"></i> <span
+																	class="align-middle">ดำเนินการ</span>
+															</button>
+														</div>
 													</div>
+												</div>
+												<div class="container">
 													<div class="row">
-														<div class="col-3">
-															<div id="result"></div>
-															<div id="result1"></div>
-															<div id="result2"></div>
+														<div class="col">
+															&nbsp;
 														</div>
-														<div class="col-3">
-															
-															<div id="result-countDay-not"></div>
-															<div id="result-workDay-not"></div>
-															<div id="result-offkDay-not"></div>
-															
+														<div class="col">
+															<div id="resultP"></div>
+															<div id="resultOP"></div>
+															<div id="resultH"></div>
+															<div id="resultSum"></div>
+														</div>
+														<div class="col">
+
+														</div>
+														<div class="col">
+															<div>&nbsp;</div>
+															<div>&nbsp;</div>
+															<div>&nbsp;</div>
+															<h3>
+																<div id="resultSumAc"></div>
+															</h3>
+														</div>
+														<div class="col">
+															&nbsp;
+														</div>
+														<div class="col">
+															<div id="result-workDay-notP"></div>
+															<div id="result-offkDay-notOP"></div>
+															<div id="result-offkDay-notH"></div>
+															<div id="result-countDay-notSum"></div>
+														</div>
+														<div class="col">
+															&nbsp;
 														</div>
 													</div>
-			
+												</div>
+												<div class="container text-center">
+													<div class="row">
+														<div class="col">
+															<div id="btn-save-con"></div>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-			
-							</div>
-						</div>
-<!--
-						<div class="container-fluid p-0">
-							<h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
-							<div class="row">
-								<div class="col d-flex justify-content-center">
-									<div class="card flex-fill">
-										<div class="card-body">
-												<div class="row">
-													<div class="col-5">
-														<div class="mb-3">
-															<label for="formFile" class="form-label">กรณีชำรุด</label>
-															<select class="form-select mb-3" id="contractor">
-																<option value="">--เลือกข้อมูล--</option>
-															</select>
-														</div>
-													</div>
-												</div>
-		
-										</div>
-									</div>
-								</div>
-							</div>
-		
-						</div>
--->
-<!--
-						<div class="container-fluid p-0">
-							<h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
-							<div class="row">
-								<div class="col d-flex justify-content-center">
-									<div class="card flex-fill">
-										<div class="card-body">
-												<div class="row">
-													<div class="col-5">
-														<div class="mb-3">
-															<label for="start-date">วันที่เริ่มต้น:</label>
-															<input class="form-control" type="text" id="start-date" name="start-date" />
-															<br />
-															<label for="end-date">วันที่สิ้นสุด:</label>
-															<input class="form-control" type="text" id="end-date" name="end-date" />
-														</div>
-													</div>
-												</div>
-		
-										</div>
-									</div>
-								</div>
-							</div>
-		
-						</div>
--->
 
-<!--
+							</div>
+						</div>
 						<div class="row">
 							<div class="col">
-								<div class="card">
-									<h5 class="card-header">วันที่ชำรุด</h5>
-									<div class="card-body">
-										<label for="start-date">วันที่เริ่มต้น:</label>
-										<input class="form-control" type="text" id="start-date" name="start-date" />
-										<br />
-										<label for="end-date">วันที่สิ้นสุด:</label>
-										<input class="form-control" type="text" id="end-date" name="end-date" />
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="card">
-									<h5 class="card-header">Featured</h5>
-									<div class="card-body">
-										<label for="start-date">วันที่เริ่มต้น:</label>
-										<input class="form-control" type="text" id="start-date-nor"
-											name="start-date-nor" />
-										<br />
-										<label for="end-date">วันที่สิ้นสุด:</label>
-										<input class="form-control" type="text" id="end-date-nor" name="end-date-nor" />
-									</div>
-								</div>
-							</div>
-						</div>
--->
-
-						
-					
-						<div id="result"></div>
-						<div id="result1"></div>
-						<div id="result2"></div>
-						<div class="row">
-							<div class="col">
-								<button type="button" class="btn btn-secondary" id="back2">
-									<i class="align-middle me-2" data-feather="arrow-left-circle"></i> <span class="align-middle">กลับ</span>
+								<button type="button" class="btn btn-secondary" id="backpage1">
+									<i class="align-middle me-2" data-feather="arrow-left-circle"></i> <span
+										class="align-middle">กลับ</span>
 								</button>
 							</div>
 							<div class="col">
-								<button type="button" class="btn btn-facebook float-end" id="next2">
-									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span class="align-middle">ต่อไป</span>
+								<button type="button" class="btn btn-facebook float-end" id="nextpage3">
+									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
+										class="align-middle">ยืนยัน/ดำเนินการต่อไป</span>
 								</button>
 							</div>
 						</div>
 					</div>
 					<!--end div id="page2"-->
+					<div id="page3" class="my-2">
+						<div class="container-fluid p-0">
+
+							<h1 class="h3 mb-3">รายละเอียดคำนวนการใช้ไฟฟ้า</h1>
+							<div class="row">
+								<div class="col d-flex justify-content-center">
+									<div class="card flex-fill">
+										<div class="card-body">
+											<div class="row">
+												<div class="container text-center">
+													<div class="row">
+														<div class="col-sm-12">
+															<h4>CA: <span id="ca-sum"></span> <span
+																	id="customer-sum"></span></h4>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<h5>สาเหตุที่ดำเนินการเฉลี่ยหน่วยในรอบบิล เดือน <span
+																	id="month-sum"></span> ปี <span
+																	id="year-sum"></span>
+																เนื่องจาก <span id="case-sum"></span></h5>
+														</div>
+													</div>
+													<div class="row">
+														&nbsp;
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<b>หน่วยการใช้ไฟ</b>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+														</div>
+														<div class="col-sm-1">
+															เลขอ่านครั้งก่อน
+														</div>
+														<div class="col-sm-1">
+															เลขอ่านครั้งหลัง
+														</div>
+														<div class="col-sm-1">
+															ตัวคูณ
+														</div>
+														<div class="col-sm-1">
+															หน่วยช่วงที่ปกติ
+														</div>
+														<div class="col-sm-1">
+															วันที่ปกติ
+														</div>
+														<div class="col-sm-1">
+															เฉลี่ยต่อวัน
+														</div>
+														<div class="col-sm-1">
+															วันที่ชำรุด
+														</div>
+														<div class="col-sm-3">
+															หน่วยเฉลี่ยช่วงที่ชำรุด*นำไปลงในระบบ SAP
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+															KWP-P
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPPBefore"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPPAfter"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPPmultiplier"
+																onkeyup="CalKWPP()" style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPPUnitNormol"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPPresultP-Sum"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPPAvg"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="KWPPresult-workDay-notP-Sum" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-3">
+															<input type="text" class="form-control"
+																id="KWPPavg-unit-tosap" disabled
+																style="text-align: right">
+														</div>
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-1">
+															KWP-OP
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPOPBefore"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPOPAfter"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPOPmultiplier"
+																onkeyup="CalKWPOP()" style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPOPUnitNormol"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="KWPOPresultP-Sum" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPOPAvg"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="KWPOPresult-workDay-notP-Sum" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-3">
+															<input type="text" class="form-control"
+																id="KWPOPavg-unit-tosap" disabled
+																style="text-align: right">
+														</div>
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-1">
+															KWP-H
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPHBefore"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPHAfter"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPHmultiplier"
+																onkeyup="CalKWPH()" style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPHUnitNormol"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPHresultP-Sum"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KWPHAvg"
+																disabled style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="KWPHresult-workDay-notP-Sum" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-3">
+															<input type="text" class="form-control"
+																id="KWPHavg-unit-tosap" disabled
+																style="text-align: right">
+														</div>
+													</div>
+													<br>
+													<div class="row ">
+														<div class="d-flex">
+															<div>
+																<h6><span class="badge bg-danger">*หมายเหตุ*
+																		เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
+																		EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
+															</div>
+														</div>
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-12">
+															<b>กิโลวัตต์ หน่วยการใช้ไฟ</b>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+														</div>
+														<div class="col-sm-1">
+															เลขอ่านครั้งก่อน
+														</div>
+														<div class="col-sm-1">
+															เลขอ่านครั้งหลัง
+														</div>
+														<div class="col-sm-1">
+															ตัวคูณ
+														</div>
+														<div class="col-sm-1">
+															กิโลวัตต์ช่วงปกติ
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+															KWP-P
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPPBefore"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPPAfter"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPPmultiplier"
+																onkeyup="CalKKWPP()" style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPPUnitNormol"
+																disabled style="text-align: right">
+														</div>
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-1">
+															KWP-OP
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPOPBefore"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPOPAfter"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="KKWPOPmultiplier" onkeyup="CalKKWPOP()"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="KKWPOPUnitNormol" disabled
+																style="text-align: right">
+														</div>
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-1">
+															KWP-H
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPHBefore"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPHAfter"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPHmultiplier"
+																onkeyup="CalKKWPH()" style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="KKWPHUnitNormol"
+																disabled style="text-align: right">
+														</div>
+													</div>
+													<br>
+													<div class="row ">
+														<div class="d-flex">
+															<div>
+																<h6><span class="badge bg-danger">*หมายเหตุ*
+																		กรณีเฉลี่ยจากสถิติในเดือนไม่ต้องดำเนินการเฉลี่ยกิโลวัตต์
+																		หรือสามารถนำกิโลวัตต์ช่วงปกติมาเฉลี่ยได้</span>
+																</h6>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col">
+								<button type="button" class="btn btn-secondary" id="backpage2">
+									<i class="align-middle me-2" data-feather="arrow-left-circle"></i> <span
+										class="align-middle">กลับ</span>
+								</button>
+							</div>
+							<div class="col">
+								<button type="button" class="btn btn-facebook float-end" id="next1">
+									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
+										class="align-middle">ยืนยัน/ดำเนินการต่อไป</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- End page3 -->
 				</div>
+				<input type="hidden" id="KWPPresultP-Sum">
+				<input type="hidden" id="KWPPresult-workDay-notP-Sum">
+
 			</main>
 
 		</div>
@@ -386,97 +726,297 @@
 
 </html>
 
-
 <script>
-    $(document).ready(function () {
-      $("#page1").show();
-      $("#page2").hide();
+	$(document).ready(function () {
+		$("#Name").html(localStorage.getItem("FullName"));
+		$("#BaName").html(localStorage.getItem("BaName"));
+		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+		console.log(localStorage.getItem("Peacode").substring(0, 4))
 
-      // ใช้ datepicker กับ input ของวันที่เริ่มต้น
-      $("#start-date-normal").datepicker({
-        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
-      });
+		$("#page1").show();
+		$("#page2").hide();
+		$("#page3").hide();
 
-      // ใช้ datepicker กับ input ของวันที่สิ้นสุด
-      $("#end-date-normal").datepicker({
-        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
-      });
+		// ใช้ datepicker กับ input ของวันที่เริ่มต้น
+		$("#start-date-normal").datepicker({
+			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+		});
 
-      $("#start-date-not").datepicker({
-        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
-      });
+		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
+		$("#end-date-normal").datepicker({
+			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+		});
 
-      // ใช้ datepicker กับ input ของวันที่สิ้นสุด
-      $("#end-date-not").datepicker({
-        dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
-      });
-    });
+		$("#start-date-not").datepicker({
+			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+		});
 
-    $("#next1").click(function () {
-      $("#page1").hide();
-      $("#page2").show();
-    });
+		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
+		$("#end-date-not").datepicker({
+			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+		});
+	});
 
-	$("#back2").click(function () {
-      $("#page1").show();
-      $("#page2").hide();
-    });
+	$("#nextpage2").click(function () {
+		$("#page1").hide();
+		$("#page2").show();
+		$("#page3").hide();
+	});
+	$("#nextpage3").click(function () {
+		$("#page1").hide();
+		$("#page2").hide();
+		$("#page3").show();
+	});
 
-	$("#1").hide();
-	function showDiv(select){
-		if(select.value==0){
-		 document.getElementById('1').style.display = "none";
-		} else if(select.value==1){
-		 document.getElementById('1').style.display = "block";
+	$("#backpage1").click(function () {
+		$("#page1").show();
+		$("#page2").hide();
+		$("#page3").hide();
+	});
+	$("#backpage2").click(function () {
+		$("#page1").hide();
+		$("#page2").show();
+		$("#page3").hide();
+	});
+
+	function showDiv(select) {
+		if (select.value == 0) {
+			document.getElementById('step1').style.display = "none";
+		} else if (select.value == 1) {
+			document.getElementById('step1').style.display = "block";
 		}
-	 }
+	}
+	// 
+	// กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
+	$.ajax({
+		url: "http://localhost:442/uploadrate",
+		dataType: "json",
+		success: function (data) {
+			// สร้าง options ของ select2
+			var options = '<option value="">--เลือกข้อมูล--</option>'; // option เริ่มต้น
+			for (var i = 0; i < data.length; i++) {
+				options += '<option value="' + data[i].detail + '">' + data[i].group_no + ' ' + data[i].detail + '</option>';
+			}
+			// กำหนด options ของ select2
+			$('#rate').html(options);
+			// เปิดใช้งาน select2
+			$('#rate').select2();
+		}
+	});
+	// กำหนดค่า default ให้กับ select list เดือน
+	var currentMonth = new Date().getMonth() + 1;
+	// $("#month").val(currentMonth);
 
-    $("#submit-btn").click(function (event) {
-      event.preventDefault(); // ปิดการทำงานของปุ่ม submit หน้า HTML
+	// เปิดใช้งาน select2
+	$('#month').select2();
 
-      // ดึงค่าจาก input ของวันที่เริ่มต้น
-      var startDate = $("#start-date-normal").val();
+	// สร้าง array ของปี
+	var years = [];
+	var currentYear = new Date().getFullYear();
+	for (var i = 0; i < 5; i++) {
+		years.push(currentYear + i);
+	}
 
-      // ดึงค่าจาก input ของวันที่สิ้นสุด
-      var endDate = $("#end-date-normal").val();
+	// สร้าง options ของปี
+	var yearOptions = '';
+	for (var i = 0; i < years.length; i++) {
+		yearOptions += '<option value="' + years[i] + '">' + years[i] + '</option>';
+	}
 
-        var startDateNor = $("#start-date-not").val();
+	// กำหนด options ของปีให้กับ select list
+	$('#year').html(yearOptions);
 
-        var endDateNor = $("#end-date-not").val();
-		
+	// เปิดใช้งาน select2
+	$('#year').select2();
 
-      $.ajax({
-        url: "http://localhost:442/day/calculate-days",
-        type: "POST",
-        data: {
-          "start-date": startDate,
-          "end-date": endDate,
-          "start-date-nor": startDateNor,
-          "end-date-nor": endDateNor,
-        },
-        success: function (data) {
-          // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
-          console.log(data);
-          $("#result").text("จำนวนวันที่ระบุ: " + data.countDay + " วัน");
-          $("#result1").text("จำนวนวันธรรมดา: " + data.workDay + " วัน");
-          $("#result2").text("จำนวนวันหยุด: " + data.offkDay + " วัน");
-		  $("#result-countDay-not").text("จำนวนวันที่ระบุ: " + data.countDayNor + " วัน");
-          $("#result-workDay-not").text("จำนวนวันธรรมดา: " + data.workDayNor + " วัน");
-          $("#result-offkDay-not").text("จำนวนวันหยุด: " + data.offkDayNor + " วัน");
-        },
-      });
 
-      // $.ajax({
-      //     url: "http://localhost:442/day/calculate-daysh",
-      //     type: "POST",
-      //     data: {
-      //         "start-date": startDate,
-      //         "end-date": endDate,
-      //     },
-      //     success: function (data) {
-      //         // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
-      //         $('#result1').text('จำนวนวันหยุด: ' + data + ' วัน');
-      //     },
-      // });
-    });
-  </script>
+	// End
+
+	//
+	// ใช้ setInterval เพื่อทำงานทุก ๆ 3 วินาที
+	setInterval(function () {
+		// ดึงค่า input ที่มี id เป็น "my-input"
+		var inputValueca = $('#ca').val();
+		var inputValueCus_name = $('#customer-name').val();
+		var inputValueMonth = $('#month').val();
+		var inputValueYear = $('#year').val();
+		var inputValuecase = $('#case').val();
+		var inputValueresultP = $('#KWPPresultP-Sum').val();
+		// var KWPPPresultP = $('#KWPPPresultP-Sum').val();
+		// var KWPHresultP = $('#KWPHresultP-Sum').val();
+		//console.log(inputValueca)
+		// ดำเนินการกับค่าที่ได้รับมา
+		$("#ca-sum").text(inputValueca);
+		$("#customer-sum").text(inputValueCus_name);
+		$("#month-sum").text(inputValueMonth);
+		$("#year-sum").text(inputValueYear);
+		$("#case-sum").text(inputValuecase);
+		$("#KWPPresultP-Sum").text(inputValueresultP);
+	}, 3000);
+
+
+	// คำนวน KWP-P
+	function CalKWPP() {
+		var inputValueresultP = $('#KWPPresultP-Sum').val();
+		var resultworkDaynotPSum = $('#KWPPresult-workDay-notP-Sum').val();
+		var KWPPBefore = parseFloat($("#KWPPBefore").val());
+		var KWPPAfter = parseFloat($("#KWPPAfter").val());
+		var KWPPmultiplier = parseFloat($("#KWPPmultiplier").val());
+		var KWPPUnitNormol = ((KWPPAfter - KWPPBefore) * KWPPmultiplier);
+		$("#KWPPUnitNormol").val(KWPPUnitNormol);
+		$("#KWPPAvg").val((KWPPUnitNormol / inputValueresultP).toFixed(2))
+		var KWPPAvg = KWPPUnitNormol / inputValueresultP
+		$("#KWPPavg-unit-tosap").val((KWPPAvg * resultworkDaynotPSum).toFixed(2))
+	}
+	//end
+	// คำนวน KWP-OP
+	function CalKWPOP() {
+		var KWPOPresultP = $('#KWPOPresultP-Sum').val();
+		var KWPOPresult = $('#KWPOPresult-workDay-notP-Sum').val();
+		var KWPOPBefore = parseFloat($("#KWPOPBefore").val());
+		var KWPOPAfter = parseFloat($("#KWPOPAfter").val());
+		var KWPOPmultiplier = parseFloat($("#KWPOPmultiplier").val());
+		var KWPOPUnitNormol = ((KWPOPAfter - KWPOPBefore) * KWPOPmultiplier);
+		$("#KWPOPUnitNormol").val(KWPOPUnitNormol);
+		$("#KWPOPAvg").val((KWPOPUnitNormol / KWPOPresultP).toFixed(2))
+		var KWPOPAvg = KWPOPUnitNormol / KWPOPresultP
+		$("#KWPOPavg-unit-tosap").val((KWPOPAvg * KWPOPresult).toFixed(2))
+	}
+	//end
+	// คำนวน KWP-OP
+	function CalKWPH() {
+		var KWPHresultP = $('#KWPHresultP-Sum').val();
+		var KWPHresult = $('#KWPHresult-workDay-notP-Sum').val();
+		var KWPHBefore = parseFloat($("#KWPHBefore").val());
+		var KWPHAfter = parseFloat($("#KWPHAfter").val());
+		var KWPHmultiplier = parseFloat($("#KWPHmultiplier").val());
+		var KWPHUnitNormol = ((KWPHAfter - KWPHBefore) * KWPHmultiplier);
+		$("#KWPHUnitNormol").val(KWPHUnitNormol);
+		$("#KWPHAvg").val((KWPHUnitNormol / KWPHresultP).toFixed(2))
+		var KWPHAvg = KWPHUnitNormol / KWPHresultP
+		$("#KWPHavg-unit-tosap").val((KWPHAvg * KWPHresult).toFixed(2))
+	}
+	//end
+
+	// Calculator KKWPP
+	function CalKKWPP() {
+		var KKWPPBefore = parseFloat($("#KKWPPBefore").val());
+		var KKWPPAfter = parseFloat($("#KKWPPAfter").val());
+		var KKWPPmultiplier = parseFloat($("#KKWPPmultiplier").val());
+		var KKWPPUnitNormol = ((KKWPPAfter - KKWPPBefore) * KKWPPmultiplier);
+		$("#KKWPPUnitNormol").val((KKWPPUnitNormol).toFixed(2));
+	}
+	// End Calculator KKWPP
+	// Calculator KKWPOP
+	function CalKKWPOP() {
+		var KKWPOPBefore = parseFloat($("#KKWPOPBefore").val());
+		var KKWPOPAfter = parseFloat($("#KKWPOPAfter").val());
+		var KKWPOPmultiplier = parseFloat($("#KKWPOPmultiplier").val());
+		var KKWPOPUnitNormol = ((KKWPOPAfter - KKWPOPBefore) * KKWPOPmultiplier);
+		$("#KKWPOPUnitNormol").val((KKWPOPUnitNormol).toFixed(2));
+	}
+	// End Calculator KKWPP
+	// Calculator KKWPOP
+	function CalKKWPH() {
+
+		var KKWPHBefore = parseFloat($("#KKWPHBefore").val());
+		var KKWPHAfter = parseFloat($("#KKWPHAfter").val());
+		var KKWPHmultiplier = parseFloat($("#KKWPHmultiplier").val());
+		var KKWPHUnitNormol = ((KKWPHAfter - KKWPHBefore) * KKWPHmultiplier);
+		$("#KKWPHUnitNormol").val((KKWPHUnitNormol).toFixed(2));
+	}
+	// End Calculator KKWPH
+
+
+
+	let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+	console.log("pea", PeaCode)
+	$.ajax({
+		url: "http://localhost:442/uploads/bacode",
+		type: "GET",
+		data: {
+			Peacode: PeaCode,
+		},
+		success: function (data) {
+			console.log("Pea", data)
+			$.each(data, function (key, value) { // วน loop เพื่อสร้าง option element สำหรับแสดงข้อมูล
+				$('#office').append($('<option>').text(value.office_name).attr('value', value.office_name));
+			});
+		}
+	})
+	$("#submit-btn").click(function (event) {
+		event.preventDefault(); // ปิดการทำงานของปุ่ม submit หน้า HTML
+
+		// ดึงค่าจาก input ของวันที่เริ่มต้น
+		var startDate = $("#start-date-normal").val();
+
+		// ดึงค่าจาก input ของวันที่สิ้นสุด
+		var endDate = $("#end-date-normal").val();
+
+		var startDateNor = $("#start-date-not").val();
+
+		var endDateNor = $("#end-date-not").val();
+
+
+		$.ajax({
+			url: "http://localhost:442/day/calculate-days",
+			type: "POST",
+			data: {
+				"start-date": startDate,
+				"end-date": endDate,
+				"start-date-nor": startDateNor,
+				"end-date-nor": endDateNor,
+			},
+			success: function (data) {
+				// แสดงผลลัพธ์จำนวนวันที่คำนวณได้
+				console.log(data);
+				$("#resultP").html(" <span class='badge rounded-pill text-bg-danger'>P: " + data.workDay + " วัน</span>");
+				$("#resultOP").html(" <span class='badge rounded-pill text-bg-secondary'>OP: " + data.workDay + " วัน</span>");
+				$("#resultH").html(" <span class='badge rounded-pill text-bg-warning'>H: " + data.offkDay + " วัน</span>");
+				$("#resultSum").html(" <span class='badge rounded-pill text-bg-light'>รวม: " + data.countDay + " วัน</span>");
+				$("#result-countDay-notSum").html("<span class='badge rounded-pill text-bg-light'>รวม: " + data.countDayNor + " วัน</span>");
+				$("#result-workDay-notP").html("<span class='badge rounded-pill text-bg-danger'>P: " + data.workDayNor + " วัน</span>");
+				$("#result-offkDay-notOP").html("<span class='badge rounded-pill text-bg-secondary'>OP: " + data.workDayNor + " วัน</span>");
+				$("#result-offkDay-notH").html("<span class='badge rounded-pill text-bg-warning'>H: " + data.offkDayNor + " วัน</span>");
+				$("#resultSumAc").html("<span class='badge text-bg-dark'>รวมทั้งสิ้น: " + (data.countDay + data.countDayNor) + " วัน</span>");
+				$("#KWPPresultP-Sum").val(data.workDay)
+				$("#KWPOPresultP-Sum").val(data.workDay)
+				$("#KWPHresultP-Sum").val(data.workDay)
+				$("#KWPPresult-workDay-notP-Sum").val(data.workDayNor)
+				$("#KWPOPresult-workDay-notP-Sum").val(data.workDayNor)
+				$("#KWPHresult-workDay-notP-Sum").val(data.workDayNor)
+
+			},
+		});
+
+		// $.ajax({
+		//     url: "http://localhost:442/day/calculate-daysh",
+		//     type: "POST",
+		//     data: {
+		//         "start-date": startDate,
+		//         "end-date": endDate,
+		//     },
+		//     success: function (data) {
+		//         // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
+		//         $('#result1').text('จำนวนวันหยุด: ' + data + ' วัน');
+		//     },
+		// });
+	});
+
+	$("#btnLogout").click(function (event) {
+		event.preventDefault();
+		localStorage.clear();
+		Swal.fire({
+			icon: "success",
+			title: "ออกจากระบบเรียบร้อย",
+			showCancelButton: false,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "ตกลง",
+		}).then((response) => {
+			if (response.isConfirmed) {
+				window.location = "./sign-in.html";
+			}
+		});
+	})
+</script>
