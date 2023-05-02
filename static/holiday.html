@@ -15,7 +15,7 @@
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+	<title>โปรแกรมเฉลี่ยหน่วยมิเตอร์ TOU</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
@@ -49,7 +49,8 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-					<span class="align-middle">AdminKit</span>
+					<img src="../src/img/logo.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="18%"
+						height="18%" /><span class="align-middle"> EVEREST</span>
 				</a>
 
 				<ul class="sidebar-nav">
@@ -90,21 +91,13 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-									alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+								<span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span>
+									<span id="BaName"></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-										data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1"
-										data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1"
-										data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1"
-										data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Log out</a>
+								<span id="outer">
+									<a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+								</span>
 							</div>
 						</li>
 					</ul>
@@ -221,7 +214,7 @@
 		var yearHoliday = (new Date).getFullYear();
 		$('#example').DataTable({
 			"ajax": {
-				"url": "http://localhost:442/holiday/get",
+				"url": "http://172.21.1.60:442/holiday/get",
 				"dataSrc": "",
 				"type": "POST",
 				"contentType": "application/json",
@@ -259,7 +252,7 @@
 		var nameHoliday = $("#nameHoliday").val();
 		var yearHoliday = (new Date).getFullYear();
 		$.ajax({
-			url: "http://localhost:442/holiday/add",
+			url: "http://172.21.1.60:442/holiday/add",
 			method: "POST",
 			data: {
 				dateHoliday: dateHoliday,
@@ -298,7 +291,7 @@
 		// alert($(this).attr("value"));
 		$('#exampleModalEdit').modal('show');
 		$.ajax({
-			url: "http://localhost:442/holiday/getone",
+			url: "http://172.21.1.60:442/holiday/getone",
 			type: "POST",
 			data: {
 				"_id": $(this).attr("value"),
@@ -357,7 +350,7 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: "http://localhost:442/holiday/deleteone",
+					url: "http://172.21.1.60:442/holiday/deleteone",
 					type: "POST",
 					data: {
 						"_id": $(this).attr("value"),
