@@ -63,7 +63,7 @@
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
   --bs-body-color: #495057;
-  --bs-body-bg: #f5f7fb;
+  --bs-body-bg: #7d3587;
   --bs-border-width: 1px;
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
@@ -487,8 +487,9 @@ progress {
 }
 
 .lead {
-  font-size: 1.09375rem;
+  font-size: 2.09375rem;
   font-weight: 300;
+  color: #ffffff;
 }
 
 .display-1 {
