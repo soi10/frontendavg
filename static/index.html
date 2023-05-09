@@ -192,7 +192,7 @@
 														<div class="mb-3">
 															<label for="formFile"
 																class="form-label">สาเหตุที่ชำรุด</label>
-															<input type="text" class="form-control" id="case"
+															<input type="text" class="form-control" id="cause"
 																placeholder="">
 														</div>
 													</div>
@@ -420,7 +420,7 @@
 																	id="month-sum"></span> ปี <span
 																	id="year-sum"></span>
 																เนื่องจาก <span id="case-sum"></span></h5>
-																<h5>เฉลี่ยกรณี<span id="caseex-sum"></span></h5>
+															<h5>เฉลี่ยกรณี<span id="caseex-sum"></span></h5>
 														</div>
 													</div>
 													<div class="row">
@@ -706,9 +706,9 @@
 								</button>
 							</div>
 							<div class="col">
-								<button type="button" class="btn btn-facebook float-end" id="next1">
+								<button type="button" class="btn btn-facebook float-end" id="save">
 									<i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
-										class="align-middle">ยืนยัน/ดำเนินการต่อไป</span>
+										class="align-middle">ยืนยัน/บันทึกข้อมูล</span>
 								</button>
 							</div>
 						</div>
@@ -717,6 +717,15 @@
 				</div>
 				<input type="hidden" id="KWPPresultP-Sum">
 				<input type="hidden" id="KWPPresult-workDay-notP-Sum">
+				<input type="hidden" id="p_normal">
+				<input type="hidden" id="op_normal">
+				<input type="hidden" id="h_normal">
+				<input type="hidden" id="sum_normal">
+				<input type="hidden" id="p_brok">
+				<input type="hidden" id="op_brok">
+				<input type="hidden" id="h_brok">
+				<input type="hidden" id="sum_brok">
+				<input type="hidden" id="sum_all">
 
 			</main>
 
@@ -730,6 +739,7 @@
 </html>
 
 <script>
+	var hostname = "localhost";
 	$(document).ready(function () {
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
@@ -792,13 +802,13 @@
 	// 
 	// กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
 	$.ajax({
-		url: "http://172.21.1.60:442/uploadrate",
+		url: "http://" + hostname + ":442/uploadrate",
 		dataType: "json",
 		success: function (data) {
 			// สร้าง options ของ select2
 			var options = '<option value="">--เลือกข้อมูล--</option>'; // option เริ่มต้น
 			for (var i = 0; i < data.length; i++) {
-				options += '<option value="' + data[i].detail + '">' + data[i].group_no + ' ' + data[i].detail + '</option>';
+				options += '<option value="' + data[i].group_no + data[i].detail + '">' + data[i].group_no + ' ' + data[i].detail + '</option>';
 			}
 			// กำหนด options ของ select2
 			$('#rate').html(options);
@@ -843,7 +853,7 @@
 		var inputValueCus_name = $('#customer-name').val();
 		var inputValueMonth = $('#month').val();
 		var inputValueYear = $('#year').val();
-		var inputValuecase = $('#case').val();
+		var inputValuecase = $('#cause').val();
 		var inputValuecaseex = $('#case-ex').val();
 		var inputValueresultP = $('#KWPPresultP-Sum').val();
 		// var KWPPPresultP = $('#KWPPPresultP-Sum').val();
@@ -937,7 +947,7 @@
 	let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 	console.log("pea", PeaCode)
 	$.ajax({
-		url: "http://172.21.1.60:442/uploads/bacode",
+		url: "http://" + hostname + ":442/uploads/bacode",
 		type: "GET",
 		data: {
 			Peacode: PeaCode,
@@ -964,7 +974,7 @@
 
 
 		$.ajax({
-			url: "http://172.21.1.60:442/day/calculate-days",
+			url: "http://" + hostname + ":442/day/calculate-days",
 			type: "POST",
 			data: {
 				"start-date": startDate,
@@ -987,9 +997,15 @@
 				$("#KWPPresultP-Sum").val(data.workDay)
 				$("#KWPOPresultP-Sum").val(data.workDay)
 				$("#KWPHresultP-Sum").val(data.offkDay)
-				$("#KWPPresult-workDay-notP-Sum").val(data.workDayNor)
-				$("#KWPOPresult-workDay-notP-Sum").val(data.workDayNor)
-				$("#KWPHresult-workDay-notP-Sum").val(data.offkDayNor)
+				$("#p_normal").val(data.workDay)
+				$("#op_normal").val(data.workDay)
+				$("#h_normal").val(data.offkDay)
+				$("#sum_normal").val(data.countDay)
+				$("#p_brok").val(data.workDayNor)
+				$("#op_brok").val(data.workDayNor)
+				$("#h_brok").val(data.offkDayNor)
+				$("#sum_brok").val(data.countDayNor)
+				$("#sum_all").val(data.countDay + data.countDayNor)
 
 			},
 		});
@@ -1007,6 +1023,91 @@
 		//     },
 		// });
 	});
+
+	$("#save").click(function (event) {
+		event.preventDefault();
+		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+		var office_name = $("#office").val();
+		var ca = $("#ca").val();
+		var customer_name = $("#customer-name").val();
+		var rate = $("#rate").val();
+		var peano = $("#peano").val();
+		var month = $("#month").val();
+		var year = $("#year").val();
+		var cause = $("#cause").val();
+		var in_cause = $("#case-ex").val();
+		var normal_date_start = $("#start-date-normal").val();
+		var normal_date_end = $("#end-date-normal").val();
+		var brok_date_start = $("#start-date-not").val();
+		var brok_date_end = $("#end-date-not").val();
+		var p_normal = $("#p_normal").val();
+		var op_normal = $("#op_normal").val();
+		var h_normal = $("#h_normal").val();
+		var sum_normal = $("#sum_normal").val();
+		var p_brok = $("#p_brok").val();
+		var op_brok = $("#op_brok").val();
+		var h_brok = $("#h_brok").val();
+		var sum_brok = $("#sum_brok").val();
+		var sum_all = $("#sum_all").val();
+		var user = localStorage.getItem("FullName");
+		Swal.fire({
+			title: 'ยืนกันการบันทึกข้อมูล?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'ยืนยันบันทึกข้อมูล'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: "http://" + hostname + ":442/datadetail/add",
+					type: "POST",
+					data: {
+						"peacode": PeaCode,
+						"office_name": office_name,
+						"ca_no": ca,
+						"name_customer": customer_name,
+						"rate": rate,
+						"pea_no": peano,
+						"billing_Cycle": month,
+						"year": year,
+						"cause": cause,
+						"in_cause": in_cause,
+						"normal_date_start": normal_date_start,
+						"normal_date_end": normal_date_end,
+						"brok_date_start": brok_date_start,
+						"brok_date_end": brok_date_end,
+						"p_normal": p_normal,
+						"op_normal": op_normal,
+						"h_normal": h_normal,
+						"sum_normal": sum_normal,
+						"p_brok": p_brok,
+						"op_brok": op_brok,
+						"h_brok": h_brok,
+						"sum_brok": sum_brok,
+						"sum_all": sum_all,
+						"user": user,
+
+
+					},
+					success: function (data) {
+						Swal.fire({
+							icon: "success",
+							title: "บันทึกข้อมูลสำเร็จ",
+						});
+					},
+
+					error: function (data) {
+						Swal.fire({
+							icon: "warning",
+							title: "บันทึกข้อมูลไม่สำเร็จ",
+						});
+					},
+				});
+			}
+		})
+
+	})
 
 	$("#btnLogout").click(function (event) {
 		event.preventDefault();
