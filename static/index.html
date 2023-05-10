@@ -50,17 +50,22 @@
 						Pages
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="home.html">
+							<i class="align-middle" data-feather="list"></i> <span class="align-middle">1.รายการ</span>
+						</a>
+					</li>
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="index.html">
 							<i class="align-middle" data-feather="sliders"></i> <span
-								class="align-middle">1.คำนวน</span>
+								class="align-middle">2.คำนวน</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="holiday.html">
 							<i class="align-middle" data-feather="user"></i> <span
-								class="align-middle">2.เพิ่มวันหยุด</span>
+								class="align-middle">3.เพิ่มวันหยุด</span>
 						</a>
 					</li>
 
@@ -716,7 +721,7 @@
 					<!-- End page3 -->
 				</div>
 				<input type="hidden" id="KWPPresultP-Sum">
-				<input type="hidden" id="KWPPresult-workDay-notP-Sum">
+				<!-- //<input type="hidden" id="KWPPresult-workDay-notP-Sum"> -->
 				<input type="hidden" id="p_normal">
 				<input type="hidden" id="op_normal">
 				<input type="hidden" id="h_normal">
@@ -994,6 +999,10 @@
 				$("#result-offkDay-notOP").html("<span class='badge rounded-pill text-bg-secondary'>OP: " + data.workDayNor + " วัน</span>");
 				$("#result-offkDay-notH").html("<span class='badge rounded-pill text-bg-warning'>H: " + data.offkDayNor + " วัน</span>");
 				$("#resultSumAc").html("<span class='badge text-bg-dark'>รวมทั้งสิ้น: " + (data.countDay + data.countDayNor) + " วัน</span>");
+
+				$("#KWPPresult-workDay-notP-Sum").val(data.workDayNor)
+				$("#KWPOPresult-workDay-notP-Sum").val(data.workDayNor)
+				$("#KWPHresult-workDay-notP-Sum").val(data.offkDayNor)
 				$("#KWPPresultP-Sum").val(data.workDay)
 				$("#KWPOPresultP-Sum").val(data.workDay)
 				$("#KWPHresultP-Sum").val(data.offkDay)
@@ -1049,14 +1058,50 @@
 		var h_brok = $("#h_brok").val();
 		var sum_brok = $("#sum_brok").val();
 		var sum_all = $("#sum_all").val();
+		var unit_read_after_kwh_p = $("#KWPPAfter").val();
+		var unit_read_before_kwh_p = $("#KWPPBefore").val();
+		var multiplier_kwh_p = $("#KWPPmultiplier").val();
+		var unit_normal_kwh_p = $("#KWPPUnitNormol").val();
+		var date_normal_kwh_p = $("#KWPPresultP-Sum").val();
+		var avg_date_kwh_p = $("#KWPPAvg").val();
+		var date_brok_kwh_p = $("#KWPPresult-workDay-notP-Sum").val();
+		var unit_avg_to_sap_kwh_p = $("#KWPPavg-unit-tosap").val();
+		var unit_read_after_kwh_op = $("#KWPOPAfter").val();
+		var unit_read_before_kwh_op = $("#KWPOPBefore").val();
+		var multiplier_kwh_op = $("#KWPOPmultiplier").val();
+		var unit_normal_kwh_op = $("#KWPOPUnitNormol").val();
+		var date_normal_kwh_op = $("#KWPOPresultP-Sum").val();
+		var avg_date_kwh_op = $("#KWPOPAvg").val();
+		var date_brok_kwh_op = $("#KWPOPresult-workDay-notP-Sum").val();
+		var unit_avg_to_sap_kwh_op = $("#KWPOPavg-unit-tosap").val();
+		var unit_read_after_kwh_h = $("#KWPHAfter").val();
+		var unit_read_before_kwh_h = $("#KWPHBefore").val();
+		var multiplier_kwh_h = $("#KWPHmultiplier").val();
+		var unit_normal_kwh_h = $("#KWPHUnitNormol").val();
+		var date_normal_kwh_h = $("#KWPHresultP-Sum").val();
+		var avg_date_kwh_h = $("#KWPHAvg").val();
+		var date_brok_kwh_h = $("#KWPHresult-workDay-notP-Sum").val();
+		var unit_avg_to_sap_kwh_h = $("#KWPHavg-unit-tosap").val();
+		var unit_read_after_unit_kwh_p = $("#KKWPPAfter").val();
+		var unit_read_before_unit_kwh_p = $("#KKWPPBefore").val();
+		var multiplier_unit_kwh_p = $("#KKWPPmultiplier").val();
+		var kwh_normal_unit_kwh_p = $("#KKWPPUnitNormol").val();
+		var unit_read_after_unit_kwh_op = $("#KKWPOPAfter").val();
+		var unit_read_before_unit_kwh_op = $("#KKWPOPBefore").val();
+		var multiplier_unit_kwh_op = $("#KKWPOPmultiplier").val();
+		var kwh_normal_unit_kwh_op = $("#KKWPOPUnitNormol").val();
+		var unit_read_after_unit_kwh_h = $("#KKWPHAfter").val();
+		var unit_read_before_unit_kwh_h = $("#KKWPHBefore").val();
+		var multiplier_unit_kwh_h = $("#KKWPHmultiplier").val();
+		var kwh_normal_unit_kwh_h = $("#KKWPHUnitNormol").val();
+
 		var user = localStorage.getItem("FullName");
 		Swal.fire({
 			title: 'ยืนกันการบันทึกข้อมูล?',
-			icon: 'warning',
+			showDenyButton: true,
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'ยืนยันบันทึกข้อมูล'
+			confirmButtonText: 'บันทึก',
+			denyButtonText: `ไม่บันทึก`,
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
@@ -1086,15 +1131,51 @@
 						"h_brok": h_brok,
 						"sum_brok": sum_brok,
 						"sum_all": sum_all,
+						"unit_read_after_kwh_p": unit_read_after_kwh_p,
+						"unit_read_before_kwh_p": unit_read_before_kwh_p,
+						"multiplier_kwh_p": multiplier_kwh_p,
+						"unit_normal_kwh_p": unit_normal_kwh_p,
+						"date_normal_kwh_p": date_normal_kwh_p,
+						"avg_date_kwh_p": avg_date_kwh_p,
+						"date_brok_kwh_p": date_brok_kwh_p,
+						"unit_avg_to_sap_kwh_p": unit_avg_to_sap_kwh_p,
+						"unit_read_after_kwh_op": unit_read_after_kwh_op,
+						"unit_read_before_kwh_op": unit_read_before_kwh_op,
+						"multiplier_kwh_op": multiplier_kwh_op,
+						"unit_normal_kwh_op": unit_normal_kwh_op,
+						"date_normal_kwh_op": date_normal_kwh_op,
+						"avg_date_kwh_op": avg_date_kwh_op,
+						"date_brok_kwh_op": date_brok_kwh_op,
+						"unit_avg_to_sap_kwh_op": unit_avg_to_sap_kwh_op,
+						"unit_read_after_kwh_h": unit_read_after_kwh_h,
+						"unit_read_before_kwh_h": unit_read_before_kwh_h,
+						"multiplier_kwh_h": multiplier_kwh_h,
+						"unit_normal_kwh_h": unit_normal_kwh_h,
+						"date_normal_kwh_h": date_normal_kwh_h,
+						"avg_date_kwh_h": avg_date_kwh_h,
+						"date_brok_kwh_h": date_brok_kwh_h,
+						"unit_avg_to_sap_kwh_h": unit_avg_to_sap_kwh_h,
+						"unit_read_after_unit_kwh_p": unit_read_after_unit_kwh_p,
+						"unit_read_before_unit_kwh_p": unit_read_before_unit_kwh_p,
+						"multiplier_unit_kwh_p": multiplier_unit_kwh_p,
+						"kwh_normal_unit_kwh_p": kwh_normal_unit_kwh_p,
+						"unit_read_after_unit_kwh_op": unit_read_after_unit_kwh_op,
+						"unit_read_before_unit_kwh_op": unit_read_before_unit_kwh_op,
+						"multiplier_unit_kwh_op": multiplier_unit_kwh_op,
+						"kwh_normal_unit_kwh_op": kwh_normal_unit_kwh_op,
+						"unit_read_after_unit_kwh_h": unit_read_after_unit_kwh_h,
+						"unit_read_before_unit_kwh_h": unit_read_before_unit_kwh_h,
+						"multiplier_unit_kwh_h": multiplier_unit_kwh_h,
+						"kwh_normal_unit_kwh_h": kwh_normal_unit_kwh_h,
 						"user": user,
-
-
 					},
 					success: function (data) {
 						Swal.fire({
 							icon: "success",
 							title: "บันทึกข้อมูลสำเร็จ",
-						});
+						}).then(function () {
+							window.location = "home.html";
+						});;
 					},
 
 					error: function (data) {
@@ -1104,6 +1185,8 @@
 						});
 					},
 				});
+			} else if (result.isDenied) {
+				Swal.fire('ไม่ได้บันทึกข้อมูล', '', 'info')
 			}
 		})
 

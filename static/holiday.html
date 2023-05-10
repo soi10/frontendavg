@@ -58,17 +58,22 @@
 						Pages
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="home.html">
+							<i class="align-middle" data-feather="list"></i> <span class="align-middle">1.รายการ</span>
+						</a>
+					</li>
 					<li class="sidebar-item ">
 						<a class="sidebar-link" href="index.html">
 							<i class="align-middle" data-feather="sliders"></i> <span
-								class="align-middle">1.คำนวน</span>
+								class="align-middle">2.คำนวน</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="holiday.html">
 							<i class="align-middle" data-feather="user"></i> <span
-								class="align-middle">2.เพิ่มวันหยุด</span>
+								class="align-middle">3.เพิ่มวันหยุด</span>
 						</a>
 					</li>
 
@@ -205,7 +210,7 @@
 
 <script>
 	$(document).ready(function () {
-
+		var hostname = "localhost";
 		$("#dateHoliday").datepicker({
 			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
 		});
@@ -214,7 +219,7 @@
 		var yearHoliday = (new Date).getFullYear();
 		$('#example').DataTable({
 			"ajax": {
-				"url": "http://172.21.1.60:442/holiday/get",
+				"url": "http://localhost:442/holiday/get",
 				"dataSrc": "",
 				"type": "POST",
 				"contentType": "application/json",
@@ -252,7 +257,7 @@
 		var nameHoliday = $("#nameHoliday").val();
 		var yearHoliday = (new Date).getFullYear();
 		$.ajax({
-			url: "http://172.21.1.60:442/holiday/add",
+			url: "http://localhost:442/holiday/add",
 			method: "POST",
 			data: {
 				dateHoliday: dateHoliday,
@@ -291,7 +296,7 @@
 		// alert($(this).attr("value"));
 		$('#exampleModalEdit').modal('show');
 		$.ajax({
-			url: "http://172.21.1.60:442/holiday/getone",
+			url: "http://localhost:442/holiday/getone",
 			type: "POST",
 			data: {
 				"_id": $(this).attr("value"),
@@ -350,7 +355,7 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: "http://172.21.1.60:442/holiday/deleteone",
+					url: "http://localhost:442/holiday/deleteone",
 					type: "POST",
 					data: {
 						"_id": $(this).attr("value"),
