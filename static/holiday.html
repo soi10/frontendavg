@@ -63,7 +63,7 @@
 							<i class="align-middle" data-feather="list"></i> <span class="align-middle">1.รายการ</span>
 						</a>
 					</li>
-					<li class="sidebar-item ">
+					<li class="sidebar-item">
 						<a class="sidebar-link" href="index.html">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">2.คำนวน</span>
@@ -219,7 +219,7 @@
 		var yearHoliday = (new Date).getFullYear();
 		$('#example').DataTable({
 			"ajax": {
-				"url": "http://localhost:442/holiday/get",
+				"url": "http://172.21.1.60:442/holiday/get",
 				"dataSrc": "",
 				"type": "POST",
 				"contentType": "application/json",
@@ -257,7 +257,7 @@
 		var nameHoliday = $("#nameHoliday").val();
 		var yearHoliday = (new Date).getFullYear();
 		$.ajax({
-			url: "http://localhost:442/holiday/add",
+			url: "http://172.21.1.60:442/holiday/add",
 			method: "POST",
 			data: {
 				dateHoliday: dateHoliday,
@@ -296,7 +296,7 @@
 		// alert($(this).attr("value"));
 		$('#exampleModalEdit').modal('show');
 		$.ajax({
-			url: "http://localhost:442/holiday/getone",
+			url: "http://172.21.1.60:442/holiday/getone",
 			type: "POST",
 			data: {
 				"_id": $(this).attr("value"),
@@ -317,7 +317,7 @@
 		var nameHolidayEdit = $("#nameHolidayEdit").val();
 		var idClick = $("#idClick").val();
 		$.ajax({
-			url: "http://localhost:442/holiday/update",
+			url: "http://172.21.1.60:442/holiday/update",
 			method: "POST",
 			data: {
 				dateHoliday: dateHolidayEdit,
@@ -355,7 +355,7 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: "http://localhost:442/holiday/deleteone",
+					url: "http://172.21.1.60:442/holiday/deleteone",
 					type: "POST",
 					data: {
 						"_id": $(this).attr("value"),
