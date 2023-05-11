@@ -157,14 +157,18 @@
             Swal.fire({
               icon: "warning",
               title: "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง",
-            });
+            }).then(function () {
+							location.reload();
+						});
           },
         });
       } else {
         Swal.fire({
           icon: "warning",
           title: "กรุณากรอกข้อมูลให้ครบทุกฃ่อง",
-        });
+        }).then(function () {
+          location.reload();
+						});
       }
     });
   });
