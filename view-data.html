@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="./static/img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+    <script src="./static/js/sweetalert2v10.js"></script>
+    <title>โปรแกรมเฉลี่ยหน่วยมิเตอร์ TOU</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <link href="./static/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        body {
+            font-family: 'Kanit';
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="page3" class="my-2">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <div class="card flex-fill">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>CA: <span id="ca-sum"></span> ชื่อผู้ใช้ไฟฟ้า <span
+                                                    id="customer-sum"></span></h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h5>สาเหตุที่ดำเนินการเฉลี่ยหน่วยในรอบบิล เดือน <span id="month-sum"></span>
+                                                ปี <span id="year-sum"></span>
+                                                เนื่องจาก <span id="case-sum"></span></h5>
+                                            <h5>เฉลี่ยกรณี<span id="caseex-sum"></span></h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        &nbsp;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <b>หน่วยการใช้ไฟ</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เลขอ่านครั้งหลัง
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เลขอ่านครั้งก่อน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            ตัวคูณ
+                                        </div>
+                                        <div class="col-sm-1">
+                                            หน่วยช่วงที่ปกติ
+                                        </div>
+                                        <div class="col-sm-1">
+                                            วันที่ปกติ
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เฉลี่ยต่อวัน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            วันที่ชำรุด
+                                        </div>
+                                        <div class="col-sm-3">
+                                            หน่วยเฉลี่ยช่วงที่ชำรุด*นำไปลงในระบบ SAP
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-P
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPAfter" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPBefore" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPmultiplier" disabled
+                                                onkeyup="CalKWPP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPUnitNormol" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPresultP-Sum" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPAvg" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPresult-workDay-notP-Sum"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPPavg-unit-tosap" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-OP
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPAfter" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPBefore" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPmultiplier" disabled
+                                                onkeyup="CalKWPOP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPUnitNormol" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPresultP-Sum" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPAvg" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPresult-workDay-notP-Sum"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPOPavg-unit-tosap" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-H
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHAfter" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHBefore" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHmultiplier" disabled
+                                                onkeyup="CalKWPH()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHUnitNormol" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHresultP-Sum" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHAvg" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHresult-workDay-notP-Sum"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPHavg-unit-tosap" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row ">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h6><span class="badge bg-danger">*หมายเหตุ*
+                                                        เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
+                                                        EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <b>กิโลวัตต์ หน่วยการใช้ไฟ</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เลขอ่านครั้งหลัง
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เลขอ่านครั้งก่อน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            ตัวคูณ
+                                        </div>
+                                        <div class="col-sm-1">
+                                            กิโลวัตต์ช่วงปกติ
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-P
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPAfter" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPBefore" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPmultiplier" disabled
+                                                onkeyup="CalKKWPP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPUnitNormol" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-OP
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPAfter" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPBefore" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPmultiplier" disabled
+                                                onkeyup="CalKKWPOP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPUnitNormol" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-H
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHAfter" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHBefore" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHmultiplier" disabled
+                                                onkeyup="CalKKWPH()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHUnitNormol" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            พนักงานบันทึกข้อมูล : <span id="user"></span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row ">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h6><span class="badge bg-danger">*หมายเหตุ*
+                                                        กรณีเฉลี่ยจากสถิติในเดือนไม่ต้องดำเนินการเฉลี่ยกิโลวัตต์
+                                                        หรือสามารถนำกิโลวัตต์ช่วงปกติมาเฉลี่ยได้</span>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- End page3 -->
+    </div>
+    <script src="./static/js/app.js"></script>
+
+</body>
+
+</html>
+<script>
+    $(document).ready(function () {
+        var hostname = '172.21.1.60';
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        let iddata = getUrlParameter('id');
+        console.log(iddata)
+        $.ajax({
+            url: "http://localhost:442/datadetail/id",
+            contentType: "application/json",
+            data: {
+                id: iddata
+            },
+            success: function (data) {
+                //console.log(data[0].unit_use.kwh_op)
+                console.log(data[0].kwh_unit.kwh_op)
+                $("#ca-sum").html(data[0].ca_no);
+                $("#customer-sum").html(data[0].name_customer);
+                $("#month-sum").html(data[0].billing_Cycle);
+                $("#year-sum").html(data[0].year);
+                $("#case-sum").html(data[0].cause);
+                $("#caseex-sum").html(data[0].in_cause);
+                $("#KWPPAfter").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
+                $("#KWPPBefore").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
+                $("#KWPPmultiplier").val(data[0].unit_use.kwh_p.multiplier_kwh_p);
+                $("#KWPPUnitNormol").val(data[0].unit_use.kwh_p.unit_normal_kwh_p);
+                $("#KWPPresultP-Sum").val(data[0].unit_use.kwh_p.date_normal_kwh_p);
+                $("#KWPPAvg").val(data[0].unit_use.kwh_p.avg_date_kwh_p);
+                $("#KWPPresult-workDay-notP-Sum").val(data[0].unit_use.kwh_p.date_brok_kwh_p);
+                $("#KWPPavg-unit-tosap").val(data[0].unit_use.kwh_p.unit_avg_to_sap_kwh_p);
+                $("#KWPOPAfter").val(data[0].unit_use.kwh_op.unit_read_after_kwh_op);
+                $("#KWPOPBefore").val(data[0].unit_use.kwh_op.unit_read_before_kwh_op);
+                $("#KWPOPmultiplier").val(data[0].unit_use.kwh_op.multiplier_kwh_op);
+                $("#KWPOPUnitNormol").val(data[0].unit_use.kwh_op.unit_normal_kwh_op);
+                $("#KWPOPresultP-Sum").val(data[0].unit_use.kwh_op.date_normal_kwh_op);
+                $("#KWPOPAvg").val(data[0].unit_use.kwh_op.avg_date_kwh_op);
+                $("#KWPOPresult-workDay-notP-Sum").val(data[0].unit_use.kwh_op.date_brok_kwh_op);
+                $("#KWPOPavg-unit-tosap").val(data[0].unit_use.kwh_op.unit_avg_to_sap_kwh_op);
+                $("#KWPHAfter").val(data[0].unit_use.kwh_h.unit_read_after_kwh_h);
+                $("#KWPHBefore").val(data[0].unit_use.kwh_h.unit_read_before_kwh_h);
+                $("#KWPHmultiplier").val(data[0].unit_use.kwh_h.multiplier_kwh_h);
+                $("#KWPHUnitNormol").val(data[0].unit_use.kwh_h.unit_normal_kwh_h);
+                $("#KWPHresultP-Sum").val(data[0].unit_use.kwh_h.date_normal_kwh_h);
+                $("#KWPHAvg").val(data[0].unit_use.kwh_h.avg_date_kwh_h);
+                $("#KWPHresult-workDay-notP-Sum").val(data[0].unit_use.kwh_h.date_brok_kwh_h);
+                $("#KWPHavg-unit-tosap").val(data[0].unit_use.kwh_h.unit_avg_to_sap_kwh_h);
+                $("#KKWPPAfter").val(data[0].kwh_unit.kwh_p.unit_read_after_unit_kwh_p);
+                $("#KKWPPBefore").val(data[0].kwh_unit.kwh_p.unit_read_before_unit_kwh_p);
+                $("#KKWPPmultiplier").val(data[0].kwh_unit.kwh_p.multiplier_unit_kwh_p);
+                $("#KKWPPUnitNormol").val(data[0].kwh_unit.kwh_p.kwh_normal_unit_kwh_p);
+                $("#KKWPOPAfter").val(data[0].kwh_unit.kwh_op.unit_read_after_unit_kwh_op);
+                $("#KKWPOPBefore").val(data[0].kwh_unit.kwh_op.unit_read_before_unit_kwh_op);
+                $("#KKWPOPmultiplier").val(data[0].kwh_unit.kwh_op.multiplier_unit_kwh_op);
+                $("#KKWPOPUnitNormol").val(data[0].kwh_unit.kwh_op.kwh_normal_unit_kwh_op);
+                $("#KKWPHAfter").val(data[0].kwh_unit.kwh_h.unit_read_after_unit_kwh_h);
+                $("#KKWPHBefore").val(data[0].kwh_unit.kwh_h.unit_read_before_unit_kwh_h);
+                $("#KKWPHmultiplier").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
+                $("#KKWPHUnitNormol").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
+                $("#user").html(data[0].user);
+            },
+            error: function (data) {
+
+            }
+        })
+    })
+</script>

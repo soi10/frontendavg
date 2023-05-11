@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
+        integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    import { jsPDF } from "jspdf";
+    // Default export is a4 paper, portrait, using millimeters for units
+    const doc = new jsPDF();
+    doc.text("Hello world!", 10, 10);
+    doc.save("a4.pdf");
+    //Add Text to Existing PDF 
+    var doc = new jsPDF();
+    doc.addHTML(document.body, function () {
+        doc.text(20, 20, 'Hello world!');
+        doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+        doc.addPage();
+        doc.text(20, 20, 'Do you like that?');
+        printData();
+    });
+    printData = function () {
+        var str = doc.output('datauristring');
+        console.log(str);
+        // window.open(str); Optional
+    }
+</script>
