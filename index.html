@@ -57,7 +57,8 @@
 					</li>
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="index.html">
-							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">คำนวน</span>
+							<i class="align-middle" data-feather="sliders"></i> <span
+								class="align-middle">ดำเนิการเฉลี่ยหน่วย</span>
 						</a>
 					</li>
 
@@ -129,6 +130,25 @@
 															placeholder="0200xxxxx">
 													</div>
 												</div>
+												<div class="col-4">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">อัตรา</label>
+														<select class="form-select" id="rate">
+
+														</select>
+													</div>
+												</div>
+												<div class="col-3">
+													<div class="mb-3">
+														<label for="formFile"
+															class="form-label">ประเภทผู้ใช้ไฟฟ้า</label>
+														<select class="form-select mb-3" id="type-customer">
+															<option value="">--เลือกประเภทผู้ใช้ไฟฟ้า--</option>
+															<option value="รายใหญ่">-รายใหญ่</option>
+															<option value="รายย่อย">-รายย่อย</option>
+														</select>
+													</div>
+												</div>
 												<!-- <div class="col-2">
 													<div class="mb-3">
 														<label for="formFile" class="form-label">ตัวคูณ</label>
@@ -145,14 +165,14 @@
 															placeholder="ชื่อ">
 													</div>
 												</div>
-												<div class="col-4">
+												<div class="col-7">
 													<div class="mb-3">
-														<label for="formFile" class="form-label">อัตรา</label>
-														<select class="form-select mb-3" id="rate">
-
-														</select>
+														<label for="formFile" class="form-label">สถานที่ใช้ไฟฟ้า</label>
+														<input type="text" class="form-control" id="address"
+															placeholder="สถานที่ใช้ไฟฟ้า">
 													</div>
 												</div>
+
 											</div>
 											<div class="row">
 												<div class="col-3">
@@ -162,7 +182,7 @@
 															placeholder="pea no">
 													</div>
 												</div>
-												<div class="col-2">
+												<div class="col-3">
 													<div class="mb-3">
 														<label for="formFile"
 															class="form-label">รอบบิลที่ต้องการทำการเฉลี่ย</label>
@@ -243,13 +263,16 @@
 														<select class="form-select mb-3" id="case-ex"
 															onchange="showDiv(this)">
 															<option selected value="">--เลือกข้อมูล--</option>
-															<option value="1">เฉลี่ยจากข้อมูลในรอบบิลเดียวกัน
-																(ข้อมูลที่เริ่มชำรุด และสับเปลี่ยนทันภายในเดือน)
+															<option
+																value="เฉลี่ยจากใบอ่านหน่วย(ใช้ข้อมูลเลขอ่านครั้งก่อน-เลขอ่านครั้งหลัง)">
+																เฉลี่ยจากใบอ่านหน่วย
+																(ใช้ข้อมูลเลขอ่านครั้งก่อน-เลขอ่านครั้งหลัง)
 															</option>
-															<option value="2">เฉลี่ยจากสถิติการใช้ไฟฟ้า
+															<option value="เฉลี่ยจากข้อมูลสถิติการใช้ไฟฟ้า">
+																เฉลี่ยจากข้อมูลสถิติการใช้ไฟฟ้า
 															</option>
-															<option value="3">
-																เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อยของมิเตอร์
+															<option value="เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อนของมิเตอร์">
+																เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อนของมิเตอร์
 															</option>
 														</select>
 													</div>
@@ -424,7 +447,7 @@
 																	id="month-sum"></span> ปี <span
 																	id="year-sum"></span>
 																เนื่องจาก <span id="case-sum"></span></h5>
-															<h5>เฉลี่ยกรณี<span id="caseex-sum"></span></h5>
+															<h5>เฉลี่ยกรณี - <span id="caseex-sum"></span></h5>
 														</div>
 													</div>
 													<div class="row">
@@ -1057,6 +1080,8 @@
 		var customer_name = $("#customer-name").val();
 		var rate = $("#rate").val();
 		var peano = $("#peano").val();
+		var type_customer = $("#type-customer").val();
+		var address = $("#address").val();
 		var month = $("#month").val();
 		var year = $("#year").val();
 		var cause = $("#cause").val();
@@ -1130,6 +1155,8 @@
 						"name_customer": customer_name,
 						"rate": rate,
 						"pea_no": peano,
+						"type_customer": type_customer,
+						"address": address,
 						"billing_Cycle": month,
 						"year": year,
 						"cause": cause,

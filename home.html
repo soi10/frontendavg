@@ -61,7 +61,8 @@
 					</li>
 					<li class="sidebar-item ">
 						<a class="sidebar-link" href="index.html">
-							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">คำนวน</span>
+							<i class="align-middle" data-feather="sliders"></i> <span
+								class="align-middle">ดำเนิการเฉลี่ยหน่วย</span>
 						</a>
 					</li>
 
@@ -119,6 +120,7 @@
 												<th class="text-center">ชื่อผู้ใช้ไฟฟ้า</th>
 												<th class="text-center">วันที่บันทึก</th>
 												<th class="text-center">PDF</th>
+												<th class="text-center">แก้ไข</th>
 												<th class="text-center">ลบ</th>
 											</tr>
 										</thead>
@@ -195,6 +197,13 @@
 					"bSortable": false,
 					"mRender": function (data, type, full) {
 						return '<a class="btn btn-info btn-sm" href=view-data.html?id=' + data + ' target="_blank">' + 'View' + '</a>';
+					}
+				},
+				{
+					"data": "_id",
+					"bSortable": false,
+					"mRender": function (data, type, full) {
+						return '<a class="btn btn-warning btn-sm" href=edit-data.html?id=' + data + ' target="_blank">' + 'แก้ไข' + '</a>';
 					}
 				},
 				{
