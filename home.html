@@ -56,13 +56,14 @@
 					</li>
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="home.html">
-							<i class="align-middle" data-feather="list"></i> <span class="align-middle">รายการ</span>
+							<i class="align-middle" data-feather="list"></i> <span
+								class="align-middle">ข้อมูลการเฉลี่ยหน่วย</span>
 						</a>
 					</li>
 					<li class="sidebar-item ">
 						<a class="sidebar-link" href="index.html">
 							<i class="align-middle" data-feather="sliders"></i> <span
-								class="align-middle">ดำเนิการเฉลี่ยหน่วย</span>
+								class="align-middle">ดำเนินการเฉลี่ยหน่วย</span>
 						</a>
 					</li>
 
@@ -118,8 +119,10 @@
 												<th class="text-center">การไฟฟ้า</th>
 												<th class="text-center">หมายเลขผู้ใช้ไฟฟ้า</th>
 												<th class="text-center">ชื่อผู้ใช้ไฟฟ้า</th>
+												<th class="text-center">สถานที่ใช้ไฟฟ้า</th>
+												<th class="text-center">ผู้ใช้ไฟรายใหญ่/รายย่อย</th>
 												<th class="text-center">วันที่บันทึก</th>
-												<th class="text-center">PDF</th>
+												<th class="text-center">ดูข้อมูล</th>
 												<th class="text-center">แก้ไข</th>
 												<th class="text-center">ลบ</th>
 											</tr>
@@ -166,7 +169,7 @@
 
 		$('#example').DataTable({
 			"ajax": {
-				"url": "http://172.21.1.60:442/datadetail/databypeacode",
+				"url": "http://" + hostname + ":442/datadetail/databypeacode",
 				"dataSrc": "",
 				"contentType": "application/json",
 				"data": {
@@ -184,6 +187,8 @@
 				{ "data": "office_name" },
 				{ "data": "ca_no" },
 				{ "data": "name_customer" },
+				{ "data": "address" },
+				{ "data": "type_customer" },
 				{
 					"data": "createAt",
 					"searchable": false,
