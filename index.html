@@ -974,8 +974,9 @@
 			Peacode: PeaCode,
 		},
 		success: function (data) {
-			// console.log("Pea", data)c
+			//console.log("Pea", data)
 			$.each(data, function (key, value) { // วน loop เพื่อสร้าง option element สำหรับแสดงข้อมูล
+				//console.log(value.office_name)
 				$('#office').append($('<option>').text(value.office_name).attr('value', value.office_name));
 			});
 		}
