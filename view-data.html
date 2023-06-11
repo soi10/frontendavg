@@ -57,7 +57,13 @@
                                             <h5>สาเหตุที่ดำเนินการเฉลี่ยหน่วยในรอบบิล เดือน <span id="month-sum"></span>
                                                 ปี <span id="year-sum"></span>
                                                 เนื่องจาก <span id="case-sum"></span></h5>
-                                            <h5>เฉลี่ยกรณี<span id="caseex-sum"></span></h5>
+                                            <h5>เฉลี่ยกรณี - <span id="caseex-sum"></span></h5>
+                                            <h5>ข้อมูลช่วงฐานจากวันที่ <span id="normal_date_start"></span> ถึง <span
+                                                    id="normal_date_end"></span>
+                                            </h5>
+                                            <h5>ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span id="brok_date_start"></span>
+                                                ถึง <span id="brok_date_end"></span>
+                                            </h5>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -283,6 +289,10 @@
                                             <input type="text" class="form-control" id="KKWPOPUnitNormol" disabled
                                                 style="text-align: right">
                                         </div>
+
+                                        <div class="col-sm-4">
+                                            พนักงานบันทึกข้อมูล : <span id="user"></span>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="row">
@@ -306,13 +316,11 @@
                                                 style="text-align: right">
                                         </div>
                                         <div class="col-sm-1">
-
+                                            หมายเหตุ
                                         </div>
-                                        <div class="col-sm-1">
-
-                                        </div>
-                                        <div class="col-sm-4">
-                                            พนักงานบันทึกข้อมูล : <span id="user"></span>
+                                        <div class="col-sm-5">
+                                            <textarea class="form-control" id="comment" rows="2" disabled></textarea>
+                                            <!-- <input type="text" class="form-control" id="comment"> -->
                                         </div>
                                     </div>
                                     <br>
@@ -345,7 +353,7 @@
 </html>
 <script>
     $(document).ready(function () {
-        var hostname = '172.21.1.60';
+        var hostname = 'localhost';
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -364,7 +372,7 @@
         let iddata = getUrlParameter('id');
         console.log(iddata)
         $.ajax({
-            url: "http://172.21.1.60:442/datadetail/id",
+            url: "http://" + hostname + ":442/datadetail/id",
             contentType: "application/json",
             data: {
                 id: iddata
@@ -378,6 +386,10 @@
                 $("#year-sum").html(data[0].year);
                 $("#case-sum").html(data[0].cause);
                 $("#caseex-sum").html(data[0].in_cause);
+                $("#normal_date_start").html(data[0].data_broken.normal_date_start);
+                $("#normal_date_end").html(data[0].data_broken.normal_date_end);
+                $("#brok_date_start").html(data[0].data_broken.brok_date_start);
+                $("#brok_date_end").html(data[0].data_broken.brok_date_end);
                 $("#KWPPAfter").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
                 $("#KWPPBefore").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
                 $("#KWPPmultiplier").val(data[0].unit_use.kwh_p.multiplier_kwh_p);
@@ -415,6 +427,7 @@
                 $("#KKWPHmultiplier").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
                 $("#KKWPHUnitNormol").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
                 $("#user").html(data[0].user);
+                $("#comment").html(data[0].comment);
             },
             error: function (data) {
 
