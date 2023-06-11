@@ -767,7 +767,7 @@
 </html>
 
 <script>
-	var hostname = "localhost";
+	var hostname = "172.21.1.60";
 	$(document).ready(function () {
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
@@ -1218,7 +1218,7 @@
 							title: "บันทึกข้อมูลสำเร็จ",
 						}).then(function () {
 							window.location = "home.html";
-						});;
+						});
 					},
 
 					error: function (data) {

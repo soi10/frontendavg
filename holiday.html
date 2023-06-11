@@ -32,10 +32,16 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
-	<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
+	<!-- <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
 		rel="stylesheet" />
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+
+	-
+	<!-- thai extension -->
+	<script type="text/javascript" src="./dist/js/bootstrap-datepicker-thai.js"></script>
+	<script type="text/javascript" src="./dist/js/locales/bootstrap-datepicker.th.js"></script>
+	<link href="./dist/css/datepicker.css" rel="stylesheet" />
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -219,10 +225,11 @@
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
 		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
-		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-		console.log(localStorage.getItem("Peacode").substring(0, 4))
+		// let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+		// console.log(localStorage.getItem("Peacode").substring(0, 4))
 		$("#dateHoliday").datepicker({
 			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+			language: 'th-th'
 		});
 
 
