@@ -20,12 +20,12 @@
 
 	<link href="./static/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-	<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
-		rel="stylesheet" />
 	<link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/datepicker-th.js"></script>
+
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<style>
@@ -837,24 +837,58 @@
 		$("#page2").hide();
 		$("#page3").hide();
 
+		$.datepicker.setDefaults($.datepicker.regional["th"]);
+		var currentDate = new Date();
+
+		currentDate.setYear(currentDate.getFullYear() + 543);
+
 		// ใช้ datepicker กับ input ของวันที่เริ่มต้น
 		$("#start-date-normal").datepicker({
-			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '+443:+543',
+			dateFormat: 'dd-mm-yy',
+			onSelect: function (date) {
+				$("#edit-start-date-normal").addClass('filled');
+			}
 		});
+		$('#start-date-normal').datepicker("setDate", currentDate);
 
 		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
 		$("#end-date-normal").datepicker({
-			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '+443:+543',
+			dateFormat: 'dd-mm-yy',
+			onSelect: function (date) {
+				$("#edit-end-date-normal").addClass('filled');
+			}
 		});
+		$('#end-date-normal').datepicker("setDate", currentDate);
+
 
 		$("#start-date-not").datepicker({
-			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '+443:+543',
+			dateFormat: 'dd-mm-yy',
+			onSelect: function (date) {
+				$("#edit-start-date-not").addClass('filled');
+			}
 		});
+		$('#start-date-not').datepicker("setDate", currentDate);
 
 		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
 		$("#end-date-not").datepicker({
-			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '+443:+543',
+			dateFormat: 'dd-mm-yy',
+			onSelect: function (date) {
+				$("#edit-end-date-not").addClass('filled');
+			}
 		});
+		$('#end-date-not').datepicker("setDate", currentDate);
 	});
 
 	$("#nextpage2").click(function () {
@@ -960,10 +994,23 @@
 		var inputValuecase = $('#cause').val();
 		var inputValuecaseex = $('#case-ex').val();
 		var inputValueresultP = $('#KWPPresultP-Sum').val();
-		var start_date_normal = $('#start-date-normal').val();
-		var end_date_normal = $('#end-date-normal').val();
-		var start_date_not = $('#start-date-not').val();
-		var end_date_not = $('#end-date-not').val();
+
+		var old_start_date_normal= $('#start-date-normal').val();
+		var new_start_date_normal = convertDateFormat(old_start_date_normal);
+		var start_date_normal = new_start_date_normal;
+
+		var old_end_date_normal= $('#end-date-normal').val();
+		var new_end_date_normal = convertDateFormat(old_end_date_normal);
+		var end_date_normal = new_end_date_normal;
+
+		var old_start_date_not= $('#start-date-not').val();
+		var new_start_date_not = convertDateFormat(old_start_date_not);
+		var start_date_not = new_start_date_not;
+
+
+		var old_end_date_not= $('#end-date-not').val();
+		var new_end_date_not = convertDateFormat(old_end_date_not);
+		var end_date_not = new_end_date_not;
 
 		// var KWPPPresultP = $('#KWPPPresultP-Sum').val();
 		// var KWPHresultP = $('#KWPHresultP-Sum').val();
@@ -1074,6 +1121,23 @@
 	}
 	// End Calculator KKWPH
 
+	function convertDateFormat(oldDate) {
+		// แยกวันที่ เดือน และปีออกจากกัน
+		var parts = oldDate.split("-");
+		var day = parts[0];
+		var month = parts[1];
+		var year = parts[2];
+
+		// เปลี่ยนปีจาก 2566 เป็น 2023
+		year = parseInt(year) - 543;
+
+		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
+		var newDate = year + "-" + month + "-" + day;
+
+		// ส่งคืนวันที่ใหม่
+		return newDate;
+	}
+
 
 
 	let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
@@ -1094,14 +1158,22 @@
 		event.preventDefault(); // ปิดการทำงานของปุ่ม submit หน้า HTML
 
 		// ดึงค่าจาก input ของวันที่เริ่มต้น
-		var startDate = $("#start-date-normal").val();
+		var old_start_date_normal = $('#start-date-normal').val();
+		var new_start_date_normal = convertDateFormat(old_start_date_normal);
+		var startDate = new_start_date_normal;
 
 		// ดึงค่าจาก input ของวันที่สิ้นสุด
-		var endDate = $("#end-date-normal").val();
+		var old_end_date_normal = $('#end-date-normal').val();
+		var new_end_date_normal = convertDateFormat(old_end_date_normal);
+		var endDate = new_end_date_normal;
 
-		var startDateNor = $("#start-date-not").val();
+		var old_start_date_not = $('#start-date-not').val();
+		var new_start_date_not = convertDateFormat(old_start_date_not);
+		var startDateNor = new_start_date_not;
 
-		var endDateNor = $("#end-date-not").val();
+		var old_end_date_not = $('#end-date-not').val();
+		var new_old_end_date_not = convertDateFormat(old_end_date_not);
+		var endDateNor = new_old_end_date_not;
 
 
 		$.ajax({
@@ -1173,10 +1245,22 @@
 		var year = $("#year").val();
 		var cause = $("#cause").val();
 		var in_cause = $("#case-ex").val();
-		var normal_date_start = $("#start-date-normal").val();
-		var normal_date_end = $("#end-date-normal").val();
-		var brok_date_start = $("#start-date-not").val();
-		var brok_date_end = $("#end-date-not").val();
+
+		var old_start_date_normal = $('#start-date-normal').val();
+		var new_start_date_normal = convertDateFormat(old_start_date_normal);
+		var normal_date_start = new_start_date_normal;
+
+		var old_end_date_normal = $('#end-date-normal').val();
+		var new_end_date_normal = convertDateFormat(old_end_date_normal);
+		var normal_date_end = new_end_date_normal;
+
+		var old_start_date_not = $('#start-date-not').val();
+		var new_start_date_not = convertDateFormat(old_start_date_not);
+		var brok_date_start = new_start_date_not;
+
+		var old_end_date_not = $('#end-date-not').val();
+		var new_old_end_date_not = convertDateFormat(old_end_date_not);
+		var brok_date_end = new_old_end_date_not;
 		var p_normal = $("#p_normal").val();
 		var op_normal = $("#op_normal").val();
 		var h_normal = $("#h_normal").val();
