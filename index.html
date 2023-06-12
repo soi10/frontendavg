@@ -618,6 +618,46 @@
 														</div>
 													</div>
 													<br>
+													<div class="row">
+														<div class="col-sm-1">
+
+														</div>
+														<div class="col-sm-1">
+															<input type="hidden" class="form-control" id="" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="hidden" class="form-control" id="" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="hidden" class="form-control" id="" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="sum-normal-final" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="hidden" class="form-control" id="" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="hidden" class="form-control" id="" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="hidden" class="form-control" id="" disabled
+																style="text-align: right">
+														</div>
+														<div class="col-sm-3">
+															<input type="text" class="form-control"
+																id="sum-to-sap-final" disabled
+																style="text-align: right">
+														</div>
+													</div>
+													<br>
 													<div class="row ">
 														<div class="d-flex">
 															<div>
@@ -983,8 +1023,27 @@
 		$("#KWPHAvg").val((KWPHUnitNormol / KWPHresultP).toFixed(2))
 		var KWPHAvg = KWPHUnitNormol / KWPHresultP
 		$("#KWPHavg-unit-tosap").val((KWPHAvg * KWPHresult).toFixed(2))
+		var KWPPUnitNormol = parseFloat($("#KWPPUnitNormol").val())
+		var KWPOPUnitNormol = parseFloat($("#KWPOPUnitNormol").val())
+		var KWPHUnitNormol = parseFloat($("#KWPHUnitNormol").val())
+		var sum_normal = KWPPUnitNormol + KWPOPUnitNormol + KWPHUnitNormol
+		var KWPPavg_unit_tosap = parseFloat($("#KWPPavg-unit-tosap").val())
+		var KWPOPavg_unit_tosap = parseFloat($("#KWPOPavg-unit-tosap").val())
+		var KWPHavg_unit_tosap = parseFloat($("#KWPHavg-unit-tosap").val())
+		var sum_unit_tosap = KWPPavg_unit_tosap + KWPOPavg_unit_tosap + KWPHavg_unit_tosap
+		//console.log(sum_normal)
+		$("#sum-normal-final").val(numberWithCommas(sum_normal.toFixed(2)))
+		$("#sum-to-sap-final").val(numberWithCommas(sum_unit_tosap.toFixed(2)))
 	}
 	//end
+	//Function format a number
+	function numberWithCommas(x) {
+		x = x.toString();
+		var pattern = /(-?\d+)(\d{3})/;
+		while (pattern.test(x))
+			x = x.replace(pattern, "$1,$2");
+		return x;
+	}
 
 	// Calculator KKWPP
 	function CalKKWPP() {
@@ -1123,6 +1182,8 @@
 		var op_normal = $("#op_normal").val();
 		var h_normal = $("#h_normal").val();
 		var sum_normal = $("#sum_normal").val();
+		var sum_normal_final = $("#sum-normal-final").val()
+		var sum_to_sap_final = $("#sum-to-sap-final").val()
 		var p_brok = $("#p_brok").val();
 		var op_brok = $("#op_brok").val();
 		var h_brok = $("#h_brok").val();
@@ -1199,6 +1260,8 @@
 						"op_normal": op_normal,
 						"h_normal": h_normal,
 						"sum_normal": sum_normal,
+						"sum_normal_final": sum_normal_final,
+						"sum_to_sap_final": sum_to_sap_final,
 						"p_brok": p_brok,
 						"op_brok": op_brok,
 						"h_brok": h_brok,

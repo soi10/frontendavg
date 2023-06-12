@@ -52,12 +52,14 @@
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="home.html">
-                            <i class="align-middle" data-feather="list"></i> <span class="align-middle">รายการ</span>
+                            <i class="align-middle" data-feather="list"></i> <span
+                                class="align-middle">ข้อมูลการเฉลี่ยหน่วย</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item active">
                         <a class="sidebar-link" href="index.html">
-                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">คำนวน</span>
+                            <i class="align-middle" data-feather="sliders"></i> <span
+                                class="align-middle">ดำเนินการเฉลี่ยหน่วย</span>
                         </a>
                     </li>
 
@@ -102,11 +104,334 @@
             <main class="content">
                 <div class="container-fluid p-0">
 
+                    <div id="page1" class="my-2">
+                        <div class="container-fluid p-0">
 
+                            <h1 class="h3 mb-3">กรอกข้อมูลผู้ใช้ไฟฟ้า</h1>
+                            <div class="row">
+                                <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                                    <div class="card flex-fill">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">ระบุการไฟฟ้า</label>
+                                                        <select class="form-select mb-3" id="office">
+                                                            <option value="">--เลือกข้อมูล--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile"
+                                                            class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
+                                                        <input type="text" class="form-control" id="ca"
+                                                            placeholder="0200xxxxx">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">อัตรา</label>
+                                                        <select class="form-select" id="rate">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile"
+                                                            class="form-label">ประเภทผู้ใช้ไฟฟ้า</label>
+                                                        <select class="form-select mb-3" id="type-customer">
+                                                            <option value="">--เลือกประเภทผู้ใช้ไฟฟ้า--</option>
+                                                            <option value="รายใหญ่">-รายใหญ่</option>
+                                                            <option value="รายย่อย">-รายย่อย</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-2">
+													<div class="mb-3">
+														<label for="formFile" class="form-label">ตัวคูณ</label>
+														<input type="text" class="form-control" id="multiplier"
+															placeholder="">
+													</div>
+												</div> -->
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">ชื่อ</label>
+                                                        <input type="text" class="form-control" id="customer-name"
+                                                            placeholder="ชื่อ">
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">สถานที่ใช้ไฟฟ้า</label>
+                                                        <input type="text" class="form-control" id="address"
+                                                            placeholder="สถานที่ใช้ไฟฟ้า">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">PEA No.</label>
+                                                        <input type="text" class="form-control" id="peano"
+                                                            placeholder="pea no">
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile"
+                                                            class="form-label">รอบบิลที่ต้องการทำการเฉลี่ย</label>
+                                                        <select class="form-select mb-3" id="month">
+                                                            <option value="">--เลือกข้อมูล--</option>
+                                                            <option value="มกราคม">มกราคม</option>
+                                                            <option value="กุมภาพันธ์">กุมภาพันธ์</option>
+                                                            <option value="มีนาคม">มีนาคม</option>
+                                                            <option value="เมษายน">เมษายน</option>
+                                                            <option value="พฤษภาคม">พฤษภาคม</option>
+                                                            <option value="มิถุนายน">มิถุนายน</option>
+                                                            <option value="กรกฎาคม">กรกฎาคม</option>
+                                                            <option value="สิงหาคม">สิงหาคม</option>
+                                                            <option value="กันยายน">กันยายน</option>
+                                                            <option value="ตุลาคม">ตุลาคม</option>
+                                                            <option value="พฤศจิกายน">พฤศจิกายน</option>
+                                                            <option value="ธันวาคม">ธันวาคม</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-2">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">ปี</label>
+                                                        <select class="form-select mb-3" id="year">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <div class="mb-3">
+                                                            <label for="formFile"
+                                                                class="form-label">สาเหตุที่ชำรุด</label>
+                                                            <input type="text" class="form-control" id="cause"
+                                                                placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-2">
+														<div class="mb-3">
+															<label for="formFile" class="form-label">ตัวคูณ</label>
+															<input type="text" class="form-control" id="multiplier"
+																placeholder="">
+														</div>
+													</div> -->
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- <button type="button" class="btn btn-secondary" id="back1">กลับ</button> -->
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-facebook float-end" id="nextpage2">
+                                    <i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
+                                        class="align-middle">ยืนยัน/ดำเนินการต่อไป</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End page1 -->
+
+                    <div id="page2" class="my-2">
+                        <div class="container-fluid p-0">
+                            <h1 class="h3 mb-3">แก้ไขข้อมูล</h1>
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <div class="card flex-fill">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">กรณีชำรุด</label>
+                                                        <select class="form-select mb-3" disabled id="case-ex">
+                                                            <!-- <option selected value="">--เลือกข้อมูล--</option>
+                                                            <option
+                                                                value="เฉลี่ยจากใบอ่านหน่วย(ใช้ข้อมูลเลขอ่านครั้งก่อน-เลขอ่านครั้งหลัง)">
+                                                                เฉลี่ยจากใบอ่านหน่วย
+                                                                (ใช้ข้อมูลเลขอ่านครั้งก่อน-เลขอ่านครั้งหลัง)
+                                                            </option>
+                                                            <option value="เฉลี่ยจากข้อมูลสถิติการใช้ไฟฟ้า">
+                                                                เฉลี่ยจากข้อมูลสถิติการใช้ไฟฟ้า
+                                                            </option>
+                                                            <option value="เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อนของมิเตอร์">
+                                                                เฉลี่ยจากเปอร์เซ็นความคลาดเคลื่อนของมิเตอร์
+                                                            </option> -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="step1" style="display:none;">
+                            <div class="container-fluid p-0">
+                                <h1 class="h3 mb-3">ข้อมูลช่วงที่ชำรุด</h1>
+                                <div class="row">
+                                    <div class="col d-flex justify-content-center">
+                                        <div class="card flex-fill">
+                                            <div class="card-body">
+                                                <div class="container text-center">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title mb-0">ช่วงฐาน(ช่วงปกติ)</h5>
+                                                        </div>
+                                                        <div class="col">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col">
+                                                            <h5 class="card-title mb-0">ช่วงชำรุด</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container text-center">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="mb-3">
+                                                                <label for="start-date">วันที่เริ่มต้น:</label>
+                                                                <input class="form-control" type="text"
+                                                                    id="start-date-normal" name="start-date-normal" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1">
+                                                            ถึง
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-3">
+                                                                <label for="end-date">วันที่สิ้นสุด:</label>
+                                                                <input class="form-control" type="text"
+                                                                    id="end-date-normal" name="end-date-normal" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-3">
+                                                                <label for="start-date">วันที่เริ่มต้น:</label>
+                                                                <input class="form-control" type="text"
+                                                                    id="start-date-not" name="start-date-not" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1">
+                                                            ถึง
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-3">
+                                                                <label for="end-date">วันที่สิ้นสุด:</label>
+                                                                <input class="form-control" type="text"
+                                                                    id="end-date-not" name="end-date-not" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container text-center">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <button type="button" class="btn btn-facebook my-2"
+                                                                id="submit-btn" name="#submit-btn">
+                                                                <i class="align-middle me-2"
+                                                                    data-feather="check-circle"></i> <span
+                                                                    class="align-middle">ดำเนินการ</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col">
+                                                            วันช่วงฐาน
+                                                            <div id="resultP"></div>
+                                                            <div id="resultOP"></div>
+                                                            <div id="resultH"></div>
+                                                            <div id="resultSum"></div>
+                                                        </div>
+                                                        <div class="col">
+
+                                                        </div>
+                                                        <div class="col">
+                                                            <div>&nbsp;</div>
+                                                            <div>&nbsp;</div>
+                                                            <div>&nbsp;</div>
+                                                            <h3>
+                                                                <div id="resultSumAc"></div>
+                                                            </h3>
+                                                        </div>
+                                                        <div class="col">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col">
+                                                            วันช่วงชำรุด
+                                                            <div id="result-workDay-notP"></div>
+                                                            <div id="result-offkDay-notOP"></div>
+                                                            <div id="result-offkDay-notH"></div>
+                                                            <div id="result-countDay-notSum"></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container text-center">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div id="btn-save-con"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- <button type="button" class="btn btn-secondary" id="backpage1">
+                                    <i class="align-middle me-2" data-feather="arrow-left-circle"></i> <span
+                                        class="align-middle">กลับ</span>
+                                </button> -->
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-facebook float-end" id="nextpage3">
+                                    <i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
+                                        class="align-middle">ยืนยัน/ดำเนินการต่อไป</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end div id="page2"-->
                     <div id="page3" class="my-2">
                         <div class="container-fluid p-0">
 
-                            <h1 class="h3 mb-3">แก้ไขรายละเอียดคำนวนการใช้ไฟฟ้า</h1>
+                            <h1 class="h3 mb-3">รายละเอียดการแก้ไขเฉลี่ยหน่วยการใช้ไฟฟ้า</h1>
                             <div class="row">
                                 <div class="col d-flex justify-content-center">
                                     <div class="card flex-fill">
@@ -115,7 +440,7 @@
                                                 <div class="container text-center">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <h4>CA: <span id="ca-sum"></span> <span
+                                                            <h4>CA: <span id="ca-sum"></span> ชื่อผู้ใช้ไฟฟ้า <span
                                                                     id="customer-sum"></span></h4>
                                                         </div>
                                                     </div>
@@ -125,7 +450,15 @@
                                                                     id="month-sum"></span> ปี <span
                                                                     id="year-sum"></span>
                                                                 เนื่องจาก <span id="case-sum"></span></h5>
-                                                            <h5>เฉลี่ยกรณี<span id="caseex-sum"></span></h5>
+                                                            <h5>เฉลี่ยกรณี - <span id="caseex-sum"></span></h5>
+                                                            <h5>ข้อมูลช่วงฐานจากวันที่ <span
+                                                                    id="start_date_normal1"></span> ถึง <span
+                                                                    id="end-date-normal1"></span>
+                                                            </h5>
+                                                            <h5>ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
+                                                                    id="start-date-not1"></span>
+                                                                ถึง <span id="end-date-not1"></span>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -285,6 +618,46 @@
                                                         </div>
                                                     </div>
                                                     <br>
+                                                    <div class="row">
+                                                        <div class="col-sm-1">
+
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="hidden" class="form-control" id="" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="hidden" class="form-control" id="" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="hidden" class="form-control" id="" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="text" class="form-control"
+                                                                id="sum-normal-final" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="hidden" class="form-control" id="" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="hidden" class="form-control" id="" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <input type="hidden" class="form-control" id="" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <input type="text" class="form-control"
+                                                                id="sum-to-sap-final" disabled
+                                                                style="text-align: right">
+                                                        </div>
+                                                    </div>
+                                                    <br>
                                                     <div class="row ">
                                                         <div class="d-flex">
                                                             <div>
@@ -382,6 +755,14 @@
                                                             <input type="text" class="form-control" id="KKWPHUnitNormol"
                                                                 disabled style="text-align: right">
                                                         </div>
+                                                        <div class="col-sm-1">
+                                                            หมายเหตุ
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <textarea class="form-control" id="comment"
+                                                                rows="2"></textarea>
+                                                            <!-- <input type="text" class="form-control" id="comment"> -->
+                                                        </div>
                                                     </div>
                                                     <br>
                                                     <div class="row ">
@@ -411,7 +792,7 @@
                                 </button>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-facebook float-end" id="save" disabled>
+                                <button type="button" class="btn btn-facebook float-end" id="save">
                                     <i class="align-middle me-2" data-feather="arrow-right-circle"></i> <span
                                         class="align-middle">ยืนยัน/บันทึกข้อมูล</span>
                                 </button>
@@ -432,7 +813,8 @@
                 <input type="hidden" id="sum_brok">
                 <input type="hidden" id="sum_all">
                 <input type="hidden" id="resultSumAcCheckIf">
-
+                <!-- <input type="text" id="in-cause"> -->
+                <!-- <span id="in-cause1">d</span> -->
             </main>
 
         </div>
@@ -472,11 +854,19 @@
             success: function (data) {
                 //console.log(data[0].unit_use.kwh_op)
                 console.log(data[0].kwh_unit.kwh_op)
+                $("#case-ex").html('<option selected disabled value="' + data[0].in_cause + '">' + data[0].in_cause)
+                if (data[0].in_cause == 'เฉลี่ยจากใบอ่านหน่วย(ใช้ข้อมูลเลขอ่านครั้งก่อน-เลขอ่านครั้งหลัง)') {
+                    $("#step1").show();
+                }
                 $("#ca-sum").html(data[0].ca_no);
                 $("#customer-sum").html(data[0].name_customer);
                 $("#month-sum").html(data[0].billing_Cycle);
                 $("#year-sum").html(data[0].year);
                 $("#case-sum").html(data[0].cause);
+                $("#start-date-normal").val(data[0].data_broken.normal_date_start);
+                $("#end-date-normal").val(data[0].data_broken.normal_date_end);
+                $("#start-date-not").val(data[0].data_broken.brok_date_start);
+                $("#end-date-not").val(data[0].data_broken.brok_date_end);
                 $("#caseex-sum").html(data[0].in_cause);
                 $("#KWPPAfter").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
                 $("#KWPPBefore").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
@@ -515,6 +905,9 @@
                 $("#KKWPHmultiplier").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
                 $("#KKWPHUnitNormol").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
                 $("#user").html(data[0].user);
+                $("#sum-normal-final").val(data[0].sum_normal_final);
+                $("#sum-to-sap-final").val(data[0].sum_to_sap_final);
+                $("#comment").html(data[0].comment);
             },
             error: function (data) {
 
@@ -522,7 +915,6 @@
         })
     })
 </script>
-
 <script>
     var hostname = "localhost";
     $(document).ready(function () {
@@ -531,9 +923,9 @@
         $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
         // console.log(localStorage.getItem("Peacode").substring(0, 4))
 
-        // $("#page1").show();
-        // $("#page2").hide();
-        // $("#page3").hide();
+        $("#page1").hide();
+        $("#page2").show();
+        $("#page3").hide();
 
         // ใช้ datepicker กับ input ของวันที่เริ่มต้น
         $("#start-date-normal").datepicker({
@@ -569,40 +961,50 @@
     //     }
 
     // });
-    // $("#nextpage3").click(function () {
-    //     if (document.getElementById("case-ex").value.length == 0) {
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Oops...',
-    //             text: 'กรุณากรอกข้อมูลให้ครบทุกช่อง!',
-    //         })
-    //     } else {
-    //         $("#page1").hide();
-    //         $("#page2").hide();
-    //         $("#page3").show();
-    //     }
-    // });
+    $("#nextpage3").click(function () {
+        // if (document.getElementById("case-ex").value.length == 0) {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Oops...',
+        //         text: 'กรุณากรอกข้อมูลให้ครบทุกช่อง!',
+        //     })
+        // } else {
+        $("#page1").hide();
+        $("#page2").hide();
+        $("#page3").show();
+        // }
+    });
 
-    // $("#backpage1").click(function () {
-    //     $("#page1").show();
-    //     $("#page2").hide();
-    //     $("#page3").hide();
-    // });
-    // $("#backpage2").click(function () {
-    //     $("#page1").hide();
-    //     $("#page2").show();
-    //     $("#page3").hide();
-    // });
+    $("#backpage1").click(function () {
+        $("#page1").show();
+        $("#page2").hide();
+        $("#page3").hide();
+    });
+    $("#backpage2").click(function () {
+        $("#page1").hide();
+        $("#page2").show();
+        $("#page3").hide();
+    });
 
-    // function showDiv(select) {
-    //     if (select.value == 0) {
-    //         document.getElementById('step1').style.display = "none";
-    //     } else if (select.value == 1) {
-    //         document.getElementById('step1').style.display = "block";
-    //     }
-    // }
+
+
     // 
     // กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
+    $.ajax({
+        url: "http://" + hostname + ":442/uploadrate",
+        dataType: "json",
+        success: function (data) {
+            // สร้าง options ของ select2
+            var options = '<option value="">--เลือกข้อมูล--</option>'; // option เริ่มต้น
+            for (var i = 0; i < data.length; i++) {
+                options += '<option value="' + data[i].group_no + data[i].detail + '">' + data[i].group_no + ' ' + data[i].detail + '</option>';
+            }
+            // กำหนด options ของ select2
+            $('#rate').html(options);
+            // เปิดใช้งาน select2
+            $('#rate').select2();
+        }
+    });
     // กำหนดค่า default ให้กับ select list เดือน
     var currentMonth = new Date().getMonth() + 1;
     // $("#month").val(currentMonth);
@@ -643,17 +1045,18 @@
         var inputValuecase = $('#cause').val();
         var inputValuecaseex = $('#case-ex').val();
         var inputValueresultP = $('#KWPPresultP-Sum').val();
-        // var KWPPPresultP = $('#KWPPPresultP-Sum').val();
-        // var KWPHresultP = $('#KWPHresultP-Sum').val();
-        //console.log(inputValueca)
-        // ดำเนินการกับค่าที่ได้รับมา
-        $("#ca-sum").text(inputValueca);
-        $("#customer-sum").text(inputValueCus_name);
-        $("#month-sum").text(inputValueMonth);
-        $("#year-sum").text(inputValueYear);
-        $("#case-sum").text(inputValuecase);
-        $("#caseex-sum").text(inputValuecaseex);
-        $("#KWPPresultP-Sum").text(inputValueresultP);
+        var start_date_normal = $('#start-date-normal').val();
+        var end_date_normal = $('#end-date-normal').val();
+        var start_date_not = $('#start-date-not').val();
+        var end_date_not = $('#end-date-not').val();
+
+
+        // $("#caseex-sum").text(inputValuecaseex);
+        $("#start_date_normal1").text(start_date_normal);
+        $("#end-date-normal1").text(end_date_normal);
+        $("#start-date-not1").text(start_date_not);
+        $("#end-date-not1").text(end_date_not);
+
     }, 3000);
 
 
@@ -697,8 +1100,27 @@
         $("#KWPHAvg").val((KWPHUnitNormol / KWPHresultP).toFixed(2))
         var KWPHAvg = KWPHUnitNormol / KWPHresultP
         $("#KWPHavg-unit-tosap").val((KWPHAvg * KWPHresult).toFixed(2))
+        var KWPPUnitNormol = parseFloat($("#KWPPUnitNormol").val())
+        var KWPOPUnitNormol = parseFloat($("#KWPOPUnitNormol").val())
+        var KWPHUnitNormol = parseFloat($("#KWPHUnitNormol").val())
+        var sum_normal = KWPPUnitNormol + KWPOPUnitNormol + KWPHUnitNormol
+        var KWPPavg_unit_tosap = parseFloat($("#KWPPavg-unit-tosap").val())
+        var KWPOPavg_unit_tosap = parseFloat($("#KWPOPavg-unit-tosap").val())
+        var KWPHavg_unit_tosap = parseFloat($("#KWPHavg-unit-tosap").val())
+        var sum_unit_tosap = KWPPavg_unit_tosap + KWPOPavg_unit_tosap + KWPHavg_unit_tosap
+        //console.log(sum_normal)
+        $("#sum-normal-final").val(numberWithCommas(sum_normal.toFixed(2)))
+        $("#sum-to-sap-final").val(numberWithCommas(sum_unit_tosap.toFixed(2)))
     }
     //end
+    //Function format a number
+    function numberWithCommas(x) {
+        x = x.toString();
+        var pattern = /(-?\d+)(\d{3})/;
+        while (pattern.test(x))
+            x = x.replace(pattern, "$1,$2");
+        return x;
+    }
 
     // Calculator KKWPP
     function CalKKWPP() {
@@ -797,43 +1219,58 @@
                 $("#sum_brok").val(data.countDayNor)
                 $("#sum_all").val(data.countDay + data.countDayNor)
 
+
             },
         });
-
-        // $.ajax({
-        //     url: "http://localhost:442/day/calculate-daysh",
-        //     type: "POST",
-        //     data: {
-        //         "start-date": startDate,
-        //         "end-date": endDate,
-        //     },
-        //     success: function (data) {
-        //         // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
-        //         $('#result1').text('จำนวนวันหยุด: ' + data + ' วัน');
-        //     },
-        // });
     });
 
     $("#save").click(function (event) {
         event.preventDefault();
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+        let iddata = getUrlParameter('id');
+        console.log(iddata)
         let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
         var office_name = $("#office").val();
         var ca = $("#ca").val();
         var customer_name = $("#customer-name").val();
         var rate = $("#rate").val();
+        console.log(rate)
         var peano = $("#peano").val();
+        var type_customer = $("#type-customer").val();
+        var address = $("#address").val();
         var month = $("#month").val();
         var year = $("#year").val();
         var cause = $("#cause").val();
-        var in_cause = $("#case-ex").val();
-        var normal_date_start = $("#start-date-normal").val();
-        var normal_date_end = $("#end-date-normal").val();
-        var brok_date_start = $("#start-date-not").val();
-        var brok_date_end = $("#end-date-not").val();
+        var spanElement = document.getElementById("caseex-sum");
+        var in_cause = spanElement.textContent
+        var spanElement1 = document.getElementById("start_date_normal1");
+        var normal_date_start = spanElement1.textContent
+        var spanElement2 = document.getElementById("end-date-normal1");
+        var normal_date_end = spanElement2.textContent
+        var spanElement3 = document.getElementById("start-date-not1");
+        var brok_date_start = spanElement3.textContent
+        var spanElement4 = document.getElementById("end-date-not1");
+        var brok_date_end = spanElement4.textContent
         var p_normal = $("#p_normal").val();
         var op_normal = $("#op_normal").val();
         var h_normal = $("#h_normal").val();
         var sum_normal = $("#sum_normal").val();
+        var sum_normal_final = $("#sum-normal-final").val()
+        var sum_to_sap_final = $("#sum-to-sap-final").val()
         var p_brok = $("#p_brok").val();
         var op_brok = $("#op_brok").val();
         var h_brok = $("#h_brok").val();
@@ -875,6 +1312,7 @@
         var unit_read_before_unit_kwh_h = $("#KKWPHBefore").val();
         var multiplier_unit_kwh_h = $("#KKWPHmultiplier").val();
         var kwh_normal_unit_kwh_h = $("#KKWPHUnitNormol").val();
+        var comment = $("#comment").val();
 
         var user = localStorage.getItem("FullName");
         Swal.fire({
@@ -886,15 +1324,18 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "http://" + hostname + ":442/datadetail/add",
-                    type: "POST",
+                    url: "http://localhost:442/datadetail/update",
+                    type: "PUT",
                     data: {
+                        "id": iddata,
                         "peacode": PeaCode,
                         "office_name": office_name,
                         "ca_no": ca,
                         "name_customer": customer_name,
                         "rate": rate,
                         "pea_no": peano,
+                        "type_customer": type_customer,
+                        "address": address,
                         "billing_Cycle": month,
                         "year": year,
                         "cause": cause,
@@ -907,6 +1348,8 @@
                         "op_normal": op_normal,
                         "h_normal": h_normal,
                         "sum_normal": sum_normal,
+                        "sum_normal_final": sum_normal_final,
+                        "sum_to_sap_final": sum_to_sap_final,
                         "p_brok": p_brok,
                         "op_brok": op_brok,
                         "h_brok": h_brok,
@@ -949,6 +1392,7 @@
                         "multiplier_unit_kwh_h": multiplier_unit_kwh_h,
                         "kwh_normal_unit_kwh_h": kwh_normal_unit_kwh_h,
                         "user": user,
+                        "comment": comment
                     },
                     success: function (data) {
                         Swal.fire({
@@ -956,7 +1400,7 @@
                             title: "บันทึกข้อมูลสำเร็จ",
                         }).then(function () {
                             window.location = "home.html";
-                        });;
+                        });
                     },
 
                     error: function (data) {
