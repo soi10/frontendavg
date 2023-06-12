@@ -176,6 +176,16 @@
 				}
 				, "dataSrc": "",
 			},
+			"initComplete": function () {
+				this.api().columns().every(function () {
+					var column = this;
+					var columnIndex = column.index();
+
+					// เพิ่มสีหัวคอลัมน์ที่ต้องการ
+					$(column.header()).css("background-color", "#74045F");
+					$(column.header()).css("color", "#FFFFFF");
+				});
+			},
 			"columns": [
 				{
 					"data": "_id",
