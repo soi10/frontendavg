@@ -216,6 +216,44 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="sum-normal-final" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="-Sum" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="sum-to-sap-final" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
                                     <div class="row ">
                                         <div class="d-flex">
                                             <div>
@@ -289,10 +327,15 @@
                                             <input type="text" class="form-control" id="KKWPOPUnitNormol" disabled
                                                 style="text-align: right">
                                         </div>
-
-                                        <div class="col-sm-4">
-                                            พนักงานบันทึกข้อมูล : <span id="user"></span>
+                                        <div class="col-sm-1">
+                                            หมายเหตุ
                                         </div>
+                                        <div class="col-sm-5">
+                                            <textarea class="form-control" id="comment" rows="2" disabled></textarea>
+                                            <!-- <input type="text" class="form-control" id="comment"> -->
+                                        </div>
+
+
                                     </div>
                                     <br>
                                     <div class="row">
@@ -315,12 +358,8 @@
                                             <input type="text" class="form-control" id="KKWPHUnitNormol" disabled
                                                 style="text-align: right">
                                         </div>
-                                        <div class="col-sm-1">
-                                            หมายเหตุ
-                                        </div>
-                                        <div class="col-sm-5">
-                                            <textarea class="form-control" id="comment" rows="2" disabled></textarea>
-                                            <!-- <input type="text" class="form-control" id="comment"> -->
+                                        <div class="col-sm-4">
+                                            พนักงานบันทึกข้อมูล : <span id="user"></span>
                                         </div>
                                     </div>
                                     <br>
@@ -427,6 +466,8 @@
                 $("#KKWPHmultiplier").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
                 $("#KKWPHUnitNormol").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
                 $("#user").html(data[0].user);
+                $("#sum-normal-final").val(data[0].sum_normal_final);
+                $("#sum-to-sap-final").val(data[0].sum_to_sap_final);
                 $("#comment").html(data[0].comment);
             },
             error: function (data) {
