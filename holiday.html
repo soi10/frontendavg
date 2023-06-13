@@ -32,16 +32,10 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
-	<!-- <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css"
-		rel="stylesheet" />
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
-
-	-
-	<!-- thai extension -->
-	<script type="text/javascript" src="./dist/js/bootstrap-datepicker-thai.js"></script>
-	<script type="text/javascript" src="./dist/js/locales/bootstrap-datepicker.th.js"></script>
-	<link href="./dist/css/datepicker.css" rel="stylesheet" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/datepicker-th.js"></script>
 
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -133,6 +127,24 @@
 						<div class="col">
 							<div class="card my-2">
 								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<div class="text-end">
+												ปี
+											</div>
+										</div>
+										<div class="col">
+											<div class="form-outline">
+												<input type="number" id="yearNumber" class="form-control" />
+											</div>
+										</div>
+										<div class="col">
+											<div>
+												<button type="button" class="btn btn-success" id="showyearHoliday">แสดง</button>
+											</div>
+										</div>
+									</div>
+
 									<table id="example" class="display" style="width:100%">
 										<thead>
 											<tr>
@@ -226,15 +238,27 @@
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
 		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
-		// let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-		// console.log(localStorage.getItem("Peacode").substring(0, 4))
+		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+		console.log(localStorage.getItem("Peacode").substring(0, 4))
+
+		$.datepicker.setDefaults($.datepicker.regional["th"]);
+		var currentDate = new Date();
+
+		currentDate.setYear(currentDate.getFullYear() + 543);
+		// Birth date
 		$("#dateHoliday").datepicker({
-			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
-			language: 'th-th'
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '+443:+543',
+			dateFormat: 'dd-mm-yy',
+			onSelect: function (date) {
+				$("#edit-dateHoliday").addClass('filled');
+			}
 		});
+		$('#dateHoliday').datepicker("setDate", currentDate);
 
 
-		var yearHoliday = (new Date).getFullYear();
+		var yearHoliday = $("#yearNumber").val((new Date).getFullYear());
 		$('#example').DataTable({
 			"ajax": {
 				"url": "http://172.21.1.60:442/holiday/get",
@@ -266,12 +290,14 @@
 				}
 			]
 		});
-
-
 	});
 
 	$("#addHoliday").click(function () {
-		var dateHoliday = $("#dateHoliday").val();
+
+		var oldDate = $('#dateHoliday').val();
+		var newDate = convertDateFormat(oldDate);
+
+		var dateHoliday = newDate;
 		var nameHoliday = $("#nameHoliday").val();
 		var yearHoliday = (new Date).getFullYear();
 		$.ajax({
@@ -385,4 +411,57 @@
 			}
 		})
 	});
+
+	$("#showyearHoliday").click(function () {
+		var yearHoliday = $("#yearNumber").val();
+
+		$('#example').DataTable({
+			"ajax": {
+				"url": "http://172.21.1.60:442/holiday/get",
+				"dataSrc": "",
+				"type": "POST",
+				"contentType": "application/json",
+				"data": function (d) {
+					return JSON.stringify({
+						yearHoliday: yearHoliday,
+					});
+				}, "dataSrc": "",
+			},
+			"columns": [
+				{ "data": "dateHoliday" },
+				{ "data": "nameHoliday" },
+				{
+					data: null,
+					render: function (data, type, row) {
+						return '<button class="editButton btn btn-warning text-center" id="btnEdit" value="' + row._id + '">แก้ไข</button>';
+					}
+					, "className": "text-center",
+				},
+				{
+					data: null,
+					render: function (data, type, row) {
+						return '<button class="deleteButton btn btn-danger text-center" id="btnDel" value="' + row._id + '">ลบ</button>';
+					},
+					"className": "text-center",
+				}
+			]
+		});
+	})
+
+	function convertDateFormat(oldDate) {
+  // แยกวันที่ เดือน และปีออกจากกัน
+	var parts = oldDate.split("-");
+	var day = parts[0];
+	var month = parts[1];
+	var year = parts[2];
+
+	// เปลี่ยนปีจาก 2566 เป็น 2023
+	year = parseInt(year) - 543;
+
+	// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
+	var newDate = year + "-" + month + "-" + day;
+
+	// ส่งคืนวันที่ใหม่
+	return newDate;
+	}
 </script>
