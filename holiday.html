@@ -64,13 +64,19 @@
 					</li>
 
 					<li class="sidebar-item">
+						<a class="sidebar-link" href="index.html">
+							<i class="align-middle" data-feather="bar-chart-2"></i> <span
+								class="align-middle">Dashboard</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
 						<a class="sidebar-link" href="home.html">
 							<i class="align-middle" data-feather="list"></i> <span
 								class="align-middle">ข้อมูลการเฉลี่ยหน่วย</span>
 						</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="index.html">
+						<a class="sidebar-link" href="everest.html">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">ดำเนินการเฉลี่ยหน่วย</span>
 						</a>
@@ -82,6 +88,7 @@
 								class="align-middle">เพิ่มวันหยุด</span>
 						</a>
 					</li>
+				</ul>
 
 
 		</nav>
@@ -140,7 +147,8 @@
 										</div>
 										<div class="col">
 											<div>
-												<button type="button" class="btn btn-success" id="showyearHoliday">แสดง</button>
+												<button type="button" class="btn btn-success"
+													id="showyearHoliday">แสดง</button>
 											</div>
 										</div>
 									</div>
@@ -449,19 +457,19 @@
 	})
 
 	function convertDateFormat(oldDate) {
-  // แยกวันที่ เดือน และปีออกจากกัน
-	var parts = oldDate.split("-");
-	var day = parts[0];
-	var month = parts[1];
-	var year = parts[2];
+		// แยกวันที่ เดือน และปีออกจากกัน
+		var parts = oldDate.split("-");
+		var day = parts[0];
+		var month = parts[1];
+		var year = parts[2];
 
-	// เปลี่ยนปีจาก 2566 เป็น 2023
-	year = parseInt(year) - 543;
+		// เปลี่ยนปีจาก 2566 เป็น 2023
+		year = parseInt(year) - 543;
 
-	// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
-	var newDate = year + "-" + month + "-" + day;
+		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
+		var newDate = year + "-" + month + "-" + day;
 
-	// ส่งคืนวันที่ใหม่
-	return newDate;
+		// ส่งคืนวันที่ใหม่
+		return newDate;
 	}
 </script>
