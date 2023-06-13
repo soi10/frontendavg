@@ -128,7 +128,7 @@
 														<label for="formFile"
 															class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
 														<input type="text" class="form-control" id="ca"
-															placeholder="0200xxxxx">
+															placeholder="2xxxxxxxxxx">
 													</div>
 												</div>
 												<div class="col-4">
@@ -454,8 +454,7 @@
 															<h5>ข้อมูลช่วงฐานจากวันที่ <span
 																	id="start_date_normal1"></span> ถึง <span
 																	id="end-date-normal1"></span>
-															</h5>
-															<h5>ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
+																ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
 																	id="start-date-not1"></span>
 																ถึง <span id="end-date-not1"></span>
 															</h5>
@@ -635,7 +634,7 @@
 																style="text-align: right">
 														</div>
 														<div class="col-sm-1">
-															<input type="text" class="form-control"
+															<input type="hidden" class="form-control"
 																id="sum-normal-final" disabled
 																style="text-align: right">
 														</div>
@@ -661,7 +660,8 @@
 													<div class="row ">
 														<div class="d-flex">
 															<div>
-																<h6><span class="badge bg-danger">*หมายเหตุ*
+																<h6><span class="badge" style=" background-color: #C7911B; color:
+																	white;">*หมายเหตุ*
 																		เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
 																		EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
 															</div>
@@ -768,7 +768,8 @@
 													<div class="row ">
 														<div class="d-flex">
 															<div>
-																<h6><span class="badge bg-danger">*หมายเหตุ*
+																<h6><span class="badge" style=" background-color: #C7911B; color:
+																	white;">*หมายเหตุ*
 																		กรณีเฉลี่ยจากสถิติในเดือนไม่ต้องดำเนินการเฉลี่ยกิโลวัตต์
 																		หรือสามารถนำกิโลวัตต์ช่วงปกติมาเฉลี่ยได้</span>
 																</h6>
@@ -895,6 +896,16 @@
 		$("#page2").show();
 		$("#page3").hide();
 	});
+
+	///
+	const input = document.getElementById('ca');
+
+	input.addEventListener('input', function () {
+		if (input.value.length > 11) {
+			input.value = input.value.slice(0, 11);
+		}
+	});
+	///
 
 	function showDiv(select) {
 		if (select.value == 0) {
@@ -1086,7 +1097,7 @@
 		success: function (data) {
 			// console.log("Pea", data)c
 			$.each(data, function (key, value) { // วน loop เพื่อสร้าง option element สำหรับแสดงข้อมูล
-				$('#office').append($('<option>').text(value.office_name).attr('value', value.office_name));
+				$('#office').append($('<option>').text(value.office_trsg + '-' + value.office_name).attr('value', value.office_trsg));
 			});
 		}
 	})
