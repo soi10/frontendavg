@@ -54,14 +54,21 @@
 					<li class="sidebar-header">
 						Pages
 					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="index.html">
+							<i class="align-middle" data-feather="bar-chart-2"></i> <span
+								class="align-middle">Dashboard</span>
+						</a>
+					</li>
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="home.html">
 							<i class="align-middle" data-feather="list"></i> <span
 								class="align-middle">ข้อมูลการเฉลี่ยหน่วย</span>
 						</a>
 					</li>
-					<li class="sidebar-item ">
-						<a class="sidebar-link" href="index.html">
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="everest.html">
 							<i class="align-middle" data-feather="sliders"></i> <span
 								class="align-middle">ดำเนินการเฉลี่ยหน่วย</span>
 						</a>
@@ -73,7 +80,7 @@
 								class="align-middle">เพิ่มวันหยุด</span>
 						</a>
 					</li>
-
+				</ul>
 
 		</nav>
 
@@ -196,7 +203,14 @@
 				{ "data": "office_name" },
 				{ "data": "ca_no" },
 				{ "data": "name_customer" },
-				{ "data": "billing_Cycle" },
+				{
+					"data": "billing_Cycle",
+					"data1": "year",
+					"bSortable": false,
+					"mRender": function (data, type, full,) {
+						return full.billing_Cycle + ' ' + full.year;
+					}
+				},
 				{ "data": "sum_to_sap_final" },
 				{
 					"data": "_id",
