@@ -1000,23 +1000,6 @@
 
 
 
-    // 
-    // กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
-    $.ajax({
-        url: "http://" + hostname + ":442/uploadrate",
-        dataType: "json",
-        success: function (data) {
-            // สร้าง options ของ select2
-            var options = '<option value="">--เลือกข้อมูล--</option>'; // option เริ่มต้น
-            for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].group_no + data[i].detail + '">' + data[i].group_no + ' ' + data[i].detail + '</option>';
-            }
-            // กำหนด options ของ select2
-            $('#rate').html(options);
-            // เปิดใช้งาน select2
-            $('#rate').select2();
-        }
-    });
     // กำหนดค่า default ให้กับ select list เดือน
     var currentMonth = new Date().getMonth() + 1;
     // $("#month").val(currentMonth);
@@ -1166,21 +1149,6 @@
     // End Calculator KKWPH
 
 
-
-    let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-    $.ajax({
-        url: "http://" + hostname + ":442/uploads/bacode",
-        type: "GET",
-        data: {
-            Peacode: PeaCode,
-        },
-        success: function (data) {
-            // console.log("Pea", data)c
-            $.each(data, function (key, value) { // วน loop เพื่อสร้าง option element สำหรับแสดงข้อมูล
-                $('#office').append($('<option>').text(value.office_name).attr('value', value.office_name));
-            });
-        }
-    })
     $("#submit-btn").click(function (event) {
         event.preventDefault(); // ปิดการทำงานของปุ่ม submit หน้า HTML
 
@@ -1204,7 +1172,7 @@
 
 
         $.ajax({
-            url: "http://" + hostname + ":442/day/calculate-days",
+            url: "http://172.21.1.60:442/day/calculate-days",
             type: "POST",
             data: {
                 "start-date": startDate,
@@ -1355,7 +1323,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "http://localhost:442/datadetail/update",
+                    url: "http://"+hostname+":442/datadetail/update",
                     type: "PUT",
                     data: {
                         "id": iddata,
