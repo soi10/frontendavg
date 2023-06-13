@@ -139,7 +139,7 @@
               cancelButtonColor: "#d33",
               confirmButtonText: "OK",
             }).then((result) => {
-              window.location = "home.html";
+              window.location = "index.html";
             });
             localStorage.setItem("EmployeeId", data.EmployeeId);
             localStorage.setItem("FullName", data.FullName);
@@ -158,8 +158,8 @@
               icon: "warning",
               title: "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง",
             }).then(function () {
-							location.reload();
-						});
+              location.reload();
+            });
           },
         });
       } else {
@@ -168,7 +168,7 @@
           title: "กรุณากรอกข้อมูลให้ครบทุกฃ่อง",
         }).then(function () {
           location.reload();
-						});
+        });
       }
     });
   });
