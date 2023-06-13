@@ -926,7 +926,7 @@
 	// 
 	// กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
 	$.ajax({
-		url: "http://" + hostname + ":442/uploadrate",
+		url: "http://172.21.1.60:442/uploadrate",
 		dataType: "json",
 		success: function (data) {
 			// สร้าง options ของ select2
@@ -1128,7 +1128,7 @@
 
 	let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 	$.ajax({
-		url: "http://" + hostname + ":442/uploads/bacode",
+		url: "http://172.21.1.60:442/uploads/bacode",
 		type: "GET",
 		data: {
 			Peacode: PeaCode,
@@ -1163,7 +1163,7 @@
 
 
 		$.ajax({
-			url: "http://" + hostname + ":442/day/calculate-days",
+			url: "http://172.21.1.60:442/day/calculate-days",
 			type: "POST",
 			data: {
 				"start-date": startDate,
@@ -1306,7 +1306,7 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: "http://" + hostname + ":442/datadetail/add",
+					url: "http://172.21.1.60:442/datadetail/add",
 					type: "POST",
 					data: {
 						"peacode": PeaCode,
