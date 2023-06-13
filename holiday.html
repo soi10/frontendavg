@@ -249,33 +249,23 @@
 		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 		console.log(localStorage.getItem("Peacode").substring(0, 4))
 
-		$.datepicker.setDefaults($.datepicker.regional["th"]);
-		var currentDate = new Date();
-
-		currentDate.setYear(currentDate.getFullYear() + 543);
-		// Birth date
 		$("#dateHoliday").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-dateHoliday").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#dateHoliday').datepicker("setDate", currentDate);
-
 
 		var yearHoliday = $("#yearNumber").val((new Date).getFullYear());
+		// console.log(yearHoliday.val());
 		$('#example').DataTable({
 			"ajax": {
-				"url": "http://172.21.1.60:442/holiday/get",
+				"url": "http://localhost:442/holiday/get",
 				"dataSrc": "",
 				"type": "POST",
 				"contentType": "application/json",
 				"data": function (d) {
 					return JSON.stringify({
-						yearHoliday: yearHoliday,
+						yearHoliday: yearHoliday.val(),
 					});
 				}, "dataSrc": "",
 			},
@@ -337,7 +327,7 @@
 				}
 			},
 			error: function (error) {
-				console.error(error);
+				console.log(error);
 			}
 		});
 	});
@@ -464,7 +454,7 @@
 		var year = parts[2];
 
 		// เปลี่ยนปีจาก 2566 เป็น 2023
-		year = parseInt(year) - 543;
+		// year = parseInt(year) - 543;
 
 		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
 		var newDate = year + "-" + month + "-" + day;

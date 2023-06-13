@@ -28,7 +28,6 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 	<style>
 		body {
 			font-family: 'Kanit';
@@ -111,8 +110,10 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
+
 					<div id="page1" class="my-2">
 						<div class="container-fluid p-0">
+
 							<h1 class="h3 mb-3">กรอกข้อมูลผู้ใช้ไฟฟ้า</h1>
 							<div class="row">
 								<div class="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -134,7 +135,7 @@
 														<label for="formFile"
 															class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
 														<input type="text" class="form-control" id="ca"
-															placeholder="2xxxxxxxxxx">
+															placeholder="0200xxxxx">
 													</div>
 												</div>
 												<div class="col-4">
@@ -460,7 +461,8 @@
 															<h5>ข้อมูลช่วงฐานจากวันที่ <span
 																	id="start_date_normal1"></span> ถึง <span
 																	id="end-date-normal1"></span>
-																ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
+															</h5>
+															<h5>ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
 																	id="start-date-not1"></span>
 																ถึง <span id="end-date-not1"></span>
 															</h5>
@@ -640,7 +642,7 @@
 																style="text-align: right">
 														</div>
 														<div class="col-sm-1">
-															<input type="hidden" class="form-control"
+															<input type="text" class="form-control"
 																id="sum-normal-final" disabled
 																style="text-align: right">
 														</div>
@@ -666,8 +668,8 @@
 													<div class="row ">
 														<div class="d-flex">
 															<div>
-																<h6><span class="badge" style=" background-color: #C7911B; color:
-																	white;">*หมายเหตุ*
+																<h6><span class="badge"
+																		style="background-color: #C7911B; color: white;">*หมายเหตุ*
 																		เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
 																		EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
 															</div>
@@ -774,8 +776,8 @@
 													<div class="row ">
 														<div class="d-flex">
 															<div>
-																<h6><span class="badge" style=" background-color: #C7911B; color:
-																	white;">*หมายเหตุ*
+																<h6><span class="badge"
+																		style="background-color: #C7911B; color: white;">*หมายเหตุ*
 																		กรณีเฉลี่ยจากสถิติในเดือนไม่ต้องดำเนินการเฉลี่ยกิโลวัตต์
 																		หรือสามารถนำกิโลวัตต์ช่วงปกติมาเฉลี่ยได้</span>
 																</h6>
@@ -844,58 +846,35 @@
 		$("#page2").hide();
 		$("#page3").hide();
 
-		$.datepicker.setDefaults($.datepicker.regional["th"]);
-		var currentDate = new Date();
-
-		currentDate.setYear(currentDate.getFullYear() + 543);
-
 		// ใช้ datepicker กับ input ของวันที่เริ่มต้น
 		$("#start-date-normal").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-start-date-normal").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#start-date-normal').datepicker("setDate", currentDate);
+
 
 		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
 		$("#end-date-normal").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-end-date-normal").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#end-date-normal').datepicker("setDate", currentDate);
-
 
 		$("#start-date-not").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-start-date-not").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#start-date-not').datepicker("setDate", currentDate);
+
 
 		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
 		$("#end-date-not").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-end-date-not").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#end-date-not').datepicker("setDate", currentDate);
+
 	});
 
 	$("#nextpage2").click(function () {
@@ -936,16 +915,6 @@
 		$("#page2").show();
 		$("#page3").hide();
 	});
-
-	///
-	const input = document.getElementById('ca');
-
-	input.addEventListener('input', function () {
-		if (input.value.length > 11) {
-			input.value = input.value.slice(0, 11);
-		}
-	});
-	///
 
 	function showDiv(select) {
 		if (select.value == 0) {
@@ -1146,7 +1115,7 @@
 		var year = parts[2];
 
 		// เปลี่ยนปีจาก 2566 เป็น 2023
-		year = parseInt(year) - 543;
+		// year = parseInt(year) - 543;
 
 		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
 		var newDate = year + "-" + month + "-" + day;
