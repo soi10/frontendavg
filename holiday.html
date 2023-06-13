@@ -270,7 +270,15 @@
 				}, "dataSrc": "",
 			},
 			"columns": [
-				{ "data": "dateHoliday" },
+				// { "data": "dateHoliday" },
+				{
+					data: null,
+					render: function (data, type, row) {
+						var newDate = convertDateFormatYear(row.dateHoliday)
+						return '<div class="text-center">' + newDate + '</div>';
+					}
+					, "className": "text-center",
+				},
 				{ "data": "nameHoliday" },
 				{
 					data: null,
@@ -426,7 +434,15 @@
 				}, "dataSrc": "",
 			},
 			"columns": [
-				{ "data": "dateHoliday" },
+				// { "data": "dateHoliday" },
+				{
+					data: null,
+					render: function (data, type, row) {
+						var newDate = convertDateFormatYear(row.dateHoliday)
+						return '<div class="text-center">' + newDate + '</div>';
+					}
+					, "className": "text-center",
+				},
 				{ "data": "nameHoliday" },
 				{
 					data: null,
@@ -458,6 +474,23 @@
 
 		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
 		var newDate = year + "-" + month + "-" + day;
+
+		// ส่งคืนวันที่ใหม่
+		return newDate;
+	}
+
+	function convertDateFormatYear(oldDate) {
+		// แยกวันที่ เดือน และปีออกจากกัน
+		var parts = oldDate.split("-");
+		var day = parts[2];
+		var month = parts[1];
+		var year = parts[0];
+
+		// เปลี่ยนปีจาก 2566 เป็น 2023
+		// year = parseInt(year) - 543;
+
+		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
+		var newDate = day + "-" + month + "-" + year;
 
 		// ส่งคืนวันที่ใหม่
 		return newDate;
