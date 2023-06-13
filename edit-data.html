@@ -853,7 +853,7 @@
         let iddata = getUrlParameter('id');
         console.log(iddata)
         $.ajax({
-            url: "http://172.21.1.60:442/datadetail/id",
+            url: "http://"+hostname+":442/datadetail/id",
             contentType: "application/json",
             data: {
                 id: iddata
@@ -923,7 +923,6 @@
     })
 </script>
 <script>
-    var hostname = "localhost";
     $(document).ready(function () {
         $("#Name").html(localStorage.getItem("FullName"));
         $("#BaName").html(localStorage.getItem("BaName"));
@@ -1031,7 +1030,7 @@
     var years = [];
     var currentYear = new Date().getFullYear();
     for (var i = 0; i < 5; i++) {
-        years.push(currentYear + i);
+        years.push(currentYear - i);
     }
 
     // สร้าง options ของปี
