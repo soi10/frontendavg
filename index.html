@@ -837,58 +837,35 @@
 		$("#page2").hide();
 		$("#page3").hide();
 
-		$.datepicker.setDefaults($.datepicker.regional["th"]);
-		var currentDate = new Date();
-
-		currentDate.setYear(currentDate.getFullYear() + 543);
-
 		// ใช้ datepicker กับ input ของวันที่เริ่มต้น
 		$("#start-date-normal").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-start-date-normal").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#start-date-normal').datepicker("setDate", currentDate);
+
 
 		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
 		$("#end-date-normal").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-end-date-normal").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#end-date-normal').datepicker("setDate", currentDate);
-
 
 		$("#start-date-not").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-start-date-not").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#start-date-not').datepicker("setDate", currentDate);
+
 
 		// ใช้ datepicker กับ input ของวันที่สิ้นสุด
 		$("#end-date-not").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-end-date-not").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#end-date-not').datepicker("setDate", currentDate);
+
 	});
 
 	$("#nextpage2").click(function () {
@@ -995,20 +972,20 @@
 		var inputValuecaseex = $('#case-ex').val();
 		var inputValueresultP = $('#KWPPresultP-Sum').val();
 
-		var old_start_date_normal= $('#start-date-normal').val();
+		var old_start_date_normal = $('#start-date-normal').val();
 		var new_start_date_normal = convertDateFormat(old_start_date_normal);
 		var start_date_normal = new_start_date_normal;
 
-		var old_end_date_normal= $('#end-date-normal').val();
+		var old_end_date_normal = $('#end-date-normal').val();
 		var new_end_date_normal = convertDateFormat(old_end_date_normal);
 		var end_date_normal = new_end_date_normal;
 
-		var old_start_date_not= $('#start-date-not').val();
+		var old_start_date_not = $('#start-date-not').val();
 		var new_start_date_not = convertDateFormat(old_start_date_not);
 		var start_date_not = new_start_date_not;
 
 
-		var old_end_date_not= $('#end-date-not').val();
+		var old_end_date_not = $('#end-date-not').val();
 		var new_end_date_not = convertDateFormat(old_end_date_not);
 		var end_date_not = new_end_date_not;
 
@@ -1129,7 +1106,7 @@
 		var year = parts[2];
 
 		// เปลี่ยนปีจาก 2566 เป็น 2023
-		year = parseInt(year) - 543;
+		// year = parseInt(year) - 543;
 
 		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
 		var newDate = year + "-" + month + "-" + day;

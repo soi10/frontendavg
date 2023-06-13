@@ -140,7 +140,8 @@
 										</div>
 										<div class="col">
 											<div>
-												<button type="button" class="btn btn-success" id="showyearHoliday">แสดง</button>
+												<button type="button" class="btn btn-success"
+													id="showyearHoliday">แสดง</button>
 											</div>
 										</div>
 									</div>
@@ -241,24 +242,14 @@
 		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 		console.log(localStorage.getItem("Peacode").substring(0, 4))
 
-		$.datepicker.setDefaults($.datepicker.regional["th"]);
-		var currentDate = new Date();
-
-		currentDate.setYear(currentDate.getFullYear() + 543);
-		// Birth date
 		$("#dateHoliday").datepicker({
-			changeMonth: true,
-			changeYear: true,
-			yearRange: '+443:+543',
 			dateFormat: 'dd-mm-yy',
-			onSelect: function (date) {
-				$("#edit-dateHoliday").addClass('filled');
-			}
+			language: 'th',
+			thaiyear: true
 		});
-		$('#dateHoliday').datepicker("setDate", currentDate);
-
 
 		var yearHoliday = $("#yearNumber").val((new Date).getFullYear());
+		// console.log(yearHoliday.val());
 		$('#example').DataTable({
 			"ajax": {
 				"url": "http://172.21.1.60:442/holiday/get",
@@ -267,7 +258,7 @@
 				"contentType": "application/json",
 				"data": function (d) {
 					return JSON.stringify({
-						yearHoliday: yearHoliday,
+						yearHoliday: yearHoliday.val(),
 					});
 				}, "dataSrc": "",
 			},
@@ -329,7 +320,7 @@
 				}
 			},
 			error: function (error) {
-				console.error(error);
+				console.log(error);
 			}
 		});
 	});
@@ -449,19 +440,19 @@
 	})
 
 	function convertDateFormat(oldDate) {
-  // แยกวันที่ เดือน และปีออกจากกัน
-	var parts = oldDate.split("-");
-	var day = parts[0];
-	var month = parts[1];
-	var year = parts[2];
+		// แยกวันที่ เดือน และปีออกจากกัน
+		var parts = oldDate.split("-");
+		var day = parts[0];
+		var month = parts[1];
+		var year = parts[2];
 
-	// เปลี่ยนปีจาก 2566 เป็น 2023
-	year = parseInt(year) - 543;
+		// เปลี่ยนปีจาก 2566 เป็น 2023
+		// year = parseInt(year) - 543;
 
-	// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
-	var newDate = year + "-" + month + "-" + day;
+		// สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
+		var newDate = year + "-" + month + "-" + day;
 
-	// ส่งคืนวันที่ใหม่
-	return newDate;
+		// ส่งคืนวันที่ใหม่
+		return newDate;
 	}
 </script>
