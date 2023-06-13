@@ -638,11 +638,10 @@
 																style="text-align: right">
 														</div>
 														<div class="col-sm-1">
-															<input type="hidden" class="form-control" id="" disabled
-																style="text-align: right">
+															<b>รวมหน่วยฐาน</b>
 														</div>
 														<div class="col-sm-1">
-															<input type="hidden" class="form-control"
+															<input type="text" class="form-control"
 																id="sum-normal-final" disabled
 																style="text-align: right">
 														</div>
@@ -655,8 +654,7 @@
 																style="text-align: right">
 														</div>
 														<div class="col-sm-1">
-															<input type="hidden" class="form-control" id="" disabled
-																style="text-align: right">
+															<b>รวมหน่วยเฉลี่ย</b>
 														</div>
 														<div class="col-sm-3">
 															<input type="text" class="form-control"
@@ -950,16 +948,17 @@
 	// สร้าง array ของปี
 	var years = [];
 	var currentYear = new Date().getFullYear();
-	for (var i = 0; i < 5; i++) {
-		years.push(currentYear + i);
+	for (var i = 2; i >= 0; i--) {
+		years.push(currentYear - i);
 	}
+	years.push(currentYear)
 
 	// สร้าง options ของปี
 	var yearOptions = '';
 	for (var i = 0; i < years.length; i++) {
-		yearOptions += '<option value="' + years[i] + '">' + years[i] + '</option>';
+		var selected = (years[i] === currentYear) ? 'selected' : '';
+		yearOptions += '<option value="' + years[i] + '" ' + selected + '>' + years[i] + '</option>';
 	}
-
 	// กำหนด options ของปีให้กับ select list
 	$('#year').html(yearOptions);
 
