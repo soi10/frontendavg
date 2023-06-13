@@ -666,7 +666,8 @@
                                                     <div class="row ">
                                                         <div class="d-flex">
                                                             <div>
-                                                                <h6><span class="badge bg-danger">*หมายเหตุ*
+                                                                <h6><span class="badge"
+                                                                        style="background-color: #C7911B; color: white;">*หมายเหตุ*
                                                                         เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
                                                                         EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
                                                             </div>
@@ -773,7 +774,8 @@
                                                     <div class="row ">
                                                         <div class="d-flex">
                                                             <div>
-                                                                <h6><span class="badge bg-danger">*หมายเหตุ*
+                                                                <h6><span class="badge"
+                                                                        style="background-color: #C7911B; color: white;">*หมายเหตุ*
                                                                         กรณีเฉลี่ยจากสถิติในเดือนไม่ต้องดำเนินการเฉลี่ยกิโลวัตต์
                                                                         หรือสามารถนำกิโลวัตต์ช่วงปกติมาเฉลี่ยได้</span>
                                                                 </h6>
@@ -868,10 +870,10 @@
                 $("#month-sum").html(data[0].billing_Cycle);
                 $("#year-sum").html(data[0].year);
                 $("#case-sum").html(data[0].cause);
-                $("#start-date-normal").val(data[0].data_broken.normal_date_start);
-                $("#end-date-normal").val(data[0].data_broken.normal_date_end);
-                $("#start-date-not").val(data[0].data_broken.brok_date_start);
-                $("#end-date-not").val(data[0].data_broken.brok_date_end);
+                $("#start-date-normal").val(convertDateFormat(data[0].data_broken.normal_date_start));
+                $("#end-date-normal").val(convertDateFormat(data[0].data_broken.normal_date_end));
+                $("#start-date-not").val(convertDateFormat(data[0].data_broken.brok_date_start));
+                $("#end-date-not").val(convertDateFormat(data[0].data_broken.brok_date_end));
                 $("#caseex-sum").html(data[0].in_cause);
                 $("#KWPPAfter").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
                 $("#KWPPBefore").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
@@ -1250,7 +1252,7 @@
 
         var spanElement1 = document.getElementById("start_date_normal1");
         var normal_date_start1 = spanElement1.textContent
-        var normal_date_start1 = convertDateFormat(normal_date_start1);
+        var normal_date_start = convertDateFormat(normal_date_start1);
 
         var spanElement2 = document.getElementById("end-date-normal1");
         var normal_date_end1 = spanElement2.textContent
@@ -1262,7 +1264,7 @@
 
         var spanElement4 = document.getElementById("end-date-not1");
         var brok_date_end1 = spanElement4.textContent
-        var brok_date_start = convertDateFormat(brok_date_end1);
+        var brok_date_end = convertDateFormat(brok_date_end1);
 
         var p_normal = $("#p_normal").val();
         var op_normal = $("#op_normal").val();
