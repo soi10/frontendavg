@@ -135,7 +135,7 @@
 														<label for="formFile"
 															class="form-label">หมายเลขผู้ใช้ไฟฟ้า</label>
 														<input type="text" class="form-control" id="ca"
-															placeholder="0200xxxxx">
+															placeholder="2XXXXXXXXXX">
 													</div>
 												</div>
 												<div class="col-4">
@@ -152,8 +152,8 @@
 															class="form-label">ประเภทผู้ใช้ไฟฟ้า</label>
 														<select class="form-select mb-3" id="type-customer">
 															<option value="">--เลือกประเภทผู้ใช้ไฟฟ้า--</option>
-															<option value="รายใหญ่">-รายใหญ่</option>
-															<option value="รายย่อย">-รายย่อย</option>
+															<option value="ผู้ใช้ไฟรายใหญ่">ผู้ใช้ไฟรายใหญ่</option>
+															<option value="ผู้ใช้ไฟรายย่อย">ผู้ใช้ไฟรายย่อย</option>
 														</select>
 													</div>
 												</div>
@@ -921,6 +921,14 @@
 			document.getElementById('step1').style.display = "block";
 		}
 	}
+
+	const input = document.getElementById('ca');
+
+	input.addEventListener('input', function () {
+		if (input.value.length > 11) {
+			input.value = input.value.slice(0, 11);
+		}
+	});
 	// 
 	// กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
 	$.ajax({
