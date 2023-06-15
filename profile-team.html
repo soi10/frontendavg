@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="./static/img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+    <script src="./static/js/sweetalert2v10.js"></script>
+    <title>โปรแกรมเฉลี่ยหน่วยมิเตอร์ TOU</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <link href="./static/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/datepicker-th.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <style>
+        body {
+            font-family: 'Kanit';
+            font-size: 14px;
+        }
+    </style>
+    <!-- Styles -->
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+    <style>
+        #chartdiv1 {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" href="index.html">
+                    <img src="./src/img/logo.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="18%"
+                        height="18%" /><span class="align-middle"> EVEREST</span>
+                </a>
+
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">
+                        Pages
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="index.html">
+                            <i class="align-middle" data-feather="bar-chart-2"></i> <span
+                                class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="home.html">
+                            <i class="align-middle" data-feather="list"></i> <span
+                                class="align-middle">ข้อมูลการเฉลี่ยหน่วย</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="everest.html">
+                            <i class="align-middle" data-feather="sliders"></i> <span
+                                class="align-middle">ดำเนินการเฉลี่ยหน่วย</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="holiday.html">
+                            <i class="align-middle" data-feather="plus-square"></i> <span
+                                class="align-middle">เพิ่มวันหยุด</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">
+                        Document
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#">
+                            <i class="align-middle" data-feather="book-open"></i> <span
+                                class="align-middle">คู่มือการใช้งาน</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#">
+                            <i class="align-middle" data-feather="calendar"></i> <span
+                                class="align-middle">ดาวน์โหลดปฏิทิน TOU</span>
+                        </a>
+                    </li>
+                </ul>
+
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                                data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                data-bs-toggle="dropdown">
+                                <span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span>
+                                    <span id="BaName"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <span id="outer">
+                                    <a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content">
+                <div class="container-fluid p-0">
+                    <div id="page3" class="my-2">
+                        <div class="container-fluid p-0">
+
+                            <h1 class="h3 mb-3">Profile Team</h1>
+                            <div class="row">
+                                <div class="col-md-4 col-xl-3">
+                                    <div class="card mb-3">
+                                        <div class="card-body text-center">
+                                            <img src="./dist/img/photos/nad.png" alt="Christina Mason"
+                                                class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                            <h5 class="card-title mb-0">ยงยุทธ ชัยภา (นาถ)</h5>
+                                            <div class="text-muted mb-2">Software Developer</div>
+
+                                            <div>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;">Follow</a>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;"><span
+                                                        data-feather="message-square"></span> Message</a>
+                                            </div>
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">Skills</h5>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">HTML</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">JavaScript</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">PHP</a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">GO</a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">Docker</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">NextJS</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">NodeJS</a>
+
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">About</h5>
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="mb-1"><span data-feather="home"
+                                                        class="feather-sm me-1"></span> Lives in <a
+                                                        href="#">Ubonratchathani</a>
+                                                </li>
+
+                                                <li class="mb-1"><span data-feather="briefcase"
+                                                        class="feather-sm me-1"></span> Works at <a href="#">PEA
+                                                        Trakanphuetphon</a>
+                                                </li>
+                                                <li class="mb-1"><span data-feather="map-pin"
+                                                        class="feather-sm me-1"></span> From <a
+                                                        href="#">Ubonratchathani</a></li>
+                                            </ul>
+                                        </div>
+                                        <hr class="my-0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xl-3">
+                                    <div class="card mb-3">
+                                        <div class="card-body text-center">
+                                            <img src="./dist/img/photos/nong.png" alt="Christina Mason"
+                                                class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                            <h5 class="card-title mb-0">ชยพร มหานิติพงษ์ (โหน่ง)</h5>
+                                            <div class="text-muted mb-2">Software Developer</div>
+
+                                            <div>
+                                                <a class="btn btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;">Follow</a>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;"><span
+                                                        data-feather="message-square"></span> Message</a>
+                                            </div>
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">Skills</h5>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">HTML</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">JavaScript</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">PHP</a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">GO</a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">Docker</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">NextJS</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">NodeJS</a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;">VueJS</a>
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">About</h5>
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="mb-1"><span data-feather="home"
+                                                        class="feather-sm me-1"></span> Lives in <a
+                                                        href="#">Ubonratchathani</a>
+                                                </li>
+
+                                                <li class="mb-1"><span data-feather="briefcase"
+                                                        class="feather-sm me-1"></span> Works at <a href="#">PEA
+                                                        Ubonratchathani</a>
+                                                </li>
+                                                <li class="mb-1"><span data-feather="map-pin"
+                                                        class="feather-sm me-1"></span> From <a
+                                                        href="#">Ubonratchathani</a></li>
+                                            </ul>
+                                        </div>
+                                        <hr class="my-0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xl-3">
+                                    <div class="card mb-3">
+                                        <div class="card-body text-center">
+                                            <img src="./dist/img/photos/pik.png" alt="Christina Mason"
+                                                class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                            <h5 class="card-title mb-0">วรนุช รังษี (ปิกนิก)</h5>
+                                            <div class="text-muted mb-2">Project Owner & Solution Architect</div>
+
+                                            <div>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;">Follow</a>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;"><span
+                                                        data-feather="message-square"></span> Message</a>
+                                            </div>
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">Skills</h5>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">About</h5>
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="mb-1"><span data-feather="home"
+                                                        class="feather-sm me-1"></span> Lives in <a
+                                                        href="#">Ubonratchathani</a>
+                                                </li>
+
+                                                <li class="mb-1"><span data-feather="briefcase"
+                                                        class="feather-sm me-1"></span> Works at <a href="#">PEA
+                                                        Trakanphuetphon</a>
+                                                </li>
+                                                <li class="mb-1"><span data-feather="map-pin"
+                                                        class="feather-sm me-1"></span> From <a
+                                                        href="#">Ubonratchathani</a></li>
+                                            </ul>
+                                        </div>
+                                        <hr class="my-0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xl-3">
+                                    <div class="card mb-3">
+                                        <div class="card-body text-center">
+                                            <img src="./dist/img/photos/game.png" alt="Christina Mason"
+                                                class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                            <h5 class="card-title mb-0">ชญาณิศ อุปวรรณ (เกมส์)</h5>
+                                            <div class="text-muted mb-2">Test Engineer</div>
+
+                                            <div>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;">Follow</a>
+                                                <a class="btn  btn-sm" href="#"
+                                                    style=" background-color: #74045F; color: white;"><span
+                                                        data-feather="message-square"></span> Message</a>
+                                            </div>
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">Skills</h5>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+                                            <a href="#" class="badge  me-1 my-1"
+                                                style=" background-color: #74045F; color: white;"></a>
+
+                                        </div>
+                                        <hr class="my-0" />
+                                        <div class="card-body">
+                                            <h5 class="h6 card-title">About</h5>
+                                            <ul class="list-unstyled mb-0">
+                                                <li class="mb-1"><span data-feather="home"
+                                                        class="feather-sm me-1"></span> Lives in <a
+                                                        href="#">Ubonratchathani</a>
+                                                </li>
+
+                                                <li class="mb-1"><span data-feather="briefcase"
+                                                        class="feather-sm me-1"></span> Works at <a href="#">PEA
+                                                        Trakanphuetphon</a>
+                                                </li>
+                                                <li class="mb-1"><span data-feather="map-pin"
+                                                        class="feather-sm me-1"></span> From <a
+                                                        href="#">Ubonratchathani</a></li>
+                                            </ul>
+                                        </div>
+                                        <hr class="my-0" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End page3 -->
+                </div>
+
+            </main>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a href="#" class="text-muted"><strong>วัยรุ่นม่วงเดียด</strong></a>
+                                &copy;<strong>2023</strong>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Support</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Help Center</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Privacy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="profile-team.html">Terms</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script src="./static/js/app.js"></script>
+
+</body>
+
+</html>
+
+<!-- Chart code -->
+<script>
+    var hostname = "localhost";
+    $("#Name").html(localStorage.getItem("FullName"));
+    $("#BaName").html(localStorage.getItem("BaName"));
+    $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+    let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+    $.ajax({
+        url: "http://localhost:442/datadetail/all",
+        dataType: "json",
+        success: function (data1) {
+            am5.ready(function () {
+
+                // Create root element
+                // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                var root = am5.Root.new("chartdiv");
+
+
+                // Set themes
+                // https://www.amcharts.com/docs/v5/concepts/themes/
+                root.setThemes([
+                    am5themes_Animated.new(root)
+                ]);
+
+
+                // Create chart
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                    panX: true,
+                    panY: true,
+                    wheelX: "panX",
+                    wheelY: "zoomX",
+                    pinchZoomX: true
+                }));
+
+                // Add cursor
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+                var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+                cursor.lineY.set("visible", false);
+
+
+                // Create axes
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+                xRenderer.labels.template.setAll({
+                    rotation: -90,
+                    centerY: am5.p50,
+                    centerX: am5.p100,
+                    paddingRight: 15
+                });
+
+                xRenderer.grid.template.setAll({
+                    location: 1
+                })
+
+                var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                    maxDeviation: 0.3,
+                    categoryField: "month",
+                    renderer: xRenderer,
+                    tooltip: am5.Tooltip.new(root, {})
+                }));
+
+                var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                    maxDeviation: 0.3,
+                    renderer: am5xy.AxisRendererY.new(root, {
+                        strokeOpacity: 0.1
+                    })
+                }));
+
+
+                // Create series
+                // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                    name: "Series 1",
+                    xAxis: xAxis,
+                    yAxis: yAxis,
+                    valueYField: "value",
+                    sequencedInterpolation: true,
+                    categoryXField: "month",
+                    tooltip: am5.Tooltip.new(root, {
+                        labelText: "{valueY}"
+                    })
+                }));
+
+                series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+                series.columns.template.adapters.add("fill", function (fill, target) {
+                    return chart.get("colors").getIndex(series.columns.indexOf(target));
+                });
+
+                series.columns.template.adapters.add("stroke", function (stroke, target) {
+                    return chart.get("colors").getIndex(series.columns.indexOf(target));
+                });
+
+                // สร้างอาร์เรย์ของเดือนทั้ง 12 เดือน
+                const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+                // สร้างอาร์เรย์สำหรับเก็บข้อมูลกราฟ
+                const graphData = months.map(month => {
+                    const matchingData = data1.filter(item => item.billing_Cycle === month);
+                    const summedValue = matchingData.reduce((accumulator, currentValue) => {
+                        const value = currentValue.sum_to_sap_final ? parseFloat(currentValue.sum_to_sap_final.replace(/,/g, "")) : 0;
+                        return accumulator + value;
+                    }, 0);
+                    return {
+                        month: month,
+                        value: summedValue
+                    };
+                });
+                xAxis.data.setAll(graphData);
+                series.data.setAll(graphData);
+
+
+                // Make stuff animate on load
+                // https://www.amcharts.com/docs/v5/concepts/animations/
+                series.appear(1000);
+                chart.appear(1000, 100);
+
+            }); // end am5.ready()
+        }
+    });
+    $("#btnLogout").click(function (event) {
+        event.preventDefault();
+        localStorage.clear();
+        Swal.fire({
+            icon: "success",
+            title: "ออกจากระบบเรียบร้อย",
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "ตกลง",
+        }).then((response) => {
+            if (response.isConfirmed) {
+                window.location = "./sign-in.html";
+            }
+        });
+    })
+</script>
