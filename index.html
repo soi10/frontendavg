@@ -86,12 +86,7 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="holiday.html">
-                            <i class="align-middle" data-feather="plus-square"></i> <span
-                                class="align-middle">เพิ่มวันหยุด</span>
-                        </a>
-                    </li>
+                    <div id="LinkAdmin"></div>
                 </ul>
 
         </nav>
@@ -159,6 +154,46 @@
 
 <!-- Chart code -->
 <script>
+
+    var emp = localStorage.getItem("EmployeeId");
+    $.ajax({
+        url: "http://localhost:442/admin/get",
+        method: "POST",
+        data: {
+            adminCode: emp,
+        },
+        success: function (response) {
+            // console.log(response.message.code);
+            console.log(response.data.length);
+
+
+            var htmlAdmin = `<li class="sidebar-item active">
+						<a class="sidebar-link" href="holiday.html">
+							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+								off-peak</span>
+						</a>
+					</li>`
+
+            var htmlNormal = `<li class="sidebar-item active">
+						<a class="sidebar-link" href="holiday-normal.html">
+							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+								off-peak</span>
+						</a>
+					</li>`
+
+            if (response.data.length == 0) {
+                $('#LinkAdmin').append(htmlNormal);
+            } else {
+                $('#LinkAdmin').append(htmlAdmin);
+            }
+
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
     var hostname = "localhost";
     $("#Name").html(localStorage.getItem("FullName"));
     $("#BaName").html(localStorage.getItem("BaName"));

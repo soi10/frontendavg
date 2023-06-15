@@ -82,12 +82,7 @@
 						</a>
 					</li>
 
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span
-								class="align-middle">เพิ่มวันหยุด</span>
-						</a>
-					</li>
+					<div id="LinkAdmin"></div>
 				</ul>
 
 
@@ -125,7 +120,10 @@
 			<main class="content">
 				<div class="container-fluid p-0">
 					<div class="row">
-						<div class="my-2 text-end">
+						<div class="col">
+							<h2>ข้อมูลวัน Off-Peak ประจำปี ที่นอกจากวันเสาร์-อาทิตย์ตามปกติมีดีงนี้</h2>
+						</div>
+						<div class="col-2 my-2 text-end">
 							<button type="button" class="btn btn-success" data-bs-toggle="modal"
 								data-bs-target="#exampleModal">สร้างวันหยุด</button>
 						</div>
@@ -242,12 +240,50 @@
 
 <script>
 	$(document).ready(function () {
+
+		var emp = localStorage.getItem("EmployeeId");
+		$.ajax({
+			url: "http://localhost:442/admin/get",
+			method: "POST",
+			data: {
+				adminCode: emp,
+			},
+			success: function (response) {
+
+				var htmlAdmin = `<li class="sidebar-item active">
+						<a class="sidebar-link" href="holiday.html">
+							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+								off-peak</span>
+						</a>
+					</li>`
+
+				var htmlNormal = `<li class="sidebar-item active">
+						<a class="sidebar-link" href="holiday-normal.html">
+							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+								off-peak</span>
+						</a>
+					</li>`
+
+				if (response.data.length == 0) {
+					$('#LinkAdmin').append(htmlNormal);
+				} else {
+					$('#LinkAdmin').append(htmlAdmin);
+				}
+
+
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		});
+
+
 		var hostname = "localhost";
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
 		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
 		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-		console.log(localStorage.getItem("Peacode").substring(0, 4))
+		// console.log(localStorage.getItem("Peacode").substring(0, 4))
 
 		$("#dateHoliday").datepicker({
 			dateFormat: 'dd-mm-yy',
@@ -258,6 +294,7 @@
 		var yearHoliday = $("#yearNumber").val((new Date).getFullYear());
 		// console.log(yearHoliday.val());
 		$('#example').DataTable({
+			"pageLength": 50,
 			"ajax": {
 				"url": "http://localhost:442/holiday/get",
 				"dataSrc": "",
@@ -274,8 +311,7 @@
 				{
 					data: null,
 					render: function (data, type, row) {
-						var newDate = convertDateFormatYear(row.dateHoliday)
-						return '<div class="text-center">' + newDate + '</div>';
+						return '<div class="text-center">' + row.dateHoliday + '</div>';
 					}
 					, "className": "text-center",
 				},
@@ -307,7 +343,7 @@
 		var nameHoliday = $("#nameHoliday").val();
 		var yearHoliday = (new Date).getFullYear();
 		$.ajax({
-			url: "http://172.21.1.60:442/holiday/add",
+			url: "http://localhost:442/holiday/add",
 			method: "POST",
 			data: {
 				dateHoliday: dateHoliday,
@@ -346,7 +382,7 @@
 		// alert($(this).attr("value"));
 		$('#exampleModalEdit').modal('show');
 		$.ajax({
-			url: "http://172.21.1.60:442/holiday/getone",
+			url: "http://localhost:442/holiday/getone",
 			type: "POST",
 			data: {
 				"_id": $(this).attr("value"),
@@ -367,7 +403,7 @@
 		var nameHolidayEdit = $("#nameHolidayEdit").val();
 		var idClick = $("#idClick").val();
 		$.ajax({
-			url: "http://172.21.1.60:442/holiday/update",
+			url: "http://localhost:442/holiday/update",
 			method: "POST",
 			data: {
 				dateHoliday: dateHolidayEdit,
@@ -405,7 +441,7 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: "http://172.21.1.60:442/holiday/deleteone",
+					url: "http://localhost:442/holiday/deleteone",
 					type: "POST",
 					data: {
 						"_id": $(this).attr("value"),
@@ -421,9 +457,13 @@
 	$("#showyearHoliday").click(function () {
 		var yearHoliday = $("#yearNumber").val();
 
+		var table = $('#example').DataTable();
+		table.destroy();
+
 		$('#example').DataTable({
+			"pageLength": 50,
 			"ajax": {
-				"url": "http://172.21.1.60:442/holiday/get",
+				"url": "http://localhost:442/holiday/get",
 				"dataSrc": "",
 				"type": "POST",
 				"contentType": "application/json",
@@ -438,8 +478,7 @@
 				{
 					data: null,
 					render: function (data, type, row) {
-						var newDate = convertDateFormatYear(row.dateHoliday)
-						return '<div class="text-center">' + newDate + '</div>';
+						return '<div class="text-center">' + row.dateHoliday + '</div>';
 					}
 					, "className": "text-center",
 				},
