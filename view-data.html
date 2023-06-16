@@ -38,7 +38,7 @@
 
 <body>
 
-    <div id="page3" class="my-2">
+    <div id="normal" class="my-2">
         <div class="container-fluid p-0">
             <div class="row">
                 <div class="col d-flex justify-content-center">
@@ -54,10 +54,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h5>สาเหตุที่ดำเนินการเฉลี่ยหน่วยในรอบบิล เดือน <span id="month-sum"></span>
+                                            <h5>ข้อมูลการเฉลี่ยหน่วยการใช้ไฟฟ้า รอบบิล <span id="month-sum"></span>
                                                 ปี <span id="year-sum"></span>
-                                                เนื่องจาก <span id="case-sum"></span></h5>
-                                            <h5>เฉลี่ยกรณี - <span id="caseex-sum"></span></h5>
+                                            </h5>
+                                            <h5><span id="caseex-sum"></span> เนื่องจาก <span id="case-sum"></span></h5>
                                             <h5>ข้อมูลช่วงฐานจากวันที่ <span id="normal_date_start"></span> ถึง <span
                                                     id="normal_date_end"></span>
                                                 ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span id="brok_date_start"></span>
@@ -379,17 +379,550 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-        <!-- End page3 -->
     </div>
+    <!-- End normal -->
+
+    <div id="tranloss" class="my-2">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">คิดเพิ่ม Tran-Loss 2%</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>CA: <span id="ca-sum-tranloss"></span> ชื่อผู้ใช้ไฟฟ้า <span
+                                                    id="customer-sum-tranloss"></span></h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h5>ข้อมูลการเฉลี่ยหน่วยการใช้ไฟฟ้า รอบบิล <span
+                                                    id="month-sum-tranloss"></span>
+                                                ปี <span id="year-sum-tranloss"></span>
+                                            </h5>
+                                            <h5><span id="caseex-sum-tranloss"></span> เนื่องจาก <span
+                                                    id="case-sum-tranloss"></span></h5>
+                                            <h5>ข้อมูลช่วงฐานจากวันที่ <span id="normal_date_start-tranloss"></span> ถึง
+                                                <span id="normal_date_end-tranloss"></span>
+                                                ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
+                                                    id="brok_date_start-tranloss"></span>
+                                                ถึง <span id="brok_date_end-tranloss"></span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        &nbsp;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <b>หน่วยการใช้ไฟ</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            หน่วยฐาน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            วันที่ปกติ
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เฉลี่ยต่อวัน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            วันที่ชำรุด
+                                        </div>
+                                        <div class="col-sm-3">
+                                            หน่วยเฉลี่ยช่วงที่ชำรุด*นำไปลงในระบบ SAP
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-P
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPmultiplier-tranloss"
+                                                disabled onkeyup="CalKWPP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPresultP-Sum-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPAvg-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                id="KWPPresult-workDay-notP-Sum-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPPavg-unit-tosap-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-OP
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPmultiplier-tranloss"
+                                                disabled onkeyup="CalKWPOP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPresultP-Sum-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPAvg-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                id="KWPOPresult-workDay-notP-Sum-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPOPavg-unit-tosap-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-H
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHmultiplier-tranloss"
+                                                disabled onkeyup="CalKWPH()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHresultP-Sum-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHAvg-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                id="KWPHresult-workDay-notP-Sum-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPHavg-unit-tosap-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <b>รวมหน่วยฐาน</b>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="sum-normal-final-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="-Sum" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <b>รวมหน่วยเฉลี่ย</b>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="sum-to-sap-final-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row ">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h6><span class="badge" style=" background-color: #C7911B; color:
+                                                        white;">*หมายเหตุ*
+                                                        เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
+                                                        EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class=" row">
+                                        <div class="col-sm-12">
+                                            <b>กิโลวัตต์ หน่วยการใช้ไฟ</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            กิโลวัตต์
+                                        </div>
+                                        <div class="col-sm-1">
+                                            กิโลวัตต์ช่วงปกติ
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-P
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPmultiplier-tranloss"
+                                                disabled onkeyup="" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPUnitNormol-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-OP
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPmultiplier-tranloss"
+                                                disabled onkeyup="" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPUnitNormol-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            หมายเหตุ
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <textarea class="form-control" id="comment-tranloss" rows="2"
+                                                disabled></textarea>
+                                            <!-- <input type="text" class="form-control" id="comment"> -->
+                                        </div>
+
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-H
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHmultiplier-tranloss"
+                                                disabled onkeyup="" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHUnitNormol-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            พนักงานบันทึกข้อมูล : <span id="user-tranloss"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End tranloss -->
+
+    <div id="not-tranloss" class="my-2">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">ไม่มี Tranloss 2%</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4>CA: <span id="ca-sum-not-tranloss"></span> ชื่อผู้ใช้ไฟฟ้า <span
+                                                    id="customer-sum-not-tranloss"></span></h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h5>ข้อมูลการเฉลี่ยหน่วยการใช้ไฟฟ้า รอบบิล <span
+                                                    id="month-sum-not-tranloss"></span>
+                                                ปี <span id="year-sum-not-tranloss"></span>
+                                            </h5>
+                                            <h5><span id="caseex-sum-not-tranloss"></span> เนื่องจาก <span
+                                                    id="case-sum-not-tranloss"></span></h5>
+                                            <h5>ข้อมูลช่วงฐานจากวันที่ <span id="normal_date_start-not-tranloss"></span>
+                                                ถึง
+                                                <span id="normal_date_end-not-tranloss"></span>
+                                                ข้อมูลช่วงชำรุดวันที่ &nbsp;&nbsp;<span
+                                                    id="brok_date_start-not-tranloss"></span>
+                                                ถึง <span id="brok_date_end-not-tranloss"></span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        &nbsp;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <b>หน่วยการใช้ไฟ</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            หน่วยฐาน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            วันที่ปกติ
+                                        </div>
+                                        <div class="col-sm-1">
+                                            เฉลี่ยต่อวัน
+                                        </div>
+                                        <div class="col-sm-1">
+                                            วันที่ชำรุด
+                                        </div>
+                                        <div class="col-sm-3">
+                                            หน่วยเฉลี่ยช่วงที่ชำรุด*นำไปลงในระบบ SAP
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-P
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPmultiplier-not-tranloss"
+                                                disabled onkeyup="CalKWPP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPresultP-Sum-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPPAvg-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                id="KWPPresult-workDay-notP-Sum-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPPavg-unit-tosap-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-OP
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPmultiplier-not-tranloss"
+                                                disabled onkeyup="CalKWPOP()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPresultP-Sum-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPOPAvg-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                id="KWPOPresult-workDay-notP-Sum-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control"
+                                                id="KWPOPavg-unit-tosap-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            kWh-H
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHmultiplier-not-tranloss"
+                                                disabled onkeyup="CalKWPH()" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHresultP-Sum-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KWPHAvg-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control"
+                                                id="KWPHresult-workDay-notP-Sum-not-tranloss" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="KWPHavg-unit-tosap-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <b>รวมหน่วยฐาน</b>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="sum-normal-final-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="-Sum" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control" id="" disabled
+                                                style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <b>รวมหน่วยเฉลี่ย</b>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="sum-to-sap-final-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row ">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h6><span class="badge" style=" background-color: #C7911B; color:
+                                                        white;">*หมายเหตุ*
+                                                        เฉลี่ยหน่วยโดยไม่บวกหน่วยสูญเสีย 2% เพราะลงใน
+                                                        EL29 ให้ระบบ SAP คำนวนเอง</span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class=" row">
+                                        <div class="col-sm-12">
+                                            <b>กิโลวัตต์ หน่วยการใช้ไฟ</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            กิโลวัตต์
+                                        </div>
+                                        <div class="col-sm-1">
+                                            กิโลวัตต์ช่วงปกติ
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-P
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPmultiplier-not-tranloss"
+                                                disabled onkeyup="" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPPUnitNormol-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-OP
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPmultiplier-not-tranloss"
+                                                disabled onkeyup="" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPOPUnitNormol-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            หมายเหตุ
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <textarea class="form-control" id="comment-not-tranloss" rows="2"
+                                                disabled></textarea>
+                                            <!-- <input type="text" class="form-control" id="comment"> -->
+                                        </div>
+
+
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            KWP-H
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHmultiplier-not-tranloss"
+                                                disabled onkeyup="" style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" id="KKWPHUnitNormol-not-tranloss"
+                                                disabled style="text-align: right">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            พนักงานบันทึกข้อมูล : <span id="user-not-tranloss"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End not tranloss -->
     <script src="./static/js/app.js"></script>
 
 </body>
 
 </html>
 <script>
+    $("#normal").hide();
+    $("#tranloss").hide();
+    $("#not-tranloss").hide();
+    function convertDateFormat(oldDate) {
+        // แยกวันที่ เดือน และปีออกจากกัน
+        var parts = oldDate.split("-");
+        var day = parts[0];
+        var month = parts[1];
+        var year = parts[2];
+
+        // เปลี่ยนปีจาก 2566 เป็น 2023
+        // year = parseInt(year) - 543;
+
+        // สร้างวันที่ใหม่ในรูปแบบ "yyyy-mm-dd"
+        var newDate = year + "-" + month + "-" + day;
+
+        // ส่งคืนวันที่ใหม่
+        return newDate;
+    }
     $(document).ready(function () {
         var hostname = '172.21.1.60';
         var getUrlParameter = function getUrlParameter(sParam) {
@@ -417,57 +950,172 @@
             },
             success: function (data) {
                 //console.log(data[0].unit_use.kwh_op)
-                console.log(data[0].kwh_unit.kwh_op)
-                $("#ca-sum").html(data[0].ca_no);
-                $("#customer-sum").html(data[0].name_customer);
-                $("#month-sum").html(data[0].billing_Cycle);
-                $("#year-sum").html(data[0].year);
-                $("#case-sum").html(data[0].cause);
-                $("#caseex-sum").html(data[0].in_cause);
-                $("#normal_date_start").html(data[0].data_broken.normal_date_start);
-                $("#normal_date_end").html(data[0].data_broken.normal_date_end);
-                $("#brok_date_start").html(data[0].data_broken.brok_date_start);
-                $("#brok_date_end").html(data[0].data_broken.brok_date_end);
-                $("#KWPPAfter").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
-                $("#KWPPBefore").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
-                $("#KWPPmultiplier").val(data[0].unit_use.kwh_p.multiplier_kwh_p);
-                $("#KWPPUnitNormol").val(data[0].unit_use.kwh_p.unit_normal_kwh_p);
-                $("#KWPPresultP-Sum").val(data[0].unit_use.kwh_p.date_normal_kwh_p);
-                $("#KWPPAvg").val(data[0].unit_use.kwh_p.avg_date_kwh_p);
-                $("#KWPPresult-workDay-notP-Sum").val(data[0].unit_use.kwh_p.date_brok_kwh_p);
-                $("#KWPPavg-unit-tosap").val(data[0].unit_use.kwh_p.unit_avg_to_sap_kwh_p);
-                $("#KWPOPAfter").val(data[0].unit_use.kwh_op.unit_read_after_kwh_op);
-                $("#KWPOPBefore").val(data[0].unit_use.kwh_op.unit_read_before_kwh_op);
-                $("#KWPOPmultiplier").val(data[0].unit_use.kwh_op.multiplier_kwh_op);
-                $("#KWPOPUnitNormol").val(data[0].unit_use.kwh_op.unit_normal_kwh_op);
-                $("#KWPOPresultP-Sum").val(data[0].unit_use.kwh_op.date_normal_kwh_op);
-                $("#KWPOPAvg").val(data[0].unit_use.kwh_op.avg_date_kwh_op);
-                $("#KWPOPresult-workDay-notP-Sum").val(data[0].unit_use.kwh_op.date_brok_kwh_op);
-                $("#KWPOPavg-unit-tosap").val(data[0].unit_use.kwh_op.unit_avg_to_sap_kwh_op);
-                $("#KWPHAfter").val(data[0].unit_use.kwh_h.unit_read_after_kwh_h);
-                $("#KWPHBefore").val(data[0].unit_use.kwh_h.unit_read_before_kwh_h);
-                $("#KWPHmultiplier").val(data[0].unit_use.kwh_h.multiplier_kwh_h);
-                $("#KWPHUnitNormol").val(data[0].unit_use.kwh_h.unit_normal_kwh_h);
-                $("#KWPHresultP-Sum").val(data[0].unit_use.kwh_h.date_normal_kwh_h);
-                $("#KWPHAvg").val(data[0].unit_use.kwh_h.avg_date_kwh_h);
-                $("#KWPHresult-workDay-notP-Sum").val(data[0].unit_use.kwh_h.date_brok_kwh_h);
-                $("#KWPHavg-unit-tosap").val(data[0].unit_use.kwh_h.unit_avg_to_sap_kwh_h);
-                $("#KKWPPAfter").val(data[0].kwh_unit.kwh_p.unit_read_after_unit_kwh_p);
-                $("#KKWPPBefore").val(data[0].kwh_unit.kwh_p.unit_read_before_unit_kwh_p);
-                $("#KKWPPmultiplier").val(data[0].kwh_unit.kwh_p.multiplier_unit_kwh_p);
-                $("#KKWPPUnitNormol").val(data[0].kwh_unit.kwh_p.kwh_normal_unit_kwh_p);
-                $("#KKWPOPAfter").val(data[0].kwh_unit.kwh_op.unit_read_after_unit_kwh_op);
-                $("#KKWPOPBefore").val(data[0].kwh_unit.kwh_op.unit_read_before_unit_kwh_op);
-                $("#KKWPOPmultiplier").val(data[0].kwh_unit.kwh_op.multiplier_unit_kwh_op);
-                $("#KKWPOPUnitNormol").val(data[0].kwh_unit.kwh_op.kwh_normal_unit_kwh_op);
-                $("#KKWPHAfter").val(data[0].kwh_unit.kwh_h.unit_read_after_unit_kwh_h);
-                $("#KKWPHBefore").val(data[0].kwh_unit.kwh_h.unit_read_before_unit_kwh_h);
-                $("#KKWPHmultiplier").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
-                $("#KKWPHUnitNormol").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
-                $("#user").html(data[0].user);
-                $("#sum-normal-final").val(data[0].sum_normal_final);
-                $("#sum-to-sap-final").val(data[0].sum_to_sap_final);
-                $("#comment").html(data[0].comment);
+                console.log(data[0].case_tranloss)
+                if (data[0].case_tranloss == undefined) {
+                    $("#normal").show();
+                    $("#tranloss").hide();
+                    $("#not-tranloss").hide();
+                    $("#ca-sum").html(data[0].ca_no);
+                    $("#customer-sum").html(data[0].name_customer);
+                    $("#month-sum").html(data[0].billing_Cycle);
+                    $("#year-sum").html(data[0].year);
+                    $("#case-sum").html(data[0].cause);
+                    $("#caseex-sum").html(data[0].in_cause);
+                    $("#normal_date_start").html(convertDateFormat(data[0].data_broken.normal_date_start));
+                    $("#normal_date_end").html(convertDateFormat(data[0].data_broken.normal_date_end));
+                    $("#brok_date_start").html(convertDateFormat(data[0].data_broken.brok_date_start));
+                    $("#brok_date_end").html(convertDateFormat(data[0].data_broken.brok_date_end));
+                    $("#KWPPAfter").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
+                    $("#KWPPBefore").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
+                    $("#KWPPmultiplier").val(data[0].unit_use.kwh_p.multiplier_kwh_p);
+                    $("#KWPPUnitNormol").val(data[0].unit_use.kwh_p.unit_normal_kwh_p);
+                    $("#KWPPresultP-Sum").val(data[0].unit_use.kwh_p.date_normal_kwh_p);
+                    $("#KWPPAvg").val(data[0].unit_use.kwh_p.avg_date_kwh_p);
+                    $("#KWPPresult-workDay-notP-Sum").val(data[0].unit_use.kwh_p.date_brok_kwh_p);
+                    $("#KWPPavg-unit-tosap").val(data[0].unit_use.kwh_p.unit_avg_to_sap_kwh_p);
+                    $("#KWPOPAfter").val(data[0].unit_use.kwh_op.unit_read_after_kwh_op);
+                    $("#KWPOPBefore").val(data[0].unit_use.kwh_op.unit_read_before_kwh_op);
+                    $("#KWPOPmultiplier").val(data[0].unit_use.kwh_op.multiplier_kwh_op);
+                    $("#KWPOPUnitNormol").val(data[0].unit_use.kwh_op.unit_normal_kwh_op);
+                    $("#KWPOPresultP-Sum").val(data[0].unit_use.kwh_op.date_normal_kwh_op);
+                    $("#KWPOPAvg").val(data[0].unit_use.kwh_op.avg_date_kwh_op);
+                    $("#KWPOPresult-workDay-notP-Sum").val(data[0].unit_use.kwh_op.date_brok_kwh_op);
+                    $("#KWPOPavg-unit-tosap").val(data[0].unit_use.kwh_op.unit_avg_to_sap_kwh_op);
+                    $("#KWPHAfter").val(data[0].unit_use.kwh_h.unit_read_after_kwh_h);
+                    $("#KWPHBefore").val(data[0].unit_use.kwh_h.unit_read_before_kwh_h);
+                    $("#KWPHmultiplier").val(data[0].unit_use.kwh_h.multiplier_kwh_h);
+                    $("#KWPHUnitNormol").val(data[0].unit_use.kwh_h.unit_normal_kwh_h);
+                    $("#KWPHresultP-Sum").val(data[0].unit_use.kwh_h.date_normal_kwh_h);
+                    $("#KWPHAvg").val(data[0].unit_use.kwh_h.avg_date_kwh_h);
+                    $("#KWPHresult-workDay-notP-Sum").val(data[0].unit_use.kwh_h.date_brok_kwh_h);
+                    $("#KWPHavg-unit-tosap").val(data[0].unit_use.kwh_h.unit_avg_to_sap_kwh_h);
+                    $("#KKWPPAfter").val(data[0].kwh_unit.kwh_p.unit_read_after_unit_kwh_p);
+                    $("#KKWPPBefore").val(data[0].kwh_unit.kwh_p.unit_read_before_unit_kwh_p);
+                    $("#KKWPPmultiplier").val(data[0].kwh_unit.kwh_p.multiplier_unit_kwh_p);
+                    $("#KKWPPUnitNormol").val(data[0].kwh_unit.kwh_p.kwh_normal_unit_kwh_p);
+                    $("#KKWPOPAfter").val(data[0].kwh_unit.kwh_op.unit_read_after_unit_kwh_op);
+                    $("#KKWPOPBefore").val(data[0].kwh_unit.kwh_op.unit_read_before_unit_kwh_op);
+                    $("#KKWPOPmultiplier").val(data[0].kwh_unit.kwh_op.multiplier_unit_kwh_op);
+                    $("#KKWPOPUnitNormol").val(data[0].kwh_unit.kwh_op.kwh_normal_unit_kwh_op);
+                    $("#KKWPHAfter").val(data[0].kwh_unit.kwh_h.unit_read_after_unit_kwh_h);
+                    $("#KKWPHBefore").val(data[0].kwh_unit.kwh_h.unit_read_before_unit_kwh_h);
+                    $("#KKWPHmultiplier").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
+                    $("#KKWPHUnitNormol").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
+                    $("#user").html(data[0].user);
+                    $("#sum-normal-final").val(data[0].sum_normal_final);
+                    $("#sum-to-sap-final").val(data[0].sum_to_sap_final);
+                    $("#comment").html(data[0].comment);
+                } else if (data[0].case_tranloss == 'คิดเพิ่ม Tranloss 2%') {
+                    $("#normal").hide();
+                    $("#tranloss").show();
+                    $("#not-tranloss").hide();
+                    $("#ca-sum-tranloss").html(data[0].ca_no);
+                    $("#customer-sum-tranloss").html(data[0].name_customer);
+                    $("#month-sum-tranloss").html(data[0].billing_Cycle);
+                    $("#year-sum-tranloss").html(data[0].year);
+                    $("#case-sum-tranloss").html(data[0].cause);
+                    $("#caseex-sum-tranloss").html(data[0].in_cause);
+                    $("#normal_date_start-tranloss").html(convertDateFormat(data[0].data_broken.normal_date_start));
+                    $("#normal_date_end-tranloss").html(convertDateFormat(data[0].data_broken.normal_date_end));
+                    $("#brok_date_start-tranloss").html(convertDateFormat(data[0].data_broken.brok_date_start));
+                    $("#brok_date_end-tranloss").html(convertDateFormat(data[0].data_broken.brok_date_end));
+                    $("#KWPPAfter-tranloss").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
+                    $("#KWPPBefore-tranloss").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
+                    $("#KWPPmultiplier-tranloss").val(data[0].unit_use.kwh_p.multiplier_kwh_p);
+                    $("#KWPPUnitNormo-tranloss").val(data[0].unit_use.kwh_p.unit_normal_kwh_p);
+                    $("#KWPPresultP-Sum-tranloss").val(data[0].unit_use.kwh_p.date_normal_kwh_p);
+                    $("#KWPPAvg-tranloss").val(data[0].unit_use.kwh_p.avg_date_kwh_p);
+                    $("#KWPPresult-workDay-notP-Sum-tranloss").val(data[0].unit_use.kwh_p.date_brok_kwh_p);
+                    $("#KWPPavg-unit-tosap-tranloss").val(data[0].unit_use.kwh_p.unit_avg_to_sap_kwh_p);
+                    $("#KWPOPAfter-tranloss").val(data[0].unit_use.kwh_op.unit_read_after_kwh_op);
+                    $("#KWPOPBefore-tranloss").val(data[0].unit_use.kwh_op.unit_read_before_kwh_op);
+                    $("#KWPOPmultiplier-tranloss").val(data[0].unit_use.kwh_op.multiplier_kwh_op);
+                    $("#KWPOPUnitNormol-tranloss").val(data[0].unit_use.kwh_op.unit_normal_kwh_op);
+                    $("#KWPOPresultP-Sum-tranloss").val(data[0].unit_use.kwh_op.date_normal_kwh_op);
+                    $("#KWPOPAvg-tranloss").val(data[0].unit_use.kwh_op.avg_date_kwh_op);
+                    $("#KWPOPresult-workDay-notP-Sum-tranloss").val(data[0].unit_use.kwh_op.date_brok_kwh_op);
+                    $("#KWPOPavg-unit-tosap-tranloss").val(data[0].unit_use.kwh_op.unit_avg_to_sap_kwh_op);
+                    $("#KWPHAfter-tranloss").val(data[0].unit_use.kwh_h.unit_read_after_kwh_h);
+                    $("#KWPHBefore-tranloss").val(data[0].unit_use.kwh_h.unit_read_before_kwh_h);
+                    $("#KWPHmultiplier-tranloss").val(data[0].unit_use.kwh_h.multiplier_kwh_h);
+                    $("#KWPHUnitNormol-tranloss").val(data[0].unit_use.kwh_h.unit_normal_kwh_h);
+                    $("#KWPHresultP-Sum-tranloss").val(data[0].unit_use.kwh_h.date_normal_kwh_h);
+                    $("#KWPHAvg-tranloss").val(data[0].unit_use.kwh_h.avg_date_kwh_h);
+                    $("#KWPHresult-workDay-notP-Sum-tranloss").val(data[0].unit_use.kwh_h.date_brok_kwh_h);
+                    $("#KWPHavg-unit-tosap-tranloss").val(data[0].unit_use.kwh_h.unit_avg_to_sap_kwh_h);
+                    $("#KKWPPAfter-tranloss").val(data[0].kwh_unit.kwh_p.unit_read_after_unit_kwh_p);
+                    $("#KKWPPBefore-tranloss").val(data[0].kwh_unit.kwh_p.unit_read_before_unit_kwh_p);
+                    $("#KKWPPmultiplier-tranloss").val(data[0].kwh_unit.kwh_p.multiplier_unit_kwh_p);
+                    $("#KKWPPUnitNormol-tranloss").val(data[0].kwh_unit.kwh_p.kwh_normal_unit_kwh_p);
+                    $("#KKWPOPAfter-tranloss").val(data[0].kwh_unit.kwh_op.unit_read_after_unit_kwh_op);
+                    $("#KKWPOPBefore-tranloss").val(data[0].kwh_unit.kwh_op.unit_read_before_unit_kwh_op);
+                    $("#KKWPOPmultiplier-tranloss").val(data[0].kwh_unit.kwh_op.multiplier_unit_kwh_op);
+                    $("#KKWPOPUnitNormol-tranloss").val(data[0].kwh_unit.kwh_op.kwh_normal_unit_kwh_op);
+                    $("#KKWPHAfter-tranloss").val(data[0].kwh_unit.kwh_h.unit_read_after_unit_kwh_h);
+                    $("#KKWPHBefore-tranloss").val(data[0].kwh_unit.kwh_h.unit_read_before_unit_kwh_h);
+                    $("#KKWPHmultiplier-tranloss").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
+                    $("#KKWPHUnitNormol-tranloss").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
+                    $("#user-tranloss").html(data[0].user);
+                    $("#sum-normal-final-tranloss").val(data[0].sum_normal_final);
+                    $("#sum-to-sap-final-tranloss").val(data[0].sum_to_sap_final);
+                    $("#comment-tranloss").html(data[0].comment);
+                }
+                else if (data[0].case_tranloss == 'ไม่มี Tranloss 2%') {
+                    $("#normal").hide();
+                    $("#tranloss").hide();
+                    $("#not-tranloss").show();
+                    $("#ca-sum-not-tranloss").html(data[0].ca_no);
+                    $("#customer-sum-not-tranloss").html(data[0].name_customer);
+                    $("#month-sum-not-tranloss").html(data[0].billing_Cycle);
+                    $("#year-sum-not-tranloss").html(data[0].year);
+                    $("#case-sum-not-tranloss").html(data[0].cause);
+                    $("#caseex-sum-not-tranloss").html(data[0].in_cause);
+                    $("#normal_date_start-not-tranloss").html(convertDateFormat(data[0].data_broken.normal_date_start));
+                    $("#normal_date_end-not-tranloss").html(convertDateFormat(data[0].data_broken.normal_date_end));
+                    $("#brok_date_start-not-tranloss").html(convertDateFormat(data[0].data_broken.brok_date_start));
+                    $("#brok_date_end-not-tranloss").html(convertDateFormat(data[0].data_broken.brok_date_end));
+                    $("#KWPPAfter-not-tranloss").val(data[0].unit_use.kwh_p.unit_read_after_kwh_p);
+                    $("#KWPPBefore-not-tranloss").val(data[0].unit_use.kwh_p.unit_read_before_kwh_p);
+                    $("#KWPPmultiplier-not-tranloss").val(data[0].unit_use.kwh_p.multiplier_kwh_p);
+                    $("#KWPPUnitNormo-not-tranloss").val(data[0].unit_use.kwh_p.unit_normal_kwh_p);
+                    $("#KWPPresultP-Sum-not-tranloss").val(data[0].unit_use.kwh_p.date_normal_kwh_p);
+                    $("#KWPPAvg-not-tranloss").val(data[0].unit_use.kwh_p.avg_date_kwh_p);
+                    $("#KWPPresult-workDay-notP-Sum-not-tranloss").val(data[0].unit_use.kwh_p.date_brok_kwh_p);
+                    $("#KWPPavg-unit-tosap-not-tranloss").val(data[0].unit_use.kwh_p.unit_avg_to_sap_kwh_p);
+                    $("#KWPOPAfter-not-tranloss").val(data[0].unit_use.kwh_op.unit_read_after_kwh_op);
+                    $("#KWPOPBefore-not-tranloss").val(data[0].unit_use.kwh_op.unit_read_before_kwh_op);
+                    $("#KWPOPmultiplier-not-tranloss").val(data[0].unit_use.kwh_op.multiplier_kwh_op);
+                    $("#KWPOPUnitNormol-not-tranloss").val(data[0].unit_use.kwh_op.unit_normal_kwh_op);
+                    $("#KWPOPresultP-Sum-not-tranloss").val(data[0].unit_use.kwh_op.date_normal_kwh_op);
+                    $("#KWPOPAvg-not-tranloss").val(data[0].unit_use.kwh_op.avg_date_kwh_op);
+                    $("#KWPOPresult-workDay-notP-Sum-not-tranloss").val(data[0].unit_use.kwh_op.date_brok_kwh_op);
+                    $("#KWPOPavg-unit-tosap-not-tranloss").val(data[0].unit_use.kwh_op.unit_avg_to_sap_kwh_op);
+                    $("#KWPHAfter-not-tranloss").val(data[0].unit_use.kwh_h.unit_read_after_kwh_h);
+                    $("#KWPHBefore-not-tranloss").val(data[0].unit_use.kwh_h.unit_read_before_kwh_h);
+                    $("#KWPHmultiplier-not-tranloss").val(data[0].unit_use.kwh_h.multiplier_kwh_h);
+                    $("#KWPHUnitNormol-not-tranloss").val(data[0].unit_use.kwh_h.unit_normal_kwh_h);
+                    $("#KWPHresultP-Sum-not-tranloss").val(data[0].unit_use.kwh_h.date_normal_kwh_h);
+                    $("#KWPHAvg-not-tranloss").val(data[0].unit_use.kwh_h.avg_date_kwh_h);
+                    $("#KWPHresult-workDay-notP-Sum-not-tranloss").val(data[0].unit_use.kwh_h.date_brok_kwh_h);
+                    $("#KWPHavg-unit-tosap-not-tranloss").val(data[0].unit_use.kwh_h.unit_avg_to_sap_kwh_h);
+                    $("#KKWPPAfter-not-tranloss").val(data[0].kwh_unit.kwh_p.unit_read_after_unit_kwh_p);
+                    $("#KKWPPBefore-not-tranloss").val(data[0].kwh_unit.kwh_p.unit_read_before_unit_kwh_p);
+                    $("#KKWPPmultiplier-not-tranloss").val(data[0].kwh_unit.kwh_p.multiplier_unit_kwh_p);
+                    $("#KKWPPUnitNormol-not-tranloss").val(data[0].kwh_unit.kwh_p.kwh_normal_unit_kwh_p);
+                    $("#KKWPOPAfter-not-tranloss").val(data[0].kwh_unit.kwh_op.unit_read_after_unit_kwh_op);
+                    $("#KKWPOPBefore-not-tranloss").val(data[0].kwh_unit.kwh_op.unit_read_before_unit_kwh_op);
+                    $("#KKWPOPmultiplier-not-tranloss").val(data[0].kwh_unit.kwh_op.multiplier_unit_kwh_op);
+                    $("#KKWPOPUnitNormol-not-tranloss").val(data[0].kwh_unit.kwh_op.kwh_normal_unit_kwh_op);
+                    $("#KKWPHAfter-not-tranloss").val(data[0].kwh_unit.kwh_h.unit_read_after_unit_kwh_h);
+                    $("#KKWPHBefore-not-tranloss").val(data[0].kwh_unit.kwh_h.unit_read_before_unit_kwh_h);
+                    $("#KKWPHmultiplier-not-tranloss").val(data[0].kwh_unit.kwh_h.multiplier_unit_kwh_h);
+                    $("#KKWPHUnitNormol-not-tranloss").val(data[0].kwh_unit.kwh_h.kwh_normal_unit_kwh_h);
+                    $("#user-not-tranloss").html(data[0].user);
+                    $("#sum-normal-final-not-tranloss").val(data[0].sum_normal_final);
+                    $("#sum-to-sap-final-not-tranloss").val(data[0].sum_to_sap_final);
+                    $("#comment-not-tranloss").html(data[0].comment);
+                }
+
             },
             error: function (data) {
 
