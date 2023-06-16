@@ -124,6 +124,7 @@
 												<th class="text-center">รอบบิล</th>
 												<th class="text-center">รวมเฉลี่ย (หน่วย)</th>
 												<th class="text-center">ดูข้อมูล</th>
+												<th class="text-center">PDF</th>
 												<th class="text-center">แก้ไข</th>
 												<th class="text-center">ลบ</th>
 											</tr>
@@ -251,6 +252,13 @@
 					"bSortable": false,
 					"mRender": function (data, type, full) {
 						return '<a class="btn btn-info btn-sm" href=view-data.html?id=' + data + ' target="_blank">' + 'View' + '</a>';
+					}
+				},
+				{
+					"data": "_id",
+					"bSortable": false,
+					"mRender": function (data, type, full) {
+						return '<a class="btn btn-primary btn-sm" href=genpdf/index.php?id=' + data + ' target="_blank">' + 'PDF' + '</a>';
 					}
 				},
 				{

@@ -13,7 +13,35 @@ $mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp',
                 'BI' => "THSarabunNewBoldItalic.ttf",
             ]
         ],
+      'mode' => 'utf-8',
+      'format' => 'A4',
+      'margin_left' => 25,
+      'margin_right' => 20,
+      'margin_top' => 15,
+      'margin_bottom' => 15,
+      'margin_header' => 0,
+      'margin_footer' => 0,
 ]);
+$id = $_GET['id'];
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://localhost:442/datadetail/id?id=' . $id . '',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+$data = json_decode($response, true);
+//echo "peacode: " . $data[0]['peacode'] . "<br>";
 
 $head = '
 <!DOCTYPE html>
@@ -42,7 +70,7 @@ table {
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 5px;
+  padding: 1px;
   width: 50%;
 }
 
@@ -63,13 +91,62 @@ td, th {
     <td>วันที่</td>
   </tr>
   <tr>
-    <td>เรื่อง รายงานผลการตรวจสอบและเฉลี่ยหน่วย ราย </td>
+    <td colspan="2">เรื่อง&nbsp;&nbsp;&nbsp;&nbsp;รายงานผลการตรวจสอบและเฉลี่ยหน่วย ราย '.$data[0]['name_customer'].' ('.$data[0]['ca_no'].')</td>
+  </tr>
+  <tr>
+    <td>เรียน&nbsp;&nbsp;&nbsp;&nbsp;ผจก</td>
     <td></td>
   </tr>
   <tr>
-    <td>เรียน  ผจก</td>
-    <td></td>
+  <td></td>
   </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;พบช.ตรวจสอบหน่วย ได้ดำเนินการตรวจสอบหน่วยการใช้ไฟฟ้า ราย '.$data[0]['name_customer'].' ('.$data[0]['ca_no'].') ในรอบบิล '.$data[0]['billing_Cycle'].' '.$data[0]['year'].' พบว่ามิเตอร์ชำรุดเนื่องจาก '.$data[0]['cause'].' 
+    ทั้งนี้ เพื่อเป็นการลดหน่วยสูญเสียให้แก่ กฟภ. และลดการปรับปรุงค่าไฟฟ้าย้อนหลัง
+    พบช.ตรวจสอบหน่วย ได้ดำเนินการเฉลี่ยหน่วยโดยใช้วิธีเฉลี่ยหน่วยจาก '.$data[0]['in_cause'].'   ในรอบบิล '.$data[0]['billing_Cycle'].' '.$data[0]['year'].' แล้วจำนวน '.$data[0]['sum_to_sap_final'].' หน่วย จึงขอรายงานผลการดำเนินการ โดยมีรายละเอียดตามเอกสารแนบ จำนวน ......... ฉบับ </td>
+  </tr>
+  <tr>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;จึงเรียนมาโปรดทราบ และแจ้งให้ส่วนที่เกี่ยวข้องดำเนินการต่อไป</td>
+  </tr>
+  <tr>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ลงชื่อ</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(..................................................)</td>
+  </tr>
+  <tr>
+  <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;......................................................................</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2">ที่&nbsp;&nbsp;&nbsp;&nbsp;ฉ.2 ......................................</td>
+</tr>
+<tr>
+<td colspan="2">เรียน&nbsp;&nbsp;&nbsp;&nbsp;........................................</td>
+</tr>
+<tr>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ทราบ และแจ้งให้ส่วนที่เกี่ยวข้องดำเนินการต่อไป</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ลงชื่อ</td>
+</tr>
+<tr>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(..................................................)</td>
+</tr>
+<tr>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;......................................................................</td>
+</tr>
 </table>
 
 
@@ -79,11 +156,12 @@ td, th {
 </html>
 ';
 $mpdf->WriteHTML($head);
+
 $mpdf->defaultfooterline = 0;
-$mpdf->SetFooter('<div style="text-align: left;font-size:18px;">มต.ทม.๕/๑ ป.๕๘</div>');
-$mpdf->SetTitle('แบบฟอร์มการตรวจสอบมิเตอร์ ชนิด 1 เฟส 2 สาย');
+// $mpdf->SetFooter('<div style="text-align: left;font-size:18px;">Report By Everest</div>');
+$mpdf->SetTitle('ข้อมูลการเฉลี่ยหน่วย '.$data[0]['name_customer'].' '.$data[0]['billing_Cycle'].' '.$data[0]['year'].'');
 // $mpdf->SetWatermarkText('PMAC');
 $mpdf->showWatermarkText = true;
-$mpdf->Output('singlephase.pdf', 'I');
+$mpdf->Output('ข้อมูลการเฉลี่ยหน่วย '.$data[0]['name_customer'].' '.$data[0]['billing_Cycle'].' '.$data[0]['year'].'.pdf', 'I');
 $mpdf->Output();
 ?>
