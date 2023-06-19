@@ -69,7 +69,27 @@
                         </a>
                     </li>
 
-                    <div id="LinkAdmin"></div>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="holiday-normal.html">
+                            <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+                                off-peak</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">
+                        Document
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#">
+                            <i class="align-middle" data-feather="book-open"></i> <span
+                                class="align-middle">คู่มือการใช้งาน</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="#">
+                            <i class="align-middle" data-feather="calendar"></i> <span
+                                class="align-middle">ดาวน์โหลดปฏิทิน TOU</span>
+                        </a>
+                    </li>
                 </ul>
 
 
@@ -1398,43 +1418,6 @@
     $("#page2").show();
     $("#page3").hide();
     $(document).ready(function () {
-
-
-        var emp = localStorage.getItem("EmployeeId");
-        $.ajax({
-            url: "http://" + hostname + ":442/admin/get",
-            method: "POST",
-            data: {
-                adminCode: emp,
-            },
-            success: function (response) {
-
-                var htmlAdmin = `<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
-								off-peak</span>
-						</a>
-					</li>`
-
-                var htmlNormal = `<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday-normal.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
-								off-peak</span>
-						</a>
-					</li>`
-
-                if (response.data.length == 0) {
-                    $('#LinkAdmin').append(htmlNormal);
-                } else {
-                    $('#LinkAdmin').append(htmlAdmin);
-                }
-
-
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
 
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),

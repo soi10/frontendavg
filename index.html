@@ -52,12 +52,12 @@
 
         #chartdivSumToSap {
             width: 100%;
-            height: 200px;
+            height: 250px;
         }
 
         #chartdivSumType {
             width: 100%;
-            height: 200px;
+            height: 250px;
         }
     </style>
 </head>
@@ -96,9 +96,9 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="holiday.html">
-                            <i class="align-middle" data-feather="plus-square"></i> <span
-                                class="align-middle">เพิ่มวันหยุด</span>
+                        <a class="sidebar-link" href="holiday-normal.html">
+                            <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+                                off-peak</span>
                         </a>
                     </li>
                     <li class="sidebar-header">
@@ -116,7 +116,6 @@
                                 class="align-middle">ดาวน์โหลดปฏิทิน TOU</span>
                         </a>
                     </li>
-                    <div id="LinkAdmin"></div>
                 </ul>
             </div>
         </nav>
@@ -178,7 +177,8 @@
                                             <h3>ข้อมูลจำนวนหน่วยที่เฉลี่ยรวม</h3>
                                         </div>
                                         <div class="card-body">
-                                            <div id="chartdivSumToSap"></div>
+                                            <div id="sumSap" style="font-size: 50px; font-weight: bold;"></div>
+                                            <div style="font-size: 20px">หน่วย</div>
                                         </div>
                                     </div>
                                 </div>
@@ -186,6 +186,29 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h3>จำนวนรายที่เฉลี่ยหน่วย</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="conutSap" style="font-size: 50px; font-weight: bold;"></div>
+                                            <div style="font-size: 20px">ฉบับ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-3 text-center">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3>กราฟเปรียบเทียบ หน่วยรวมที่ดำเนินการเฉลี่ย</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="chartdivSumToSap"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3>กราฟเปรียบเทียบ ข้อมูลจำนวนบิลที่มีการเฉลี่ยหน่วย</h3>
                                         </div>
                                         <div class="card-body">
                                             <div id="chartdivSumType"></div>
@@ -199,7 +222,6 @@
                                     <div class="card flex-fill">
                                         <div class="card-body">
                                             <div id="chartdiv"></div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -260,45 +282,6 @@
     let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 
     $(document).ready(function () {
-
-        var emp = localStorage.getItem("EmployeeId");
-        $.ajax({
-            url: "http://" + hostname + ":442/admin/get",
-            method: "POST",
-            data: {
-                adminCode: emp,
-            },
-            success: function (response) {
-                // console.log(response.message.code);
-                console.log(response.data.length);
-
-
-                var htmlAdmin = `<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
-								off-peak</span>
-						</a>
-					</li>`
-
-                var htmlNormal = `<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday-normal.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
-								off-peak</span>
-						</a>
-					</li>`
-
-                if (response.data.length == 0) {
-                    $('#LinkAdmin').append(htmlNormal);
-                } else {
-                    $('#LinkAdmin').append(htmlAdmin);
-                }
-
-
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
 
         $.ajax({
             url: "http://" + hostname + ":442/datadetail/all",
@@ -435,6 +418,8 @@
             },
             success: function (data2) {
 
+                var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+                $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
                 const chartColors = [
                     am5.color("#C7911B"),
                     am5.color("#74045F"),
@@ -494,7 +479,8 @@
                 peacode: PeaCode
             },
             success: function (data3) {
-
+                var conutSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                $("#conutSap").text(conutSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
 
                 const chartColors = [
                     am5.color("#C7911B"),
@@ -720,13 +706,6 @@
                     })
                 );
 
-                if (!data3.major) {
-                    total3 = 0;
-                } else {
-                    total3 = data3.major.count;
-                }
-
-                // Define data
                 var data = [
                     {
                         country: "ผู้ใช้ไฟรายใหญ่",
@@ -770,7 +749,6 @@
                 peacode: PeaCode
             },
             success: function (data2) {
-
 
                 const chartColors = [
                     am5.color("#C7911B"),
