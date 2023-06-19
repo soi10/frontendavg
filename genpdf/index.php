@@ -26,7 +26,7 @@ $id = $_GET['id'];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:442/datadetail/id?id=' . $id . '',
+  CURLOPT_URL => 'http://172.21.1.60:442/datadetail/id?id=' . $id . '',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -68,7 +68,7 @@ table {
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: 0px solid #dddddd;
   text-align: left;
   padding: 1px;
   width: 50%;
