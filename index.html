@@ -29,9 +29,14 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Resources -->
+
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+
+
     <style>
         body {
             font-family: 'Kanit';
@@ -44,11 +49,15 @@
             width: 100%;
             height: 500px;
         }
-    </style>
-    <style>
-        #chartdiv1 {
+
+        #chartdivSumToSap {
             width: 100%;
-            height: 500px;
+            height: 200px;
+        }
+
+        #chartdivSumType {
+            width: 100%;
+            height: 200px;
         }
     </style>
 </head>
@@ -145,13 +154,52 @@
                 <div class="container-fluid p-0">
                     <div id="page3" class="my-2">
                         <div class="container-fluid p-0">
-
-                            <h1 class="h3 mb-3">Dashboard รวมเฉลี่ย (หน่วย)</h1>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="text-end">
+                                        ปี
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input type="number" id="yearChart" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <button type="button" class="btn btn-success" id="showChart">แสดง</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-3 text-center">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3>ข้อมูลจำนวนหน่วยที่เฉลี่ยรวม</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="chartdivSumToSap"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3>จำนวนรายที่เฉลี่ยหน่วย</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="chartdivSumType"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h1 class="h3 my-3">กราฟแสดงข้อมูล หน่วยที่ดำเนินการเฉลี่ย แต่ละรอบบิล</h1>
                             <div class="row">
                                 <div class="col d-flex justify-content-center">
                                     <div class="card flex-fill">
                                         <div class="card-body">
                                             <div id="chartdiv"></div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -203,163 +251,302 @@
 
 <!-- Chart code -->
 <script>
+    const hostname = "172.21.1.60";
+    var yearChart = $("#yearChart").val((new Date).getFullYear());
 
-    var emp = localStorage.getItem("EmployeeId");
-    $.ajax({
-        url: "http://172.21.1.60:442/admin/get",
-        method: "POST",
-        data: {
-            adminCode: emp,
-        },
-        success: function (response) {
-            // console.log(response.message.code);
-            console.log(response.data.length);
+    $("#Name").html(localStorage.getItem("FullName"));
+    $("#BaName").html(localStorage.getItem("BaName"));
+    $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+    let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+
+    $(document).ready(function () {
+
+        var emp = localStorage.getItem("EmployeeId");
+        $.ajax({
+            url: "http://" + hostname + ":442/admin/get",
+            method: "POST",
+            data: {
+                adminCode: emp,
+            },
+            success: function (response) {
+                // console.log(response.message.code);
+                console.log(response.data.length);
 
 
-            var htmlAdmin = `<li class="sidebar-item active">
+                var htmlAdmin = `<li class="sidebar-item active">
 						<a class="sidebar-link" href="holiday.html">
 							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
 								off-peak</span>
 						</a>
 					</li>`
 
-            var htmlNormal = `<li class="sidebar-item active">
+                var htmlNormal = `<li class="sidebar-item active">
 						<a class="sidebar-link" href="holiday-normal.html">
 							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
 								off-peak</span>
 						</a>
 					</li>`
 
-            if (response.data.length == 0) {
-                $('#LinkAdmin').append(htmlNormal);
-            } else {
-                $('#LinkAdmin').append(htmlAdmin);
+                if (response.data.length == 0) {
+                    $('#LinkAdmin').append(htmlNormal);
+                } else {
+                    $('#LinkAdmin').append(htmlAdmin);
+                }
+
+
+            },
+            error: function (error) {
+                console.log(error);
             }
+        });
+
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/all",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data1) {
+                am5.ready(function () {
+
+                    // Create root element
+                    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
 
 
-        },
-        error: function (error) {
-            console.log(error);
-        }
+                    var root = am5.Root.new("chartdiv");
+                    // Set themes
+                    // https://www.amcharts.com/docs/v5/concepts/themes/
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+
+
+                    // Create chart
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                        panX: true,
+                        panY: true,
+                        wheelX: "panX",
+                        wheelY: "zoomX",
+                        pinchZoomX: true
+                    }));
+
+                    // Add cursor
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+                    cursor.lineY.set("visible", false);
+
+
+                    // Create axes
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                    var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+                    xRenderer.labels.template.setAll({
+                        rotation: -90,
+                        centerY: am5.p50,
+                        centerX: am5.p100,
+                        paddingRight: 15
+                    });
+
+                    xRenderer.grid.template.setAll({
+                        location: 1
+                    })
+
+                    var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                        maxDeviation: 0.3,
+                        categoryField: "month",
+                        renderer: xRenderer,
+                        tooltip: am5.Tooltip.new(root, {})
+                    }));
+
+                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                        maxDeviation: 0.3,
+                        renderer: am5xy.AxisRendererY.new(root, {
+                            strokeOpacity: 0.1
+                        })
+                    }));
+
+
+                    // Create series
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        name: "Series 1",
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: "value",
+                        sequencedInterpolation: true,
+                        categoryXField: "month",
+                        tooltip: am5.Tooltip.new(root, {
+                            labelText: "{valueY}"
+                        })
+                    }));
+
+                    series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+                    series.columns.template.adapters.add("fill", function (fill, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+                    series.columns.template.adapters.add("stroke", function (stroke, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+                    // สร้างอาร์เรย์ของเดือนทั้ง 12 เดือน
+                    const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+                    // สร้างอาร์เรย์สำหรับเก็บข้อมูลกราฟ
+                    const graphData = months.map(month => {
+                        const matchingData = data1.filter(item => item.billing_Cycle === month);
+                        const summedValue = matchingData.reduce((accumulator, currentValue) => {
+                            const value = currentValue.sum_to_sap_final ? parseFloat(currentValue.sum_to_sap_final.replace(/,/g, "")) : 0;
+                            return accumulator + value;
+                        }, 0);
+                        return {
+                            month: month,
+                            value: summedValue
+                        };
+                    });
+                    xAxis.data.setAll(graphData);
+                    series.data.setAll(graphData);
+
+
+                    // Make stuff animate on load
+                    // https://www.amcharts.com/docs/v5/concepts/animations/
+                    series.appear(1000);
+                    chart.appear(1000, 100);
+
+                }); // end am5.ready()
+
+
+
+            }
+        });
+
+
+
     });
 
-    var hostname = "localhost";
-    $("#Name").html(localStorage.getItem("FullName"));
-    $("#BaName").html(localStorage.getItem("BaName"));
-    $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
-    let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-    $.ajax({
-        url: "http://172.21.1.60:442/datadetail/all",
-        dataType: "json",
-        success: function (data1) {
-            am5.ready(function () {
 
-                // Create root element
-                // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-                var root = am5.Root.new("chartdiv");
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/count",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data2) {
 
-
-                // Set themes
-                // https://www.amcharts.com/docs/v5/concepts/themes/
-                root.setThemes([
-                    am5themes_Animated.new(root)
-                ]);
-
+                const chartColors = [
+                    am5.color("#C7911B"),
+                    am5.color("#74045F"),
+                ];
 
                 // Create chart
-                // https://www.amcharts.com/docs/v5/charts/xy-chart/
-                var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                    panX: true,
-                    panY: true,
-                    wheelX: "panX",
-                    wheelY: "zoomX",
-                    pinchZoomX: true
-                }));
-
-                // Add cursor
-                // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-                var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-                cursor.lineY.set("visible", false);
-
-
-                // Create axes
-                // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-                var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
-                xRenderer.labels.template.setAll({
-                    rotation: -90,
-                    centerY: am5.p50,
-                    centerX: am5.p100,
-                    paddingRight: 15
-                });
-
-                xRenderer.grid.template.setAll({
-                    location: 1
-                })
-
-                var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-                    maxDeviation: 0.3,
-                    categoryField: "month",
-                    renderer: xRenderer,
-                    tooltip: am5.Tooltip.new(root, {})
-                }));
-
-                var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                    maxDeviation: 0.3,
-                    renderer: am5xy.AxisRendererY.new(root, {
-                        strokeOpacity: 0.1
+                var root2 = am5.Root.new("chartdivSumToSap");
+                var chart = root2.container.children.push(
+                    am5percent.PieChart.new(root2, {
+                        layout: root2.verticalHorizontal
                     })
-                }));
+                );
 
+                // Define data
+                var data = [
+                    {
+                        country: "ผู้ใช้ไฟรายใหญ่",
+                        sales: parseFloat(data2.major.sum),
+
+                    },
+                    {
+                        country: "ผู้ใช้ไฟรายย่อย",
+                        sales: parseFloat(data2.minor.sum),
+
+                    }
+                ];
 
                 // Create series
-                // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-                var series = chart.series.push(am5xy.ColumnSeries.new(root, {
-                    name: "Series 1",
-                    xAxis: xAxis,
-                    yAxis: yAxis,
-                    valueYField: "value",
-                    sequencedInterpolation: true,
-                    categoryXField: "month",
-                    tooltip: am5.Tooltip.new(root, {
-                        labelText: "{valueY}"
+                var series = chart.series.push(
+                    am5percent.PieSeries.new(root2, {
+                        name: "Series",
+                        valueField: "sales",
+                        categoryField: "country",
                     })
+                );
+                series.get("colors").set("colors", chartColors);
+                series.data.setAll(data);
+
+                // Add legend
+                var legend = chart.children.push(am5.Legend.new(root2, {
+                    centerX: am5.percent(50),
+                    x: am5.percent(50),
+                    layout: root2.horizontalLayout
                 }));
 
-                series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
-                series.columns.template.adapters.add("fill", function (fill, target) {
-                    return chart.get("colors").getIndex(series.columns.indexOf(target));
-                });
+                legend.data.setAll(series.dataItems);
+            }
+        });
+    })
 
-                series.columns.template.adapters.add("stroke", function (stroke, target) {
-                    return chart.get("colors").getIndex(series.columns.indexOf(target));
-                });
-
-                // สร้างอาร์เรย์ของเดือนทั้ง 12 เดือน
-                const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
-                // สร้างอาร์เรย์สำหรับเก็บข้อมูลกราฟ
-                const graphData = months.map(month => {
-                    const matchingData = data1.filter(item => item.billing_Cycle === month);
-                    const summedValue = matchingData.reduce((accumulator, currentValue) => {
-                        const value = currentValue.sum_to_sap_final ? parseFloat(currentValue.sum_to_sap_final.replace(/,/g, "")) : 0;
-                        return accumulator + value;
-                    }, 0);
-                    return {
-                        month: month,
-                        value: summedValue
-                    };
-                });
-                xAxis.data.setAll(graphData);
-                series.data.setAll(graphData);
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/count",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data3) {
 
 
-                // Make stuff animate on load
-                // https://www.amcharts.com/docs/v5/concepts/animations/
-                series.appear(1000);
-                chart.appear(1000, 100);
+                const chartColors = [
+                    am5.color("#C7911B"),
+                    am5.color("#74045F"),
+                ];
 
-            }); // end am5.ready()
-        }
-    });
+                // Create chart
+                var root3 = am5.Root.new("chartdivSumType");
+                var chart = root3.container.children.push(
+                    am5percent.PieChart.new(root3, {
+                        layout: root3.verticalHorizontal
+                    })
+                );
+
+                // Define data
+                var data = [
+                    {
+                        country: "ผู้ใช้ไฟรายใหญ่",
+                        sales: parseFloat(data3.major.count),
+
+                    },
+                    {
+                        country: "ผู้ใช้ไฟรายย่อย",
+                        sales: parseFloat(data3.minor.count),
+
+                    }
+                ];
+
+                // Create series
+                var series = chart.series.push(
+                    am5percent.PieSeries.new(root3, {
+                        name: "Series",
+                        valueField: "sales",
+                        categoryField: "country",
+                    })
+                );
+                series.get("colors").set("colors", chartColors);
+                series.data.setAll(data);
+
+                // Add legend
+                var legend = chart.children.push(am5.Legend.new(root3, {
+                    centerX: am5.percent(50),
+                    x: am5.percent(50),
+                    layout: root3.horizontalLayout
+                }));
+
+                legend.data.setAll(series.dataItems);
+            }
+        });
+    })
+
+
     $("#btnLogout").click(function (event) {
         event.preventDefault();
         localStorage.clear();
@@ -376,4 +563,263 @@
             }
         });
     })
+
+    $("#showChart").click(function () {
+        var divId = "chartdiv";
+
+        // Dispose existing root elements with matching divId
+        am5.array.each(am5.registry.rootElements, function (root) {
+            if (root && root.dom && root.dom.id == divId) {
+                root.dispose();
+            }
+        });
+
+        var divId1 = "chartdivSumToSap";
+
+        // Dispose existing root elements with matching divId1
+        am5.array.each(am5.registry.rootElements, function (root2) {
+            if (root2 && root2.dom && root2.dom.id == divId1) {
+                root2.dispose();
+            }
+        });
+
+        var divId2 = "chartdivSumType";
+
+        // Dispose existing root elements with matching divId2
+        am5.array.each(am5.registry.rootElements, function (root3) {
+            if (root3 && root3.dom && root3.dom.id == divId2) {
+                root3.dispose();
+            }
+        });
+
+
+
+
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/all",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data1) {
+                am5.ready(function () {
+                    // Create root element
+                    var root = am5.Root.new(divId);
+
+                    // Set themes
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+
+                    // Create chart
+                    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                        panX: true,
+                        panY: true,
+                        wheelX: "panX",
+                        wheelY: "zoomX",
+                        pinchZoomX: true
+                    }));
+
+                    // Add cursor
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+                    cursor.lineY.set("visible", false);
+
+                    // Create axes
+                    var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+                    xRenderer.labels.template.setAll({
+                        rotation: -90,
+                        centerY: am5.p50,
+                        centerX: am5.p100,
+                        paddingRight: 15
+                    });
+
+                    xRenderer.grid.template.setAll({
+                        location: 1
+                    });
+
+                    var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                        maxDeviation: 0.3,
+                        categoryField: "month",
+                        renderer: xRenderer,
+                        tooltip: am5.Tooltip.new(root, {})
+                    }));
+
+                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                        maxDeviation: 0.3,
+                        renderer: am5xy.AxisRendererY.new(root, {
+                            strokeOpacity: 0.1
+                        })
+                    }));
+
+                    // Create series
+                    var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                        name: "Series 1",
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: "value",
+                        sequencedInterpolation: true,
+                        categoryXField: "month",
+                        tooltip: am5.Tooltip.new(root, {
+                            labelText: "{valueY}"
+                        })
+                    }));
+
+                    series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+                    series.columns.template.adapters.add("fill", function (fill, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+                    series.columns.template.adapters.add("stroke", function (stroke, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+
+                    // Generate graph data
+                    const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+                    const graphData = months.map(month => {
+                        const matchingData = data1.filter(item => item.billing_Cycle === month);
+                        const summedValue = matchingData.reduce((accumulator, currentValue) => {
+                            const value = currentValue.sum_to_sap_final ? parseFloat(currentValue.sum_to_sap_final.replace(/,/g, "")) : 0;
+                            return accumulator + value;
+                        }, 0);
+                        return {
+                            month: month,
+                            value: summedValue
+                        };
+                    });
+                    xAxis.data.setAll(graphData);
+                    series.data.setAll(graphData);
+
+                    // Make stuff animate on load
+                    series.appear(1000);
+                    chart.appear(1000, 100);
+                }); // end am5.ready()
+            }
+        });
+
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/count",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data3) {
+
+
+                const chartColors = [
+                    am5.color("#C7911B"),
+                    am5.color("#74045F"),
+                ];
+
+                // Create chart
+                var root3 = am5.Root.new("chartdivSumType");
+                var chart = root3.container.children.push(
+                    am5percent.PieChart.new(root3, {
+                        layout: root3.verticalHorizontal
+                    })
+                );
+
+                if (!data3.major) {
+                    total3 = 0;
+                } else {
+                    total3 = data3.major.count;
+                }
+
+                // Define data
+                var data = [
+                    {
+                        country: "ผู้ใช้ไฟรายใหญ่",
+                        sales: parseFloat(data3.major.count),
+
+                    },
+                    {
+                        country: "ผู้ใช้ไฟรายย่อย",
+                        sales: parseFloat(data3.minor.count),
+
+                    }
+                ];
+
+                // Create series
+                var series = chart.series.push(
+                    am5percent.PieSeries.new(root3, {
+                        name: "Series",
+                        valueField: "sales",
+                        categoryField: "country",
+                    })
+                );
+                series.get("colors").set("colors", chartColors);
+                series.data.setAll(data);
+
+                // Add legend
+                var legend = chart.children.push(am5.Legend.new(root3, {
+                    centerX: am5.percent(50),
+                    x: am5.percent(50),
+                    layout: root3.horizontalLayout
+                }));
+
+                legend.data.setAll(series.dataItems);
+            }
+        });
+
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/count",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data2) {
+
+
+                const chartColors = [
+                    am5.color("#C7911B"),
+                    am5.color("#74045F"),
+                ];
+
+                // Create chart
+                var root2 = am5.Root.new("chartdivSumToSap");
+                var chart = root2.container.children.push(
+                    am5percent.PieChart.new(root2, {
+                        layout: root2.verticalHorizontal
+                    })
+                );
+
+                // Define data
+                var data = [
+                    {
+                        country: "ผู้ใช้ไฟรายใหญ่",
+                        sales: parseFloat(data2.major.sum),
+
+                    },
+                    {
+                        country: "ผู้ใช้ไฟรายย่อย",
+                        sales: parseFloat(data2.minor.sum),
+
+                    }
+                ];
+
+                // Create series
+                var series = chart.series.push(
+                    am5percent.PieSeries.new(root2, {
+                        name: "Series",
+                        valueField: "sales",
+                        categoryField: "country",
+                    })
+                );
+                series.get("colors").set("colors", chartColors);
+                series.data.setAll(data);
+
+                // Add legend
+                var legend = chart.children.push(am5.Legend.new(root2, {
+                    centerX: am5.percent(50),
+                    x: am5.percent(50),
+                    layout: root2.horizontalLayout
+                }));
+
+                legend.data.setAll(series.dataItems);
+            }
+        });
+    });
+
 </script>

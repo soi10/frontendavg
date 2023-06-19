@@ -1393,12 +1393,12 @@
 </html>
 
 <script>
-	var hostname = "172.21.1.60";
+	const hostname = "172.21.1.60";
 	$(document).ready(function () {
 
 		var emp = localStorage.getItem("EmployeeId");
 		$.ajax({
-			url: "http://localhost:442/admin/get",
+			url: "http://" + hostname + ":442/admin/get",
 			method: "POST",
 			data: {
 				adminCode: emp,
@@ -1574,7 +1574,7 @@
 	// 
 	// กำหนด options และเรียกใช้งาน Select2 ด้วย Ajax
 	$.ajax({
-		url: "http://172.21.1.60:442/uploadrate",
+		url: "http://" + hostname + ":442/uploadrate",
 		dataType: "json",
 		success: function (data) {
 			// สร้าง options ของ select2
@@ -1896,7 +1896,7 @@
 
 	let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 	$.ajax({
-		url: "http://172.21.1.60:442/uploads/bacode",
+		url: "http://" + hostname + ":442/uploads/bacode",
 		type: "GET",
 		data: {
 			Peacode: PeaCode,

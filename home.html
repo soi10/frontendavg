@@ -158,11 +158,12 @@
 </html>
 
 <script>
+	const hostname = "172.21.1.60";
 	$(document).ready(function () {
 
 		var emp = localStorage.getItem("EmployeeId");
 		$.ajax({
-			url: "http://172.21.1.60:442/admin/get",
+			url: "http://" + hostname + ":442/admin/get",
 			method: "POST",
 			data: {
 				adminCode: emp,
@@ -198,7 +199,7 @@
 		});
 
 
-		var hostname = "172.21.1.60";
+		
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
 		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
@@ -309,7 +310,7 @@
 			if (result.isConfirmed) {
 				$.ajax({
 					type: 'DELETE',
-					url: "http://"+hostname+":442/datadetail/delete",
+					url: "http://" + hostname + ":442/datadetail/delete",
 					data: data,
 					success: function (response) {
 						Swal.fire(
@@ -342,7 +343,7 @@
 		var nameHoliday = $("#nameHoliday").val();
 		var yearHoliday = (new Date).getFullYear();
 		$.ajax({
-			url: "http://"+hostname+":442:442/holiday/add",
+			url: "http://" + hostname + ":442:442/holiday/add",
 			method: "POST",
 			data: {
 				dateHoliday: dateHoliday,
@@ -381,7 +382,7 @@
 		// alert($(this).attr("value"));
 		$('#exampleModalEdit').modal('show');
 		$.ajax({
-			url: "http://"+hostname+":442/holiday/getone",
+			url: "http://" + hostname + ":442/holiday/getone",
 			type: "POST",
 			data: {
 				"_id": $(this).attr("value"),
@@ -402,7 +403,7 @@
 		var nameHolidayEdit = $("#nameHolidayEdit").val();
 		var idClick = $("#idClick").val();
 		$.ajax({
-			url: "http://"+hostname+":442/holiday/update",
+			url: "http://172.21.1.60:442/holiday/update",
 			method: "POST",
 			data: {
 				dateHoliday: dateHolidayEdit,
@@ -440,7 +441,7 @@
 		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: "http://"+hostname+":442/holiday/deleteone",
+					url: "http://172.21.1.60:442/holiday/deleteone",
 					type: "POST",
 					data: {
 						"_id": $(this).attr("value"),
