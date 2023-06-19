@@ -188,7 +188,7 @@
                                             <h3>จำนวนรายที่เฉลี่ยหน่วย</h3>
                                         </div>
                                         <div class="card-body">
-                                            <div id="conutSap" style="font-size: 50px; font-weight: bold;"></div>
+                                            <div id="countSap" style="font-size: 50px; font-weight: bold;"></div>
                                             <div style="font-size: 20px">ฉบับ</div>
                                         </div>
                                     </div>
@@ -407,7 +407,6 @@
 
     });
 
-
     $(document).ready(function () {
         $.ajax({
             url: "http://" + hostname + ":442/datadetail/count",
@@ -479,8 +478,9 @@
                 peacode: PeaCode
             },
             success: function (data3) {
-                var conutSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
-                $("#conutSap").text(conutSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
+
+                var countSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
 
                 const chartColors = [
                     am5.color("#C7911B"),
@@ -577,9 +577,6 @@
                 root3.dispose();
             }
         });
-
-
-
 
         $.ajax({
             url: "http://" + hostname + ":442/datadetail/all",
@@ -690,65 +687,10 @@
                 yearChart: yearChart.val(),
                 peacode: PeaCode
             },
-            success: function (data3) {
-
-
-                const chartColors = [
-                    am5.color("#C7911B"),
-                    am5.color("#74045F"),
-                ];
-
-                // Create chart
-                var root3 = am5.Root.new("chartdivSumType");
-                var chart = root3.container.children.push(
-                    am5percent.PieChart.new(root3, {
-                        layout: root3.verticalHorizontal
-                    })
-                );
-
-                var data = [
-                    {
-                        country: "ผู้ใช้ไฟรายใหญ่",
-                        sales: parseFloat(data3.major.count),
-
-                    },
-                    {
-                        country: "ผู้ใช้ไฟรายย่อย",
-                        sales: parseFloat(data3.minor.count),
-
-                    }
-                ];
-
-                // Create series
-                var series = chart.series.push(
-                    am5percent.PieSeries.new(root3, {
-                        name: "Series",
-                        valueField: "sales",
-                        categoryField: "country",
-                    })
-                );
-                series.get("colors").set("colors", chartColors);
-                series.data.setAll(data);
-
-                // Add legend
-                var legend = chart.children.push(am5.Legend.new(root3, {
-                    centerX: am5.percent(50),
-                    x: am5.percent(50),
-                    layout: root3.horizontalLayout
-                }));
-
-                legend.data.setAll(series.dataItems);
-            }
-        });
-
-        $.ajax({
-            url: "http://" + hostname + ":442/datadetail/count",
-            method: "POST",
-            data: {
-                yearChart: yearChart.val(),
-                peacode: PeaCode
-            },
             success: function (data2) {
+                $("#sumSap").text(" ");
+                var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+                $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
 
                 const chartColors = [
                     am5.color("#C7911B"),
@@ -798,6 +740,69 @@
                 legend.data.setAll(series.dataItems);
             }
         });
+
+        $.ajax({
+            url: "http://" + hostname + ":442/datadetail/count",
+            method: "POST",
+            data: {
+                yearChart: yearChart.val(),
+                peacode: PeaCode
+            },
+            success: function (data3) {
+                $("#countSap").text(" ");
+                var countSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
+
+                const chartColors = [
+                    am5.color("#C7911B"),
+                    am5.color("#74045F"),
+                ];
+
+                // Create chart
+                var root3 = am5.Root.new("chartdivSumType");
+                var chart = root3.container.children.push(
+                    am5percent.PieChart.new(root3, {
+                        layout: root3.verticalHorizontal
+                    })
+                );
+
+                var data = [
+                    {
+                        country: "ผู้ใช้ไฟรายใหญ่",
+                        sales: parseFloat(data3.major.count),
+
+                    },
+                    {
+                        country: "ผู้ใช้ไฟรายย่อย",
+                        sales: parseFloat(data3.minor.count),
+
+                    }
+                ];
+
+                // Create series
+                var series = chart.series.push(
+                    am5percent.PieSeries.new(root3, {
+                        name: "Series",
+                        valueField: "sales",
+                        categoryField: "country",
+                    })
+                );
+                series.get("colors").set("colors", chartColors);
+                series.data.setAll(data);
+
+                // Add legend
+                var legend = chart.children.push(am5.Legend.new(root3, {
+                    centerX: am5.percent(50),
+                    x: am5.percent(50),
+                    layout: root3.horizontalLayout
+                }));
+
+                legend.data.setAll(series.dataItems);
+            }
+        });
+
+
+
     });
 
 </script>
