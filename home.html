@@ -74,9 +74,30 @@
 						</a>
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="holiday.html">
+							<i class="align-middle" data-feather="plus-square"></i> <span
+								class="align-middle">เพิ่มวันหยุด</span>
+						</a>
+					</li>
+					<li class="sidebar-header">
+						Document
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="book-open"></i> <span
+								class="align-middle">คู่มือการใช้งาน</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="#">
+							<i class="align-middle" data-feather="calendar"></i> <span
+								class="align-middle">ดาวน์โหลดปฏิทิน TOU</span>
+						</a>
+					</li>
 					<div id="LinkAdmin"></div>
 				</ul>
-
+			</div>
 		</nav>
 
 		<div class="main">
@@ -140,6 +161,34 @@
 
 				</div>
 			</main>
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a href="#" class="text-muted"><strong>วัยรุ่นม่วงเดียด</strong></a>
+								&copy;<strong>2023</strong>
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Support</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Help Center</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Privacy</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="profile-team.html">Terms</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
 
 			<!-- modal -->
 
@@ -158,7 +207,7 @@
 </html>
 
 <script>
-	const hostname = "172.21.1.60";
+	const hostname = "localhost";
 	$(document).ready(function () {
 
 		var emp = localStorage.getItem("EmployeeId");
@@ -199,7 +248,7 @@
 		});
 
 
-		
+
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
 		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));

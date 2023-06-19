@@ -26,7 +26,7 @@ $id = $_GET['id'];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://172.21.1.60:442/datadetail/id?id=' . $id . '',
+  CURLOPT_URL => 'http://localhost:442/datadetail/id?id=' . $id . '',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -57,7 +57,7 @@ $head = '
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 </head>
-<style>
+<style type="text/css">
 body {
     font-family: sarabun;
     font-size: 20px;
@@ -73,7 +73,13 @@ td, th {
   padding: 1px;
   width: 50%;
 }
-
+span {
+  border-bottom: 1px dotted;
+}
+u.dotted{
+  border-bottom: 1px dashed #999;
+  text-decoration: none; 
+}
 </style>
 </head>
 <body>
@@ -83,18 +89,18 @@ td, th {
 <br>
 <table>
   <tr>
-    <th>จาก</th>
-    <th>ถึง</th>
+    <td>จาก&nbsp;&nbsp;&nbsp;&nbsp;พบช....................................................................</td>
+    <td>ถึง&nbsp;&nbsp;&nbsp;&nbsp;..........................................................................</th>
   </tr>
   <tr>
-    <td>เลขที่</td>
-    <td>วันที่</td>
+    <td>เลขที่&nbsp;&nbsp;&nbsp;&nbsp;..........................................................................</td>
+    <td>วันที่&nbsp;&nbsp;&nbsp;&nbsp;..........................................................................</td>
   </tr>
   <tr>
     <td colspan="2">เรื่อง&nbsp;&nbsp;&nbsp;&nbsp;รายงานผลการตรวจสอบและเฉลี่ยหน่วย ราย '.$data[0]['name_customer'].' ('.$data[0]['ca_no'].')</td>
   </tr>
   <tr>
-    <td>เรียน&nbsp;&nbsp;&nbsp;&nbsp;ผจก</td>
+    <td>เรียน&nbsp;&nbsp;&nbsp;&nbsp;ผจก...............................ผ่าน.....................................</td>
     <td></td>
   </tr>
   <tr>
@@ -127,7 +133,7 @@ td, th {
 <td>&nbsp;</td>
 </tr>
 <tr>
-<td colspan="2">ที่&nbsp;&nbsp;&nbsp;&nbsp;ฉ.2 ......................................</td>
+<td colspan="2">ที่&nbsp;&nbsp;&nbsp;&nbsp; .............................................</td>
 </tr>
 <tr>
 <td colspan="2">เรียน&nbsp;&nbsp;&nbsp;&nbsp;........................................</td>

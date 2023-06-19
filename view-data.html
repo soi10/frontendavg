@@ -904,6 +904,7 @@
 
 </html>
 <script>
+    const hostname = "localhost";
     $("#normal").hide();
     $("#tranloss").hide();
     $("#not-tranloss").hide();
@@ -924,7 +925,7 @@
         return newDate;
     }
     $(document).ready(function () {
-        var hostname = '172.21.1.60';
+
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),

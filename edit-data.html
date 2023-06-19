@@ -1392,6 +1392,7 @@
 
 </html>
 <script>
+    const hostname = "localhost";
     $("#selectCaseTranloss").hide();
     $("#page1").hide();
     $("#page2").show();
@@ -1401,7 +1402,7 @@
 
         var emp = localStorage.getItem("EmployeeId");
         $.ajax({
-            url: "http://localhost:442/admin/get",
+            url: "http://" + hostname + ":442/admin/get",
             method: "POST",
             data: {
                 adminCode: emp,
@@ -1435,8 +1436,6 @@
             }
         });
 
-
-        var hostname = '172.21.1.60';
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -1455,7 +1454,7 @@
         let iddata = getUrlParameter('id');
         console.log(iddata)
         $.ajax({
-            url: "http://"+hostname+":442/datadetail/id",
+            url: "http://" + hostname + ":442/datadetail/id",
             contentType: "application/json",
             data: {
                 id: iddata
@@ -1789,20 +1788,20 @@
         //console.log(inputValueca)
         // ดำเนินการกับค่าที่ได้รับมา
 
-        $("#start_date_normal1").text(start_date_normal);
-        $("#end-date-normal1").text(end_date_normal);
-        $("#start-date-not1").text(start_date_not);
-        $("#end-date-not1").text(end_date_not);
+        $("#start_date_normal1").text(convertDateFormat(start_date_normal));
+        $("#end-date-normal1").text(convertDateFormat(end_date_normal));
+        $("#start-date-not1").text(convertDateFormat(start_date_not));
+        $("#end-date-not1").text(convertDateFormat(end_date_not));
 
-        $("#start_date_normal1-tranloss").text(start_date_normal);
-        $("#end-date-normal1-tranloss").text(end_date_normal);
-        $("#start-date-not1-tranloss").text(start_date_not);
-        $("#end-date-not1-tranloss").text(end_date_not);
+        $("#start_date_normal1-tranloss").text(convertDateFormat(start_date_normal));
+        $("#end-date-normal1-tranloss").text(convertDateFormat(end_date_normal));
+        $("#start-date-not1-tranloss").text(convertDateFormat(start_date_not));
+        $("#end-date-not1-tranloss").text(convertDateFormat(end_date_not));
 
-        $("#start_date_normal1-not-tranloss").text(tart_date_normal);
-        $("#end-date-normal1-not-tranloss").text(end_date_normal);
-        $("#start-date-not1-not-tranloss").text(start_date_not);
-        $("#end-date-not1-not-tranloss").text(end_date_not);
+        $("#start_date_normal1-not-tranloss").text(convertDateFormat(start_date_normal));
+        $("#end-date-normal1-not-tranloss").text(convertDateFormat(end_date_normal));
+        $("#start-date-not1-not-tranloss").text(convertDateFormat(start_date_not));
+        $("#end-date-not1-not-tranloss").text(convertDateFormat(end_date_not));
 
     }, 3000);
     function CalKWhP_Tranloss() {
@@ -2003,7 +2002,7 @@
         var old_start_date_normal = $('#start-date-normal').val();
         var new_start_date_normal = convertDateFormat(old_start_date_normal);
         var startDate = new_start_date_normal;
-
+        console.log(old_start_date_normal)
         // ดึงค่าจาก input ของวันที่สิ้นสุด
         var old_end_date_normal = $('#end-date-normal').val();
         var new_end_date_normal = convertDateFormat(old_end_date_normal);
@@ -2019,7 +2018,7 @@
 
 
         $.ajax({
-            url: "http://172.21.1.60:442/day/calculate-days",
+            url: "http://" + hostname + ":442/day/calculate-days",
             type: "POST",
             data: {
                 "start-date": startDate,
@@ -2040,12 +2039,31 @@
                 $("#result-offkDay-notH").html("<span class='badge rounded-pill text-bg-warning'>H: " + data.offkDayNor + " วัน</span>");
                 $("#resultSumAc").html("<span class='badge text-bg-dark'>รวมทั้งสิ้น: " + (data.countDay + data.countDayNor) + " วัน</span>");
                 $("#resultSumAcCheckIf").val(data.countDay + data.countDayNor);
+
                 $("#KWPPresult-workDay-notP-Sum").val(data.workDayNor)
+                $("#KWPPresult-workDay-notP-Sum-tranloss").val(data.workDayNor)
+                $("#KWPPresult-workDay-notP-Sum-not-tranloss").val(data.workDayNor)
+
                 $("#KWPOPresult-workDay-notP-Sum").val(data.workDayNor)
+                $("#KWPOPresult-workDay-notP-Sum-tranloss").val(data.workDayNor)
+                $("#KWPOPresult-workDay-notP-Sum-not-tranloss").val(data.workDayNor)
+
                 $("#KWPHresult-workDay-notP-Sum").val(data.offkDayNor)
+                $("#KWPHresult-workDay-notP-Sum-tranloss").val(data.offkDayNor)
+                $("#KWPHresult-workDay-notP-Sum-not-tranloss").val(data.offkDayNor)
+
                 $("#KWPPresultP-Sum").val(data.workDay)
+                $("#KWPPresultP-Sum-tranloss").val(data.workDay)
+                $("#KWPPresultP-Sum-not-tranloss").val(data.workDay)
+
                 $("#KWPOPresultP-Sum").val(data.workDay)
+                $("#KWPOPresultP-Sum-tranloss").val(data.workDay)
+                $("#KWPOPresultP-Sum-not-tranloss").val(data.workDay)
+
                 $("#KWPHresultP-Sum").val(data.offkDay)
+                $("#KWPHresultP-Sum-tranloss").val(data.offkDay)
+                $("#KWPHresultP-Sum-not-tranloss").val(data.offkDay)
+
                 $("#p_normal").val(data.workDay)
                 $("#op_normal").val(data.workDay)
                 $("#h_normal").val(data.offkDay)
@@ -2172,7 +2190,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "http://172.21.1.60:442/datadetail/update",
+                        url: "http://" + hostname + ":442/datadetail/update",
                         type: "PUT",
                         data: {
                             "id": iddata,
@@ -2317,7 +2335,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "http://172.21.1.60:442/datadetail/update",
+                        url: "http://" + hostname + ":442/datadetail/update",
                         type: "PUT",
                         data: {
                             "id": iddata,
@@ -2462,7 +2480,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "http://172.21.1.60:442/datadetail/update",
+                        url: "http://" + hostname + ":442/datadetail/update",
                         type: "PUT",
                         data: {
                             "id": iddata,
