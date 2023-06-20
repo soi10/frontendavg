@@ -176,64 +176,6 @@
 
                 </div>
             </main>
-
-            <!-- modal -->
-
-            <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">บันทึกวันหยุดประจำปี</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">วันหยุด</label>
-                                <input type="text" class="form-control" id="dateHoliday">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">ชื่อวันหยุด</label>
-                                <input type="text" class="form-control" id="nameHoliday">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                            <button type="button" class="btn btn-primary" id="addHoliday">บันทึก</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- modalEdit -->
-            <!-- 
-            <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">บันทึกวันหยุดประจำปี</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">วันหยุด</label>
-                                <input type="text" class="form-control" id="dateHolidayEdit">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">ชื่อวันหยุด</label>
-                                <input type="text" class="form-control" id="nameHolidayEdit">
-                            </div>
-                            <input type="hidden" id="idClick" name="" value="">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                            <button type="button" class="btn btn-warning" id="editHoliday">แก้ไข</button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
         </div>
     </div>
 
@@ -255,25 +197,10 @@
             },
             success: function (response) {
                 // console.log(response.message.code);
-
-                var htmlAdmin = `<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
-								off-peak</span>
-						</a>
-					</li>`
-
-                var htmlNormal = `<li class="sidebar-item active">
-						<a class="sidebar-link" href="holiday-normal.html">
-							<i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
-								off-peak</span>
-						</a>
-					</li>`
-
                 if (response.data.length == 0) {
-                    $('#LinkAdmin').append(htmlNormal);
+
                 } else {
-                    $('#LinkAdmin').append(htmlAdmin);
+                    window.location = "./holiday.html";
                 }
 
 
@@ -323,143 +250,12 @@
                     , "className": "text-center",
                 },
                 { "data": "nameHoliday" },
-                // {
-                //     data: null,
-                //     render: function (data, type, row) {
-                //         return '<button class="editButton btn btn-warning text-center" id="btnEdit" value="' + row._id + '">แก้ไข</button>';
-                //     }
-                //     , "className": "text-center",
-                // },
-                // {
-                //     data: null,
-                //     render: function (data, type, row) {
-                //         return '<button class="deleteButton btn btn-danger text-center" id="btnDel" value="' + row._id + '">ลบ</button>';
-                //     },
-                //     "className": "text-center",
-                // }
+
             ]
         });
     });
 
-    // $("#addHoliday").click(function () {
 
-    //     var oldDate = $('#dateHoliday').val();
-    //     var newDate = convertDateFormat(oldDate);
-
-    //     var dateHoliday = newDate;
-    //     var nameHoliday = $("#nameHoliday").val();
-    //     var yearHoliday = (new Date).getFullYear();
-    //     $.ajax({
-    //         url: "http://localhost:442/holiday/add",
-    //         method: "POST",
-    //         data: {
-    //             dateHoliday: dateHoliday,
-    //             nameHoliday: nameHoliday,
-    //             yearHoliday: yearHoliday,
-    //         },
-    //         success: function (response) {
-    //             // console.log(response.message.code);
-    //             if (response.message.code == "11000") {
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     text: 'ข้อมูลซ้ำ',
-    //                 })
-    //             } else if (response.message == "บันทึกสำเร็จ") {
-    //                 Swal.fire({
-    //                     icon: 'success',
-    //                     text: 'บันทึกสำเร็จ',
-    //                 })
-    //                 location.reload();
-    //             } else {
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     text: 'ระบบมีปัญหา',
-    //                 })
-    //             }
-    //         },
-    //         error: function (error) {
-    //             console.log(error);
-    //         }
-    //     });
-    // });
-
-
-    // $(document).on('click', '.editButton', function () {
-    //     // your function here
-    //     // alert($(this).attr("value"));
-    //     $('#exampleModalEdit').modal('show');
-    //     $.ajax({
-    //         url: "http://localhost:442/holiday/getone",
-    //         type: "POST",
-    //         data: {
-    //             "_id": $(this).attr("value"),
-    //         },
-    //         success: function (data) {
-    //             // แสดงผลลัพธ์จำนวนวันที่คำนวณได้
-    //             //   console.log(data);
-    //             $("#dateHolidayEdit").val(data[0].dateHoliday)
-    //             $("#nameHolidayEdit").val(data[0].nameHoliday)
-    //             $("#idClick").val(data[0]._id)
-
-    //         },
-    //     });
-    // });
-
-    // $("#editHoliday").click(function () {
-    //     var dateHolidayEdit = $("#dateHolidayEdit").val();
-    //     var nameHolidayEdit = $("#nameHolidayEdit").val();
-    //     var idClick = $("#idClick").val();
-    //     $.ajax({
-    //         url: "http://localhost:442/holiday/update",
-    //         method: "POST",
-    //         data: {
-    //             dateHoliday: dateHolidayEdit,
-    //             nameHoliday: nameHolidayEdit,
-    //             _id: idClick,
-    //         },
-    //         success: function (response) {
-    //             if (response.message == "success") {
-    //                 location.reload();
-    //             } else {
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     text: 'ระบบมีปัญหา',
-    //                 })
-    //             }
-    //         },
-    //         error: function (error) {
-    //             console.error(error);
-    //         }
-    //     });
-    // });
-
-
-    // $(document).on('click', '.deleteButton', function () {
-    //     // your function here
-    //     // alert($(this).attr("value"));
-    //     Swal.fire({
-    //         title: 'จะลบแล้วนะ?',
-    //         text: "",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'ลบ'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             $.ajax({
-    //                 url: "http://localhost:442/holiday/deleteone",
-    //                 type: "POST",
-    //                 data: {
-    //                     "_id": $(this).attr("value"),
-    //                 },
-    //                 success: function (data) {
-    //                     location.reload();
-    //                 },
-    //             });
-    //         }
-    //     })
-    // });
 
     $("#showyearHoliday").click(function () {
         var yearHoliday = $("#yearNumber").val();
@@ -490,20 +286,7 @@
                     , "className": "text-center",
                 },
                 { "data": "nameHoliday" },
-                // {
-                //     data: null,
-                //     render: function (data, type, row) {
-                //         return '<button class="editButton btn btn-warning text-center" id="btnEdit" value="' + row._id + '">แก้ไข</button>';
-                //     }
-                //     , "className": "text-center",
-                // },
-                // {
-                //     data: null,
-                //     render: function (data, type, row) {
-                //         return '<button class="deleteButton btn btn-danger text-center" id="btnDel" value="' + row._id + '">ลบ</button>';
-                //     },
-                //     "className": "text-center",
-                // }
+
             ]
         });
     })
