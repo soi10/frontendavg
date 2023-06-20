@@ -42,6 +42,9 @@ curl_close($curl);
 
 $data = json_decode($response, true);
 //echo "peacode: " . $data[0]['peacode'] . "<br>";
+function convertYear($year) {
+  return $year + 543;
+}
 
 $head = '
 <!DOCTYPE html>
@@ -107,9 +110,9 @@ u.dotted{
   <td></td>
   </tr>
   <tr>
-    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;พบช.ตรวจสอบหน่วย ได้ดำเนินการตรวจสอบหน่วยการใช้ไฟฟ้า ราย '.$data[0]['name_customer'].' ('.$data[0]['ca_no'].') ในรอบบิล '.$data[0]['billing_Cycle'].' '.$data[0]['year'].' พบว่ามิเตอร์ชำรุดเนื่องจาก '.$data[0]['cause'].' 
+    <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;พบช.ตรวจสอบหน่วย ได้ดำเนินการตรวจสอบหน่วยการใช้ไฟฟ้า ราย '.$data[0]['name_customer'].' ('.$data[0]['ca_no'].') ในรอบบิล '.$data[0]['billing_Cycle'].' '.convertYear($data[0]['year']).' พบว่ามิเตอร์ชำรุดเนื่องจาก '.$data[0]['cause'].' 
     ทั้งนี้ เพื่อเป็นการลดหน่วยสูญเสียให้แก่ กฟภ. และลดการปรับปรุงค่าไฟฟ้าย้อนหลัง
-    พบช.ตรวจสอบหน่วย ได้ดำเนินการเฉลี่ยหน่วยโดยใช้วิธีเฉลี่ยหน่วยจาก '.$data[0]['in_cause'].'   ในรอบบิล '.$data[0]['billing_Cycle'].' '.$data[0]['year'].' แล้วจำนวน '.$data[0]['sum_to_sap_final'].' หน่วย จึงขอรายงานผลการดำเนินการ โดยมีรายละเอียดตามเอกสารแนบ จำนวน ......... ฉบับ </td>
+    พบช.ตรวจสอบหน่วย ได้ดำเนินการเฉลี่ยหน่วยโดยใช้วิธีเฉลี่ยหน่วยจาก '.$data[0]['in_cause'].'   ในรอบบิล '.$data[0]['billing_Cycle'].' '.convertYear($data[0]['year']).' แล้วจำนวน '.number_format($data[0]['sum_to_sap_final'],2).' หน่วย จึงขอรายงานผลการดำเนินการ โดยมีรายละเอียดตามเอกสารแนบ จำนวน ......... ฉบับ </td>
   </tr>
   <tr>
   <td>&nbsp;</td>
@@ -165,9 +168,9 @@ $mpdf->WriteHTML($head);
 
 $mpdf->defaultfooterline = 0;
 // $mpdf->SetFooter('<div style="text-align: left;font-size:18px;">Report By Everest</div>');
-$mpdf->SetTitle('ข้อมูลการเฉลี่ยหน่วย '.$data[0]['name_customer'].' '.$data[0]['billing_Cycle'].' '.$data[0]['year'].'');
+$mpdf->SetTitle('ข้อมูลการเฉลี่ยหน่วย '.$data[0]['name_customer'].' '.$data[0]['billing_Cycle'].' '.convertYear($data[0]['year']).'');
 // $mpdf->SetWatermarkText('PMAC');
 $mpdf->showWatermarkText = true;
-$mpdf->Output('ข้อมูลการเฉลี่ยหน่วย '.$data[0]['name_customer'].' '.$data[0]['billing_Cycle'].' '.$data[0]['year'].'.pdf', 'I');
+$mpdf->Output('ข้อมูลการเฉลี่ยหน่วย '.$data[0]['name_customer'].' '.$data[0]['billing_Cycle'].' '.convertYear($data[0]['year']).'.pdf', 'I');
 $mpdf->Output();
 ?>
