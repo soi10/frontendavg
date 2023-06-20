@@ -292,6 +292,28 @@
 	const hostname = "172.21.1.60";
 	$(document).ready(function () {
 
+		var emp = localStorage.getItem("EmployeeId");
+        $.ajax({
+            url: "http://" + hostname + ":442/admin/get",
+            method: "POST",
+            data: {
+                adminCode: emp,
+            },
+            success: function (response) {
+                // console.log(response.message.code);
+                if (response.data.length == 0) {
+  window.location = "./holiday-normal.html";
+                } else {
+                  
+                }
+
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
 		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
