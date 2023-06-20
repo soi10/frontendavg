@@ -26,7 +26,7 @@ $id = $_GET['id'];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'http://localhost:442/datadetail/id?id=' . $id . '',
+  CURLOPT_URL => 'http://172.21.1.60:442/datadetail/id?id=' . $id . '',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
