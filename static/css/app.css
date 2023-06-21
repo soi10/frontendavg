@@ -13458,7 +13458,7 @@ a.sidebar-link svg {
 }
 
 .sidebar-link:hover {
-  background: #7f3f98;
+  background: #74045F;
   border-left-color: transparent;
 }
 
@@ -13470,7 +13470,7 @@ a.sidebar-link svg {
 
 .sidebar-item.active .sidebar-link:hover,
 .sidebar-item.active > .sidebar-link {
-  background-color: #7f3f98;
+  background-color: #74045F;
   border-left-color: #3b7ddd;
   color: #e9ecef;
 }
