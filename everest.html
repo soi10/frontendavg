@@ -85,7 +85,9 @@
 						</a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="#">
+						<a class="sidebar-link"
+							href="https://drive.google.com/drive/folders/1ajCHMZtJc7BGB4RRvZgl44ocHQETWNN3"
+							target="_blank">
 							<i class="align-middle" data-feather="calendar"></i> <span
 								class="align-middle">ดาวน์โหลดปฏิทิน TOU</span>
 						</a>
@@ -1436,7 +1438,7 @@
 </html>
 
 <script>
-	const hostname = "172.21.1.60";
+	const hostname = "localhost";
 	$(document).ready(function () {
 
 		$("#Name").html(localStorage.getItem("FullName"));
@@ -1501,7 +1503,15 @@
 				title: 'Oops...',
 				text: 'กรุณากรอกข้อมูลให้ครบทุกช่อง!',
 			})
-		} else {
+		} else if (document.getElementById("case-ex").value == 'เฉลี่ยจากใบอ่านหน่วย(ใช้ข้อมูลเลขอ่านครั้งก่อน-เลขอ่านครั้งหลัง)') {
+			$("#page1").hide();
+			$("#page2").hide();
+			$("#page3").show();
+			$("#normal").show();
+			$("#not-tranloss").hide();
+			$("#tranloss").hide();
+		}
+		else if (document.getElementById("case-ex").value == 'เฉลี่ยจากข้อมูลสถิติการใช้ไฟฟ้า') {
 			if (document.getElementById("selectCaseTranloss-case").value == 'คิดเพิ่ม Tranloss 2%') {
 				$("#page1").hide();
 				$("#page2").hide();
@@ -1528,9 +1538,7 @@
 					icon: "warning",
 					title: "ระบุการคิด Tranloss",
 				})
-
 			}
-
 		}
 	});
 
