@@ -84,7 +84,7 @@
 						Document
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="#">
+						<a class="sidebar-link" href="document.html">
 							<i class="align-middle" data-feather="book-open"></i> <span
 								class="align-middle">คู่มือการใช้งาน</span>
 						</a>
@@ -259,7 +259,14 @@
 						return full.billing_Cycle + ' ' + full.year;
 					}
 				},
-				{ "data": "sum_to_sap_final" },
+				// { "data": "sum_to_sap_final" },
+				{ 
+					"data": "sum_to_sap_final",
+					"bSortable": false,
+					"mRender": function (data, type, full) {
+						return data
+					}
+				},
 				{
 					"data": "_id",
 					"bSortable": false,

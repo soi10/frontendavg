@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="./static/img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/" />
+    <script src="./static/js/sweetalert2v10.js"></script>
+    <title>โปรแกรมเฉลี่ยหน่วยมิเตอร์ TOU</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <link href="./static/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/datepicker-th.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Resources -->
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+
+
+    <style>
+        body {
+            font-family: 'Kanit';
+            font-size: 14px;
+        }
+    </style>
+    <!-- Styles -->
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+
+        #chartdivSumToSap {
+            width: 100%;
+            height: 250px;
+        }
+
+        #chartdivSumType {
+            width: 100%;
+            height: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" href="index.html">
+                    <img src="./src/img/logo.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="18%"
+                        height="18%" /><span class="align-middle"> EVEREST</span>
+                </a>
+
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">
+                        Pages
+                    </li>
+
+                    <li class="sidebar-ite">
+                        <a class="sidebar-link" href="index.html">
+                            <i class="align-middle" data-feather="bar-chart-2"></i> <span
+                                class="align-middle">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="home.html">
+                            <i class="align-middle" data-feather="list"></i> <span
+                                class="align-middle">ข้อมูลการเฉลี่ยหน่วย</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="everest.html">
+                            <i class="align-middle" data-feather="sliders"></i> <span
+                                class="align-middle">ดำเนินการเฉลี่ยหน่วย</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="holiday-normal.html">
+                            <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">ข้อมูลวัน
+                                off-peak</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-header">
+                        Document
+                    </li>
+                    <li class="sidebar-item active">
+                        <a class="sidebar-link" href="document.html">
+                            <i class="align-middle" data-feather="book-open"></i> <span
+                                class="align-middle">คู่มือการใช้งาน</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link"
+                            href="https://drive.google.com/drive/folders/1ajCHMZtJc7BGB4RRvZgl44ocHQETWNN3"
+                            target="_blank">
+                            <i class="align-middle" data-feather="calendar"></i> <span
+                                class="align-middle">ดาวน์โหลดปฏิทิน TOU</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                                data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                data-bs-toggle="dropdown">
+                                <span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span>
+                                    <span id="BaName"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <span id="outer">
+                                    <a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content">
+                <div class="container-fluid p-0">
+                    <h1 class="h3 mb-3">คู่มือการใช้งาน</h1>
+                    <div id="page3" class="my-2">
+                        <div class="container-fluid p-0">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <video width="800" height="500" controls>
+                                                <source src="video/EVEREST - VDO การใช้งานโปรแกรม.mp4" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                              </video>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page3" class="my-2">
+                        <div class="container-fluid p-0">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div id="sumSap" style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
+                                            <div style="font-size: 20px">
+                                                <object data="document/OPK - ID4246 การเฉลี่ยหน่วยมิเตอร์ TOU ด้วย EVEREST.pdf" type="application/pdf" width="100%" height="1000px">
+                                                    <p>Unable to display PDF file. <a href="document/OPK - ID4246 การเฉลี่ยหน่วยมิเตอร์ TOU ด้วย EVEREST.pdf">Download</a> instead.</p>
+                                                  </object>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End page3 -->
+                </div>
+
+            </main>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a href="#" class="text-muted"><strong>วัยรุ่นม่วงเดียด</strong></a>
+                                &copy;<strong>2023</strong>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Support</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Help Center</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="#">Privacy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="profile-team.html">Terms</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script src="./static/js/app.js"></script>
+
+</body>
+
+</html>
+
+<!-- Chart code -->
+<script>
+    var Token = localStorage.getItem("token");
+
+    if (Token == null) {
+        window.location = "./sign-in.html";
+    } else {
+        const hostname = "172.21.1.60";
+        var yearChart = $("#yearChart").val((new Date).getFullYear());
+
+        $("#Name").html(localStorage.getItem("FullName"));
+        $("#BaName").html(localStorage.getItem("BaName"));
+        $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+        let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "http://" + hostname + ":442/datadetail/all",
+                method: "POST",
+                data: {
+                    yearChart: yearChart.val(),
+                    peacode: PeaCode
+                },
+                success: function (data1) {
+                    am5.ready(function () {
+
+                        // Create root element
+                        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+
+
+                        var root = am5.Root.new("chartdiv");
+                        // Set themes
+                        // https://www.amcharts.com/docs/v5/concepts/themes/
+                        root.setThemes([
+                            am5themes_Animated.new(root)
+                        ]);
+
+
+                        // Create chart
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                        var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                            panX: true,
+                            panY: true,
+                            wheelX: "panX",
+                            wheelY: "zoomX",
+                            pinchZoomX: true
+                        }));
+
+                        // Add cursor
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+                        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+                        cursor.lineY.set("visible", false);
+
+
+                        // Create axes
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                        var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+                        xRenderer.labels.template.setAll({
+                            rotation: -90,
+                            centerY: am5.p50,
+                            centerX: am5.p100,
+                            paddingRight: 15
+                        });
+
+                        xRenderer.grid.template.setAll({
+                            location: 1
+                        })
+
+                        var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                            maxDeviation: 0.3,
+                            categoryField: "month",
+                            renderer: xRenderer,
+                            tooltip: am5.Tooltip.new(root, {})
+                        }));
+
+                        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                            maxDeviation: 0.3,
+                            renderer: am5xy.AxisRendererY.new(root, {
+                                strokeOpacity: 0.1
+                            })
+                        }));
+
+
+                        // Create series
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                        var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                            name: "Series 1",
+                            xAxis: xAxis,
+                            yAxis: yAxis,
+                            valueYField: "value",
+                            sequencedInterpolation: true,
+                            categoryXField: "month",
+                            tooltip: am5.Tooltip.new(root, {
+                                labelText: "{valueY}"
+                            })
+                        }));
+
+                        series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+                        series.columns.template.adapters.add("fill", function (fill, target) {
+                            return chart.get("colors").getIndex(series.columns.indexOf(target));
+                        });
+
+                        series.columns.template.adapters.add("stroke", function (stroke, target) {
+                            return chart.get("colors").getIndex(series.columns.indexOf(target));
+                        });
+
+                        // สร้างอาร์เรย์ของเดือนทั้ง 12 เดือน
+                        const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+                        // สร้างอาร์เรย์สำหรับเก็บข้อมูลกราฟ
+                        const graphData = months.map(month => {
+                            const matchingData = data1.filter(item => item.billing_Cycle === month);
+                            const summedValue = matchingData.reduce((accumulator, currentValue) => {
+                                const value = currentValue.sum_to_sap_final ? parseFloat(currentValue.sum_to_sap_final.replace(/,/g, "")) : 0;
+                                return accumulator + value;
+                            }, 0);
+                            return {
+                                month: month,
+                                value: summedValue
+                            };
+                        });
+                        xAxis.data.setAll(graphData);
+                        series.data.setAll(graphData);
+
+
+                        // Make stuff animate on load
+                        // https://www.amcharts.com/docs/v5/concepts/animations/
+                        series.appear(1000);
+                        chart.appear(1000, 100);
+
+                    }); // end am5.ready()
+
+
+
+                }
+            });
+
+
+
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://" + hostname + ":442/datadetail/count",
+                method: "POST",
+                data: {
+                    yearChart: yearChart.val(),
+                    peacode: PeaCode
+                },
+                success: function (data2) {
+
+                    var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+                    $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
+                    const chartColors = [
+                        am5.color("#C7911B"),
+                        am5.color("#74045F"),
+                    ];
+
+                    // Create chart
+                    var root2 = am5.Root.new("chartdivSumToSap");
+                    var chart = root2.container.children.push(
+                        am5percent.PieChart.new(root2, {
+                            layout: root2.verticalHorizontal
+                        })
+                    );
+
+                    // Define data
+                    var data = [
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: parseFloat(data2.major.sum),
+
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: parseFloat(data2.minor.sum),
+
+                        }
+                    ];
+
+                    // Create series
+                    var series = chart.series.push(
+                        am5percent.PieSeries.new(root2, {
+                            name: "Series",
+                            valueField: "sales",
+                            categoryField: "country",
+                        })
+                    );
+                    series.get("colors").set("colors", chartColors);
+                    series.data.setAll(data);
+
+                    // Add legend
+                    var legend = chart.children.push(am5.Legend.new(root2, {
+                        centerX: am5.percent(50),
+                        x: am5.percent(50),
+                        layout: root2.horizontalLayout
+                    }));
+
+                    legend.data.setAll(series.dataItems);
+                }
+            });
+        })
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://" + hostname + ":442/datadetail/count",
+                method: "POST",
+                data: {
+                    yearChart: yearChart.val(),
+                    peacode: PeaCode
+                },
+                success: function (data3) {
+
+                    var countSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                    $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
+
+                    const chartColors = [
+                        am5.color("#C7911B"),
+                        am5.color("#74045F"),
+                    ];
+
+                    // Create chart
+                    var root3 = am5.Root.new("chartdivSumType");
+                    var chart = root3.container.children.push(
+                        am5percent.PieChart.new(root3, {
+                            layout: root3.verticalHorizontal
+                        })
+                    );
+
+                    // Define data
+                    var data = [
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: parseFloat(data3.major.count),
+
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: parseFloat(data3.minor.count),
+
+                        }
+                    ];
+
+                    // Create series
+                    var series = chart.series.push(
+                        am5percent.PieSeries.new(root3, {
+                            name: "Series",
+                            valueField: "sales",
+                            categoryField: "country",
+                        })
+                    );
+                    series.get("colors").set("colors", chartColors);
+                    series.data.setAll(data);
+
+                    // Add legend
+                    var legend = chart.children.push(am5.Legend.new(root3, {
+                        centerX: am5.percent(50),
+                        x: am5.percent(50),
+                        layout: root3.horizontalLayout
+                    }));
+
+                    legend.data.setAll(series.dataItems);
+                }
+            });
+        })
+
+
+        $("#btnLogout").click(function (event) {
+            event.preventDefault();
+            localStorage.clear();
+            Swal.fire({
+                icon: "success",
+                title: "ออกจากระบบเรียบร้อย",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "ตกลง",
+            }).then((response) => {
+                if (response.isConfirmed) {
+                    window.location = "./sign-in.html";
+                }
+            });
+        })
+
+        $("#showChart").click(function () {
+            var divId = "chartdiv";
+
+            // Dispose existing root elements with matching divId
+            am5.array.each(am5.registry.rootElements, function (root) {
+                if (root && root.dom && root.dom.id == divId) {
+                    root.dispose();
+                }
+            });
+
+            var divId1 = "chartdivSumToSap";
+
+            // Dispose existing root elements with matching divId1
+            am5.array.each(am5.registry.rootElements, function (root2) {
+                if (root2 && root2.dom && root2.dom.id == divId1) {
+                    root2.dispose();
+                }
+            });
+
+            var divId2 = "chartdivSumType";
+
+            // Dispose existing root elements with matching divId2
+            am5.array.each(am5.registry.rootElements, function (root3) {
+                if (root3 && root3.dom && root3.dom.id == divId2) {
+                    root3.dispose();
+                }
+            });
+
+            $.ajax({
+                url: "http://" + hostname + ":442/datadetail/all",
+                method: "POST",
+                data: {
+                    yearChart: yearChart.val(),
+                    peacode: PeaCode
+                },
+                success: function (data1) {
+                    am5.ready(function () {
+                        // Create root element
+                        var root = am5.Root.new(divId);
+
+                        // Set themes
+                        root.setThemes([
+                            am5themes_Animated.new(root)
+                        ]);
+
+                        // Create chart
+                        var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                            panX: true,
+                            panY: true,
+                            wheelX: "panX",
+                            wheelY: "zoomX",
+                            pinchZoomX: true
+                        }));
+
+                        // Add cursor
+                        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+                        cursor.lineY.set("visible", false);
+
+                        // Create axes
+                        var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+                        xRenderer.labels.template.setAll({
+                            rotation: -90,
+                            centerY: am5.p50,
+                            centerX: am5.p100,
+                            paddingRight: 15
+                        });
+
+                        xRenderer.grid.template.setAll({
+                            location: 1
+                        });
+
+                        var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                            maxDeviation: 0.3,
+                            categoryField: "month",
+                            renderer: xRenderer,
+                            tooltip: am5.Tooltip.new(root, {})
+                        }));
+
+                        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                            maxDeviation: 0.3,
+                            renderer: am5xy.AxisRendererY.new(root, {
+                                strokeOpacity: 0.1
+                            })
+                        }));
+
+                        // Create series
+                        var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                            name: "Series 1",
+                            xAxis: xAxis,
+                            yAxis: yAxis,
+                            valueYField: "value",
+                            sequencedInterpolation: true,
+                            categoryXField: "month",
+                            tooltip: am5.Tooltip.new(root, {
+                                labelText: "{valueY}"
+                            })
+                        }));
+
+                        series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5, strokeOpacity: 0 });
+                        series.columns.template.adapters.add("fill", function (fill, target) {
+                            return chart.get("colors").getIndex(series.columns.indexOf(target));
+                        });
+
+                        series.columns.template.adapters.add("stroke", function (stroke, target) {
+                            return chart.get("colors").getIndex(series.columns.indexOf(target));
+                        });
+
+                        // Generate graph data
+                        const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+                        const graphData = months.map(month => {
+                            const matchingData = data1.filter(item => item.billing_Cycle === month);
+                            const summedValue = matchingData.reduce((accumulator, currentValue) => {
+                                const value = currentValue.sum_to_sap_final ? parseFloat(currentValue.sum_to_sap_final.replace(/,/g, "")) : 0;
+                                return accumulator + value;
+                            }, 0);
+                            return {
+                                month: month,
+                                value: summedValue
+                            };
+                        });
+                        xAxis.data.setAll(graphData);
+                        series.data.setAll(graphData);
+
+                        // Make stuff animate on load
+                        series.appear(1000);
+                        chart.appear(1000, 100);
+                    }); // end am5.ready()
+                }
+            });
+
+            $.ajax({
+                url: "http://" + hostname + ":442/datadetail/count",
+                method: "POST",
+                data: {
+                    yearChart: yearChart.val(),
+                    peacode: PeaCode
+                },
+                success: function (data2) {
+                    $("#sumSap").text(" ");
+                    var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+                    $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
+
+                    const chartColors = [
+                        am5.color("#C7911B"),
+                        am5.color("#74045F"),
+                    ];
+
+                    // Create chart
+                    var root2 = am5.Root.new("chartdivSumToSap");
+                    var chart = root2.container.children.push(
+                        am5percent.PieChart.new(root2, {
+                            layout: root2.verticalHorizontal
+                        })
+                    );
+
+                    // Define data
+                    var data = [
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: parseFloat(data2.major.sum),
+
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: parseFloat(data2.minor.sum),
+
+                        }
+                    ];
+
+                    // Create series
+                    var series = chart.series.push(
+                        am5percent.PieSeries.new(root2, {
+                            name: "Series",
+                            valueField: "sales",
+                            categoryField: "country",
+                        })
+                    );
+                    series.get("colors").set("colors", chartColors);
+                    series.data.setAll(data);
+
+                    // Add legend
+                    var legend = chart.children.push(am5.Legend.new(root2, {
+                        centerX: am5.percent(50),
+                        x: am5.percent(50),
+                        layout: root2.horizontalLayout
+                    }));
+
+                    legend.data.setAll(series.dataItems);
+                }
+            });
+
+            $.ajax({
+                url: "http://" + hostname + ":442/datadetail/count",
+                method: "POST",
+                data: {
+                    yearChart: yearChart.val(),
+                    peacode: PeaCode
+                },
+                success: function (data3) {
+                    $("#countSap").text(" ");
+                    var countSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                    $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
+
+                    const chartColors = [
+                        am5.color("#C7911B"),
+                        am5.color("#74045F"),
+                    ];
+
+                    // Create chart
+                    var root3 = am5.Root.new("chartdivSumType");
+                    var chart = root3.container.children.push(
+                        am5percent.PieChart.new(root3, {
+                            layout: root3.verticalHorizontal
+                        })
+                    );
+
+                    var data = [
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: parseFloat(data3.major.count),
+
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: parseFloat(data3.minor.count),
+
+                        }
+                    ];
+
+                    // Create series
+                    var series = chart.series.push(
+                        am5percent.PieSeries.new(root3, {
+                            name: "Series",
+                            valueField: "sales",
+                            categoryField: "country",
+                        })
+                    );
+                    series.get("colors").set("colors", chartColors);
+                    series.data.setAll(data);
+
+                    // Add legend
+                    var legend = chart.children.push(am5.Legend.new(root3, {
+                        centerX: am5.percent(50),
+                        x: am5.percent(50),
+                        layout: root3.horizontalLayout
+                    }));
+
+                    legend.data.setAll(series.dataItems);
+                }
+            });
+
+
+
+        });
+    }
+</script>

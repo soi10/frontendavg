@@ -105,7 +105,7 @@
                         Document
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="document.html">
                             <i class="align-middle" data-feather="book-open"></i> <span
                                 class="align-middle">คู่มือการใช้งาน</span>
                         </a>
@@ -295,7 +295,8 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-                    peacode: PeaCode
+					peacode: PeaCode
+                    //peacode: 'E141'
                 },
                 success: function (data1) {
                     am5.ready(function () {
@@ -420,11 +421,13 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-                    peacode: PeaCode
+					peacode: PeaCode
+                    //peacode: 'E141'
                 },
                 success: function (data2) {
-
+					//console.log(data2)
                     var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+					//console.log(sumSap)
                     $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
                     const chartColors = [
                         am5.color("#C7911B"),
@@ -483,6 +486,7 @@
                 data: {
                     yearChart: yearChart.val(),
                     peacode: PeaCode
+					//peacode: 'E141'
                 },
                 success: function (data3) {
 
@@ -590,7 +594,8 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-                    peacode: PeaCode
+					peacode: PeaCode
+                    //peacode: 'E141'
                 },
                 success: function (data1) {
                     am5.ready(function () {
