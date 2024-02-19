@@ -46,9 +46,10 @@
 			font-family: 'Kanit';
 			font-size: 14px;
 		}
+
 		th {
-		  color: white;
-		  background: #74045F;
+			color: white;
+			background: #74045F;
 		}
 	</style>
 </head>
@@ -293,26 +294,26 @@
 	$(document).ready(function () {
 
 		var emp = localStorage.getItem("EmployeeId");
-        $.ajax({
-            url: "http://" + hostname + ":442/admin/get",
-            method: "POST",
-            data: {
-                adminCode: emp,
-            },
-            success: function (response) {
-                // console.log(response.message.code);
-                if (response.data.length == 0) {
-  window.location = "./holiday-normal.html";
-                } else {
-                  
-                }
+		$.ajax({
+			url: "http://" + hostname + ":442/admin/get",
+			method: "POST",
+			data: {
+				adminCode: emp,
+			},
+			success: function (response) {
+				// console.log(response.message.code);
+				if (response.data.length == 0) {
+					window.location = "./holiday-normal.html";
+				} else {
+
+				}
 
 
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		});
 
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
@@ -376,7 +377,8 @@
 
 		var dateHoliday = newDate;
 		var nameHoliday = $("#nameHoliday").val();
-		var yearHoliday = (new Date).getFullYear();
+		var yearArray = dateHoliday.split("-");
+		var yearHoliday = yearArray[0];
 		$.ajax({
 			url: "http://" + hostname + ":442/holiday/add",
 			method: "POST",
