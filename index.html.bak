@@ -783,15 +783,17 @@ var countSap = majorCount + minorCount;
                     );
 
                     var data = [
-    {
-        country: "ผู้ใช้ไฟรายใหญ่",
-        sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
-    },
-    {
-        country: "ผู้ใช้ไฟรายย่อย",
-        sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
-    }
-];
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: parseFloat(data3.major.count),
+
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: parseFloat(data3.minor.count),
+
+                        }
+                    ];
 
                     // Create series
                     var series = chart.series.push(

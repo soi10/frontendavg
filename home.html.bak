@@ -238,10 +238,7 @@
             }
 				, "dataSrc": "",
 			},
-			"initComplete": function (settings, json) {
-			 // กรองข้อมูลตามปีที่กำหนดใน input เมื่อโหลดข้อมูลเสร็จสิ้น
-            var selectedYear = $('#yearInput').val();
-            this.api().column(4).search(selectedYear).draw();
+			"initComplete": function () {
 				this.api().columns().every(function () {
 					var column = this;
 					var columnIndex = column.index();
