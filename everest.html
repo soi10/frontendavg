@@ -1074,6 +1074,43 @@
 															<input type="text" class="form-control" id="sum-kwp-h"
 																disabled style="text-align: right">
 														</div>
+														<!-- <div class="col-sm-1">
+															หมายเหตุ
+														</div>
+														<div class="col-sm-5">
+															<textarea class="form-control" id="comment-tranloss"
+																rows="2"></textarea> -->
+														<!-- <input type="text" class="form-control" id="comment"> -->
+														<!-- </div> -->
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-12">
+															<b>กิโลวาร์ หน่วยการใช้ไฟ</b>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+														</div>
+														<div class="col-sm-1">
+															กิโลวาร์
+														</div>
+														<div class="col-sm-1">
+															กิโลวาร์ช่วงปกติ
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+															KVAR
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="kvar-unit-tran"
+																onkeyup="Cal_KVAR_TRAN()" style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control" id="sum-kvar-tran"
+																disabled style="text-align: right">
+														</div>
 														<div class="col-sm-1">
 															หมายเหตุ
 														</div>
@@ -1347,6 +1384,45 @@
 														<div class="col-sm-1">
 															<input type="text" class="form-control" id="sum-kwp-h-not"
 																disabled style="text-align: right">
+														</div>
+														<!-- <div class="col-sm-1">
+															หมายเหตุ
+														</div> -->
+														<!-- <div class="col-sm-5">
+															<textarea class="form-control" id="comment-not-tranloss"
+																rows="2"></textarea> -->
+														<!-- <input type="text" class="form-control" id="comment"> -->
+														<!-- </div> -->
+													</div>
+													<br>
+													<div class="row">
+														<div class="col-sm-12">
+															<b>กิโลวาร์ หน่วยการใช้ไฟ</b>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+														</div>
+														<div class="col-sm-1">
+															กิโลวาร์
+														</div>
+														<div class="col-sm-1">
+															กิโลวาร์ช่วงปกติ
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-1">
+															KVAR
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="kvar-unit-nottran" onkeyup="Cal_KVAR_NOTTRAN()"
+																style="text-align: right">
+														</div>
+														<div class="col-sm-1">
+															<input type="text" class="form-control"
+																id="sum-kvar-nottran" disabled
+																style="text-align: right">
 														</div>
 														<div class="col-sm-1">
 															หมายเหตุ
@@ -1804,6 +1880,14 @@
 		var kwp_h_unit = parseFloat($("#kwp-h-unit-not").val())
 		$("#sum-kwp-h-not").val(kwp_h_unit)
 	}
+	function Cal_KVAR_TRAN() {
+		var kvar_unit_tran = parseFloat($("#kvar-unit-tran").val())
+		$("#sum-kvar-tran").val((kvar_unit_tran * 100 / 102).toFixed(2))
+	}
+	function Cal_KVAR_NOTTRAN() {
+		var kvar_unit_nottran = parseFloat($("#kvar-unit-nottran").val())
+		$("#sum-kvar-nottran").val(kvar_unit_nottran)
+	}
 
 	// คำนวน KWP-P
 	function CalKWPP() {
@@ -2115,6 +2199,7 @@
 			var unit_read_before_unit_kwh_h = $("#KKWPHBefore").val();
 			var multiplier_unit_kwh_h = $("#KKWPHmultiplier").val();
 			var kwh_normal_unit_kwh_h = $("#KKWPHUnitNormol").val();
+			var kwh_normal_unit_kwh_h = $("#KKWPHUnitNormol").val();
 			var comment = $("#comment").val();
 			var user = localStorage.getItem("FullName");
 			if (unit_read_after_kwh_p != '' && unit_read_before_kwh_p != '' && multiplier_kwh_p != '' && unit_read_after_kwh_op != '' && unit_read_before_kwh_op != '' && multiplier_kwh_op != '' && unit_read_after_kwh_h != '' && unit_read_before_kwh_h != '' && multiplier_kwh_h != '' && unit_read_after_unit_kwh_p != '' && unit_read_before_unit_kwh_p != '' && multiplier_unit_kwh_p != '' && unit_read_after_unit_kwh_op != '' && unit_read_before_unit_kwh_op != '' && multiplier_unit_kwh_op != '' && unit_read_after_unit_kwh_h != '' && unit_read_before_unit_kwh_h != '' && multiplier_unit_kwh_h != '') {
@@ -2259,6 +2344,9 @@
 
 			var multiplier_unit_kwh_h = $("#kwp-h-unit-not").val();
 			var kwh_normal_unit_kwh_h = $("#sum-kwp-h-not").val();
+
+			var kvar_nottran = $("#kvar-unit-nottran").val();
+			var sum_kvar_nottran = $("#sum-kvar-nottran").val();
 			var comment = $("#comment-not-tranloss").val();
 
 			var user = localStorage.getItem("FullName");
@@ -2339,6 +2427,8 @@
 								"unit_read_before_unit_kwh_h": unit_read_before_unit_kwh_h,
 								"multiplier_unit_kwh_h": multiplier_unit_kwh_h,
 								"kwh_normal_unit_kwh_h": kwh_normal_unit_kwh_h,
+								"kvar": kvar_nottran,
+								"sum_kvar": sum_kvar_nottran,
 								"user": user,
 								"comment": comment
 							},
@@ -2402,10 +2492,13 @@
 
 			var multiplier_unit_kwh_h = $("#kwp-h-unit").val();
 			var kwh_normal_unit_kwh_h = $("#sum-kwp-h").val();
+
+			var kvar_tran = $("#kvar-unit-tran").val();
+			var sum_kvar_tran = $("#sum-kvar-tran").val();
 			var comment = $("#comment-tranloss").val();
 
 			var user = localStorage.getItem("FullName");
-			if (multiplier_kwh_p != '' && multiplier_kwh_op != '' && multiplier_kwh_h != '' && multiplier_unit_kwh_p != '' && multiplier_unit_kwh_op != '' && multiplier_unit_kwh_h != '') {
+			if (multiplier_kwh_p != '' && multiplier_kwh_op != '' && multiplier_kwh_h != '' && multiplier_unit_kwh_p != '' && multiplier_unit_kwh_op != '' && multiplier_unit_kwh_h != '' && kvar_tran != '') {
 				Swal.fire({
 					title: 'ยืนกันการบันทึกข้อมูล?',
 					showDenyButton: true,
@@ -2482,6 +2575,8 @@
 								"unit_read_before_unit_kwh_h": unit_read_before_unit_kwh_h,
 								"multiplier_unit_kwh_h": multiplier_unit_kwh_h,
 								"kwh_normal_unit_kwh_h": kwh_normal_unit_kwh_h,
+								"kvar": kvar_tran,
+								"sum_kvar": sum_kvar_tran,
 								"user": user,
 								"comment": comment
 							},
