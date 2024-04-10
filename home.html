@@ -84,7 +84,7 @@
 						Document
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="#">
+						<a class="sidebar-link" href="document.html">
 							<i class="align-middle" data-feather="book-open"></i> <span
 								class="align-middle">คู่มือการใช้งาน</span>
 						</a>
@@ -133,6 +133,8 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
+				<label for="yearInput">เลือกปี:</label>
+<input type="number" id="yearInput" class="form-control" value=""> <!-- ค่าเริ่มต้นจะถูกตั้งใน jQuery -->
 					<div class="row">
 						<div class="col">
 							<div class="card my-2">
@@ -209,8 +211,12 @@
 </html>
 
 <script>
-	const hostname = "localhost";
+	const hostname = "172.21.1.60";
 	$(document).ready(function () {
+	
+	    // ตั้งค่าปีปัจจุบันใน input
+    var currentYear = new Date().getFullYear();
+    $('#yearInput').val(currentYear);
 
 		$("#Name").html(localStorage.getItem("FullName"));
 		$("#BaName").html(localStorage.getItem("BaName"));
@@ -221,17 +227,21 @@
 			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
 		});
 
-		$('#example').DataTable({
+		var table = $('#example').DataTable({
 			"ajax": {
 				"url": "http://" + hostname + ":442/datadetail/databypeacode",
 				"dataSrc": "",
 				"contentType": "application/json",
-				"data": {
-					"peacode": PeaCode
-				}
+				"data": function(d) {
+                d.peacode = PeaCode;
+                d.year = $('#yearInput').val(); // เพิ่มพารามิเตอร์ปี
+            }
 				, "dataSrc": "",
 			},
-			"initComplete": function () {
+			"initComplete": function (settings, json) {
+			 // กรองข้อมูลตามปีที่กำหนดใน input เมื่อโหลดข้อมูลเสร็จสิ้น
+            var selectedYear = $('#yearInput').val();
+            this.api().column(4).search(selectedYear).draw();
 				this.api().columns().every(function () {
 					var column = this;
 					var columnIndex = column.index();
@@ -259,7 +269,14 @@
 						return full.billing_Cycle + ' ' + full.year;
 					}
 				},
-				{ "data": "sum_to_sap_final" },
+				// { "data": "sum_to_sap_final" },
+				{ 
+					"data": "sum_to_sap_final",
+					"bSortable": false,
+					"mRender": function (data, type, full) {
+						return data
+					}
+				},
 				{
 					"data": "_id",
 					"bSortable": false,
@@ -298,7 +315,16 @@
 				},
 			],
 		});
-
+		  $('#yearInput').on('change keyup', function() {
+        var selectedYear = $(this).val();
+        if (selectedYear) {
+            // สมมติว่าคอลัมน์ที่ 4 คือคอลัมน์ปี
+            table.column(4).search(selectedYear).draw();
+        } else {
+            // แสดงข้อมูลทั้งหมดถ้าไม่มีปีที่เลือก
+            table.column(4).search('').draw();
+        }
+    });
 
 	});
 	////////Start Process Cencel

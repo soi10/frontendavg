@@ -105,7 +105,7 @@
                         Document
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="document.html">
                             <i class="align-middle" data-feather="book-open"></i> <span
                                 class="align-middle">คู่มือการใช้งาน</span>
                         </a>
@@ -179,7 +179,7 @@
                                             <h3>ข้อมูลจำนวนหน่วยที่เฉลี่ยรวม</h3>
                                         </div>
                                         <div class="card-body">
-                                            <div id="sumSap" style="font-size: 50px; font-weight: bold;"></div>
+                                            <div id="sumSap" style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
                                             <div style="font-size: 20px">หน่วย</div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                             <h3>จำนวนรายที่เฉลี่ยหน่วย</h3>
                                         </div>
                                         <div class="card-body">
-                                            <div id="countSap" style="font-size: 50px; font-weight: bold;"></div>
+                                            <div id="countSap" style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
                                             <div style="font-size: 20px">ฉบับ</div>
                                         </div>
                                     </div>
@@ -280,8 +280,9 @@
     if (Token == null) {
         window.location = "./sign-in.html";
     } else {
-        const hostname = "localhost";
+        const hostname = "172.21.1.60";
         var yearChart = $("#yearChart").val((new Date).getFullYear());
+		
 
         $("#Name").html(localStorage.getItem("FullName"));
         $("#BaName").html(localStorage.getItem("BaName"));
@@ -295,7 +296,8 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-                    peacode: PeaCode
+					peacode: PeaCode
+                    //peacode: 'E141'
                 },
                 success: function (data1) {
                     am5.ready(function () {
@@ -420,11 +422,15 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-                    peacode: PeaCode
+					peacode: PeaCode
+                    //peacode: 'E141'
                 },
                 success: function (data2) {
-
-                    var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+					//console.log(data2)
+                    var majorSum = data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0;
+					var minorSum = data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0;
+					var sumSap = majorSum + minorSum;
+					//console.log(sumSap)
                     $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
                     const chartColors = [
                         am5.color("#C7911B"),
@@ -441,17 +447,15 @@
 
                     // Define data
                     var data = [
-                        {
-                            country: "ผู้ใช้ไฟรายใหญ่",
-                            sales: parseFloat(data2.major.sum),
-
-                        },
-                        {
-                            country: "ผู้ใช้ไฟรายย่อย",
-                            sales: parseFloat(data2.minor.sum),
-
-                        }
-                    ];
+						{
+							country: "ผู้ใช้ไฟรายใหญ่",
+							sales: data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0,
+						},
+						{
+							country: "ผู้ใช้ไฟรายย่อย",
+							sales: data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0,
+						}
+					];
 
                     // Create series
                     var series = chart.series.push(
@@ -483,10 +487,13 @@
                 data: {
                     yearChart: yearChart.val(),
                     peacode: PeaCode
+					//peacode: 'E141'
                 },
                 success: function (data3) {
 
-                    var countSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                    var majorCount = data3.major && data3.major.count ? parseFloat(data3.major.count) : 0;
+					var minorCount = data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0;
+					var countSap = majorCount + minorCount;
                     $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
 
                     const chartColors = [
@@ -503,18 +510,16 @@
                     );
 
                     // Define data
-                    var data = [
-                        {
-                            country: "ผู้ใช้ไฟรายใหญ่",
-                            sales: parseFloat(data3.major.count),
-
-                        },
-                        {
-                            country: "ผู้ใช้ไฟรายย่อย",
-                            sales: parseFloat(data3.minor.count),
-
-                        }
-                    ];
+                   var data = [
+						{
+							country: "ผู้ใช้ไฟรายใหญ่",
+							sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
+						},
+						{
+							country: "ผู้ใช้ไฟรายย่อย",
+							sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
+						}
+					];
 
                     // Create series
                     var series = chart.series.push(
@@ -558,6 +563,7 @@
         })
 
         $("#showChart").click(function () {
+		
             var divId = "chartdiv";
 
             // Dispose existing root elements with matching divId
@@ -590,7 +596,8 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-                    peacode: PeaCode
+					peacode: PeaCode
+                    //peacode: 'E141'
                 },
                 success: function (data1) {
                     am5.ready(function () {
@@ -696,7 +703,9 @@
                 },
                 success: function (data2) {
                     $("#sumSap").text(" ");
-                    var sumSap = parseFloat(data2.major.sum) + parseFloat(data2.minor.sum)
+                    var majorSum = data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0;
+var minorSum = data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0;
+var sumSap = majorSum + minorSum;
                     $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
 
                     const chartColors = [
@@ -714,17 +723,15 @@
 
                     // Define data
                     var data = [
-                        {
-                            country: "ผู้ใช้ไฟรายใหญ่",
-                            sales: parseFloat(data2.major.sum),
-
-                        },
-                        {
-                            country: "ผู้ใช้ไฟรายย่อย",
-                            sales: parseFloat(data2.minor.sum),
-
-                        }
-                    ];
+    {
+        country: "ผู้ใช้ไฟรายใหญ่",
+        sales: data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0,
+    },
+    {
+        country: "ผู้ใช้ไฟรายย่อย",
+        sales: data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0,
+    }
+];
 
                     // Create series
                     var series = chart.series.push(
@@ -757,7 +764,9 @@
                 },
                 success: function (data3) {
                     $("#countSap").text(" ");
-                    var countSap = parseFloat(data3.major.count) + parseFloat(data3.minor.count)
+                   var majorCount = data3.major && data3.major.count ? parseFloat(data3.major.count) : 0;
+var minorCount = data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0;
+var countSap = majorCount + minorCount;
                     $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
 
                     const chartColors = [
@@ -774,17 +783,15 @@
                     );
 
                     var data = [
-                        {
-                            country: "ผู้ใช้ไฟรายใหญ่",
-                            sales: parseFloat(data3.major.count),
-
-                        },
-                        {
-                            country: "ผู้ใช้ไฟรายย่อย",
-                            sales: parseFloat(data3.minor.count),
-
-                        }
-                    ];
+    {
+        country: "ผู้ใช้ไฟรายใหญ่",
+        sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
+    },
+    {
+        country: "ผู้ใช้ไฟรายย่อย",
+        sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
+    }
+];
 
                     // Create series
                     var series = chart.series.push(
