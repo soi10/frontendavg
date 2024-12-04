@@ -119,11 +119,11 @@
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
 								<span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span>
-									<span id="BaName"></span>
+									<!-- <span id="BaName"></span> -->
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<span id="outer">
-									<a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+									<a class="dropdown-item" href="#" id="btnLogout" type="button">Log out</a>
 								</span>
 							</div>
 						</li>
@@ -133,8 +133,9 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-				<label for="yearInput">เลือกปี:</label>
-<input type="number" id="yearInput" class="form-control" value=""> <!-- ค่าเริ่มต้นจะถูกตั้งใน jQuery -->
+					<label for="yearInput">เลือกปี:</label>
+					<input type="number" id="yearInput" class="form-control" value="">
+					<!-- ค่าเริ่มต้นจะถูกตั้งใน jQuery -->
 					<div class="row">
 						<div class="col">
 							<div class="card my-2">
@@ -212,299 +213,328 @@
 
 <script>
 	const hostname = "172.21.1.60";
-	$(document).ready(function () {
-	
-	    // ตั้งค่าปีปัจจุบันใน input
-    var currentYear = new Date().getFullYear();
-    $('#yearInput').val(currentYear);
+	var FullName = localStorage.getItem("Fullname");
+	if (FullName == null) {
+		window.location = "./sign-in.html";
+	} else {
+		$(document).ready(function () {
 
-		$("#Name").html(localStorage.getItem("FullName"));
-		$("#BaName").html(localStorage.getItem("BaName"));
-		$("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
-		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-		console.log(localStorage.getItem("Peacode").substring(0, 4))
-		$("#dateHoliday").datepicker({
-			dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
-		});
+			// ตั้งค่าปีปัจจุบันใน input
+			var currentYear = new Date().getFullYear();
+			$('#yearInput').val(currentYear);
 
-		var table = $('#example').DataTable({
-			"ajax": {
-				"url": "http://" + hostname + ":442/datadetail/databypeacode",
-				"dataSrc": "",
-				"contentType": "application/json",
-				"data": function(d) {
-                d.peacode = PeaCode;
-                d.year = $('#yearInput').val(); // เพิ่มพารามิเตอร์ปี
-            }
-				, "dataSrc": "",
-			},
-			"initComplete": function (settings, json) {
-			 // กรองข้อมูลตามปีที่กำหนดใน input เมื่อโหลดข้อมูลเสร็จสิ้น
-            var selectedYear = $('#yearInput').val();
-            this.api().column(4).search(selectedYear).draw();
-				this.api().columns().every(function () {
-					var column = this;
-					var columnIndex = column.index();
+			$("#Name").html(localStorage.getItem("Fullname"));
+			$("#BaName").html(localStorage.getItem("BaName"));
+			$("#DepartmentShortName").html(localStorage.getItem("department"));
+			let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+			console.log(localStorage.getItem("Peacode").substring(0, 4))
+			$("#dateHoliday").datepicker({
+				dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
+			});
 
-					// เพิ่มสีหัวคอลัมน์ที่ต้องการ
-					$(column.header()).css("background-color", "#74045F");
-					$(column.header()).css("color", "#FFFFFF");
-				});
-			},
-			"columns": [
-				{
-					"data": "_id",
-					render: function (data, type, row, meta) {
-						return meta.row + meta.settings._iDisplayStart + 1;
+			var table = $('#example').DataTable({
+				"ajax": {
+					"url": "http://" + hostname + ":442/datadetail/databypeacode",
+					"dataSrc": "",
+					"contentType": "application/json",
+					"data": function (d) {
+						d.peacode = PeaCode;
+						d.year = $('#yearInput').val(); // เพิ่มพารามิเตอร์ปี
 					}
+					, "dataSrc": "",
 				},
-				{ "data": "office_name" },
-				{ "data": "ca_no" },
-				{ "data": "name_customer" },
-				{
-					"data": "billing_Cycle",
-					"data1": "year",
-					"bSortable": false,
-					"mRender": function (data, type, full,) {
-						return full.billing_Cycle + ' ' + full.year;
-					}
+				"initComplete": function (settings, json) {
+					// กรองข้อมูลตามปีที่กำหนดใน input เมื่อโหลดข้อมูลเสร็จสิ้น
+					var selectedYear = $('#yearInput').val();
+					this.api().column(4).search(selectedYear).draw();
+					this.api().columns().every(function () {
+						var column = this;
+						var columnIndex = column.index();
+
+						// เพิ่มสีหัวคอลัมน์ที่ต้องการ
+						$(column.header()).css("background-color", "#74045F");
+						$(column.header()).css("color", "#FFFFFF");
+					});
 				},
-				// { "data": "sum_to_sap_final" },
-				{ 
-					"data": "sum_to_sap_final",
-					"bSortable": false,
-					"mRender": function (data, type, full) {
-						return data
-					}
-				},
-				{
-					"data": "_id",
-					"bSortable": false,
-					"mRender": function (data, type, full) {
-						return '<a class="btn btn-info btn-sm" href=view-data.html?id=' + data + ' target="_blank">' + 'View' + '</a>';
-					}
-				},
-				{
-					"data": "_id",
-					"bSortable": false,
-					"mRender": function (data, type, full) {
-						return '<a class="btn btn-primary btn-sm" href=genpdf/index.php?id=' + data + ' target="_blank">' + 'PDF' + '</a>';
-					}
-				},
-				{
-					"data": "_id",
-					"bSortable": false,
-					"mRender": function (data, type, full) {
-						return '<a class="btn btn-warning btn-sm" href=edit-data.html?id=' + data + '>' + 'แก้ไข' + '</a>';
-					}
-				},
-				{
-					"data": "_id",
-					render: function (data, type, row) {
-						return '<a class="btn btn-danger btn-sm" href=#/' + data + '>' + 'ลบ' + '</a>';
+				"columns": [
+					{
+						"data": "_id",
+						render: function (data, type, row, meta) {
+							return meta.row + meta.settings._iDisplayStart + 1;
+						}
 					},
-					"className": "text-center",
+					{ "data": "office_name" },
+					{ "data": "ca_no" },
+					{ "data": "name_customer" },
+					{
+						"data": "billing_Cycle",
+						"data1": "year",
+						"bSortable": false,
+						"mRender": function (data, type, full,) {
+							return full.billing_Cycle + ' ' + full.year;
+						}
+					},
+					// { "data": "sum_to_sap_final" },
+					{
+						"data": "sum_to_sap_final",
+						"bSortable": false,
+						"mRender": function (data, type, full) {
+							return data
+						}
+					},
+					{
+						"data": "_id",
+						"bSortable": false,
+						"mRender": function (data, type, full) {
+							return '<a class="btn btn-info btn-sm" href=view-data.html?id=' + data + ' target="_blank">' + 'View' + '</a>';
+						}
+					},
+					{
+						"data": "_id",
+						"bSortable": false,
+						"mRender": function (data, type, full) {
+							return '<a class="btn btn-primary btn-sm" href=genpdf/index.php?id=' + data + ' target="_blank">' + 'PDF' + '</a>';
+						}
+					},
+					{
+						"data": "_id",
+						"bSortable": false,
+						"mRender": function (data, type, full) {
+							return '<a class="btn btn-warning btn-sm" href=edit-data.html?id=' + data + '>' + 'แก้ไข' + '</a>';
+						}
+					},
+					{
+						"data": "_id",
+						render: function (data, type, row) {
+							return '<a class="btn btn-danger btn-sm" href=#/' + data + '>' + 'ลบ' + '</a>';
+						},
+						"className": "text-center",
+					}
+				],
+				"columnDefs": [
+					{ "className": "dt-center", "targets": "_all" },
+					{
+						"targets": 0, // your case first column
+						"className": "text-center",
+						"width": "4%"
+					},
+				],
+			});
+			$('#yearInput').on('change keyup', function () {
+				var selectedYear = $(this).val();
+				if (selectedYear) {
+					// สมมติว่าคอลัมน์ที่ 4 คือคอลัมน์ปี
+					table.column(4).search(selectedYear).draw();
+				} else {
+					// แสดงข้อมูลทั้งหมดถ้าไม่มีปีที่เลือก
+					table.column(4).search('').draw();
 				}
-			],
-			"columnDefs": [
-				{ "className": "dt-center", "targets": "_all" },
-				{
-					"targets": 0, // your case first column
-					"className": "text-center",
-					"width": "4%"
-				},
-			],
+			});
+
 		});
-		  $('#yearInput').on('change keyup', function() {
-        var selectedYear = $(this).val();
-        if (selectedYear) {
-            // สมมติว่าคอลัมน์ที่ 4 คือคอลัมน์ปี
-            table.column(4).search(selectedYear).draw();
-        } else {
-            // แสดงข้อมูลทั้งหมดถ้าไม่มีปีที่เลือก
-            table.column(4).search('').draw();
-        }
-    });
+		////////Start Process Cencel
+		$('body').on('click', '.btn-danger', function (event) {
+			event.preventDefault();
 
-	});
-	////////Start Process Cencel
-	$('body').on('click', '.btn-danger', function (event) {
-		event.preventDefault();
-
-		var id = $(this).attr('href').split('/')[1];
-		var data = {
-			id: id
-		}
-		console.log(id)
-		Swal.fire({
-			title: 'ยินยันการยกเลิกข้อมูล?',
-			// text: "You won't be able to revert this!",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'ยืนยัน'
-		}).then((result) => {
-			if (result.isConfirmed) {
-				$.ajax({
-					type: 'DELETE',
-					url: "http://" + hostname + ":442/datadetail/delete",
-					data: data,
-					success: function (response) {
-						Swal.fire(
-							'ลบข้อมูลสำเร็จ!',
-							'งานถูกลบเรียบร้อยแล้ว',
-							'success'
-						).then((result) => {
-							location.reload();
-						})
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						Swal.fire(
-							'Cancel!',
-							'ลบเลิกงานไม่เสร็จ',
-							'warning'
-						).then((result) => {
-							location.reload();
-						})
-					}
-				})
-
+			var id = $(this).attr('href').split('/')[1];
+			var data = {
+				id: id
 			}
+			console.log(id)
+			Swal.fire({
+				title: 'ยินยันการยกเลิกข้อมูล?',
+				// text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'ยืนยัน'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						type: 'DELETE',
+						url: "http://" + hostname + ":442/datadetail/delete",
+						data: data,
+						success: function (response) {
+							Swal.fire(
+								'ลบข้อมูลสำเร็จ!',
+								'งานถูกลบเรียบร้อยแล้ว',
+								'success'
+							).then((result) => {
+								location.reload();
+							})
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							Swal.fire(
+								'Cancel!',
+								'ลบเลิกงานไม่เสร็จ',
+								'warning'
+							).then((result) => {
+								location.reload();
+							})
+						}
+					})
+
+				}
+			})
+
+
 		})
 
-
-	})
-
-	$("#addHoliday").click(function () {
-		var dateHoliday = $("#dateHoliday").val();
-		var nameHoliday = $("#nameHoliday").val();
-		var yearHoliday = (new Date).getFullYear();
-		$.ajax({
-			url: "http://" + hostname + ":442:442/holiday/add",
-			method: "POST",
-			data: {
-				dateHoliday: dateHoliday,
-				nameHoliday: nameHoliday,
-				yearHoliday: yearHoliday,
-			},
-			success: function (response) {
-				// console.log(response.message.code);
-				if (response.message.code == "11000") {
-					Swal.fire({
-						icon: 'error',
-						text: 'ข้อมูลซ้ำ',
-					})
-				} else if (response.message == "บันทึกสำเร็จ") {
-					Swal.fire({
-						icon: 'success',
-						text: 'บันทึกสำเร็จ',
-					})
-					location.reload();
-				} else {
-					Swal.fire({
-						icon: 'error',
-						text: 'ระบบมีปัญหา',
-					})
-				}
-			},
-			error: function (error) {
-				console.error(error);
-			}
-		});
-	});
-
-
-	$(document).on('click', '.editButton', function () {
-		// your function here
-		// alert($(this).attr("value"));
-		$('#exampleModalEdit').modal('show');
-		$.ajax({
-			url: "http://" + hostname + ":442/holiday/getone",
-			type: "POST",
-			data: {
-				"_id": $(this).attr("value"),
-			},
-			success: function (data) {
-				// แสดงผลลัพธ์จำนวนวันที่คำนวณได้
-				//   console.log(data);
-				$("#dateHolidayEdit").val(data[0].dateHoliday)
-				$("#nameHolidayEdit").val(data[0].nameHoliday)
-				$("#idClick").val(data[0]._id)
-
-			},
-		});
-	});
-
-	$("#editHoliday").click(function () {
-		var dateHolidayEdit = $("#dateHolidayEdit").val();
-		var nameHolidayEdit = $("#nameHolidayEdit").val();
-		var idClick = $("#idClick").val();
-		$.ajax({
-			url: "http://172.21.1.60:442/holiday/update",
-			method: "POST",
-			data: {
-				dateHoliday: dateHolidayEdit,
-				nameHoliday: nameHolidayEdit,
-				_id: idClick,
-			},
-			success: function (response) {
-				if (response.message == "success") {
-					location.reload();
-				} else {
-					Swal.fire({
-						icon: 'error',
-						text: 'ระบบมีปัญหา',
-					})
-				}
-			},
-			error: function (error) {
-				console.error(error);
-			}
-		});
-	});
-
-
-	$(document).on('click', '.deleteButton', function () {
-		// your function here
-		// alert($(this).attr("value"));
-		Swal.fire({
-			title: 'จะลบแล้วนะ?',
-			text: "",
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'ลบ'
-		}).then((result) => {
-			if (result.isConfirmed) {
-				$.ajax({
-					url: "http://172.21.1.60:442/holiday/deleteone",
-					type: "POST",
-					data: {
-						"_id": $(this).attr("value"),
-					},
-					success: function (data) {
+		$("#addHoliday").click(function () {
+			var dateHoliday = $("#dateHoliday").val();
+			var nameHoliday = $("#nameHoliday").val();
+			var yearHoliday = (new Date).getFullYear();
+			$.ajax({
+				url: "http://" + hostname + ":442:442/holiday/add",
+				method: "POST",
+				data: {
+					dateHoliday: dateHoliday,
+					nameHoliday: nameHoliday,
+					yearHoliday: yearHoliday,
+				},
+				success: function (response) {
+					// console.log(response.message.code);
+					if (response.message.code == "11000") {
+						Swal.fire({
+							icon: 'error',
+							text: 'ข้อมูลซ้ำ',
+						})
+					} else if (response.message == "บันทึกสำเร็จ") {
+						Swal.fire({
+							icon: 'success',
+							text: 'บันทึกสำเร็จ',
+						})
 						location.reload();
-					},
-				});
-			}
-		})
-	});
-	$("#btnLogout").click(function (event) {
-		event.preventDefault();
-		localStorage.clear();
-		Swal.fire({
-			icon: "success",
-			title: "ออกจากระบบเรียบร้อย",
-			showCancelButton: false,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
-			confirmButtonText: "ตกลง",
-		}).then((response) => {
-			if (response.isConfirmed) {
-				window.location = "./sign-in.html";
-			}
+					} else {
+						Swal.fire({
+							icon: 'error',
+							text: 'ระบบมีปัญหา',
+						})
+					}
+				},
+				error: function (error) {
+					console.error(error);
+				}
+			});
 		});
-	})
+
+
+		$(document).on('click', '.editButton', function () {
+			// your function here
+			// alert($(this).attr("value"));
+			$('#exampleModalEdit').modal('show');
+			$.ajax({
+				url: "http://" + hostname + ":442/holiday/getone",
+				type: "POST",
+				data: {
+					"_id": $(this).attr("value"),
+				},
+				success: function (data) {
+					// แสดงผลลัพธ์จำนวนวันที่คำนวณได้
+					//   console.log(data);
+					$("#dateHolidayEdit").val(data[0].dateHoliday)
+					$("#nameHolidayEdit").val(data[0].nameHoliday)
+					$("#idClick").val(data[0]._id)
+
+				},
+			});
+		});
+
+		$("#editHoliday").click(function () {
+			var dateHolidayEdit = $("#dateHolidayEdit").val();
+			var nameHolidayEdit = $("#nameHolidayEdit").val();
+			var idClick = $("#idClick").val();
+			$.ajax({
+				url: "http://172.21.1.60:442/holiday/update",
+				method: "POST",
+				data: {
+					dateHoliday: dateHolidayEdit,
+					nameHoliday: nameHolidayEdit,
+					_id: idClick,
+				},
+				success: function (response) {
+					if (response.message == "success") {
+						location.reload();
+					} else {
+						Swal.fire({
+							icon: 'error',
+							text: 'ระบบมีปัญหา',
+						})
+					}
+				},
+				error: function (error) {
+					console.error(error);
+				}
+			});
+		});
+
+
+		$(document).on('click', '.deleteButton', function () {
+			// your function here
+			// alert($(this).attr("value"));
+			Swal.fire({
+				title: 'จะลบแล้วนะ?',
+				text: "",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'ลบ'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: "http://172.21.1.60:442/holiday/deleteone",
+						type: "POST",
+						data: {
+							"_id": $(this).attr("value"),
+						},
+						success: function (data) {
+							location.reload();
+						},
+					});
+				}
+			})
+		});
+		// $("#btnLogout").click(function (event) {
+		// 	event.preventDefault();
+		// 	localStorage.clear();
+		// 	Swal.fire({
+		// 		icon: "success",
+		// 		title: "ออกจากระบบเรียบร้อย",
+		// 		showCancelButton: false,
+		// 		confirmButtonColor: "#3085d6",
+		// 		cancelButtonColor: "#d33",
+		// 		confirmButtonText: "ตกลง",
+		// 	}).then((response) => {
+		// 		if (response.isConfirmed) {
+		// 			window.location = "./sign-in.html";
+		// 		}
+		// 	});
+		// })
+	}
+</script>
+
+<!-- Logout -->
+<script>
+	document.getElementById('btnLogout').addEventListener('click', handleButtonClick);
+	const Fullname = localStorage.getItem('Fullname');
+	$('#Fullname').text(Fullname);
+	const department = localStorage.getItem('department');
+	$('#department').text(Fullname + "|" + department);
+
+	function removeSessionStorage(key) {
+		sessionStorage.removeItem(key);
+	}
+	function handleButtonClick() {
+		event.preventDefault();
+		//alert(this.id);
+		// Set the cookie with a past expiration date to delete it
+		removeSessionStorage('hr_employee_id');
+		removeSessionStorage('hr_data');
+		localStorage.clear();
+		const url = `${location.protocol}//${location.host}/everest/sign-in.html`;
+		window.location.href =
+			`https://sso2.pea.co.th/realms/pea-users/protocol/openid-connect/logout?redirect_uri=${url}`;
+	}
 </script>

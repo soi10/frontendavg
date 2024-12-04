@@ -131,11 +131,11 @@
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-bs-toggle="dropdown">
                                 <span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span>
-                                    <span id="BaName"></span>
+                                    <!-- <span id="BaName"></span> -->
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <span id="outer">
-                                    <a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+                                    <a class="dropdown-item" href="#" id="btnLogout" type="button">Log out</a>
                                 </span>
                             </div>
                         </li>
@@ -238,7 +238,7 @@
     const hostname = "172.21.1.60";
     $(document).ready(function () {
 
-        var emp = localStorage.getItem("EmployeeId");
+        var emp = localStorage.getItem("Username");
         $.ajax({
             url: "http://" + hostname + ":442/admin/get",
             method: "POST",
@@ -260,9 +260,9 @@
             }
         });
 
-        $("#Name").html(localStorage.getItem("FullName"));
+        $("#Name").html(localStorage.getItem("Fullname"));
         $("#BaName").html(localStorage.getItem("BaName"));
-        $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+        $("#DepartmentShortName").html(localStorage.getItem("department"));
         let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
         // console.log(localStorage.getItem("Peacode").substring(0, 4))
 

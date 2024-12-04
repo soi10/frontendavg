@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5" />
@@ -54,51 +54,60 @@
 </head>
 
 <body>
-  <div id="overlay"></div>
+  <!-- <div id="overlay"></div> -->
   <main class="d-flex w-100">
     <div class="container d-flex flex-column">
       <div class="row vh-100">
         <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
           <div class="d-table-cell align-middle">
             <div class="text-center mt-4">
+              <div class="text-center">
+                <img src="./src/img/logo.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132"
+                  height="132" />
+              </div>
               <h1 style="color: rgb(240, 240, 240); font-size: 50px">
                 EVEREST
               </h1>
               <p class="lead">โปรแกรมเฉลี่ยหน่วยมิเตอร์ TOU</p>
+              <a id="loginButton" type="button" class="btn text-white shadow-sm border-3 rounded-4 ps-4 pe-4 mt-3"
+                style="background-color: rgb(80, 79, 80); padding: 15px 30px; font-size: 1.25rem; display: inline-block; width: 50%; text-align: center;">
+                <span style="vertical-align: middle;">Login With Keycloak</span>
+              </a>
+
             </div>
 
-            <div class="card">
-              <div class="card-body">
-                <div class="m-sm-4">
-                  <div class="text-center">
-                    <img src="./src/img/logo.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132"
-                      height="132" />
+            <!-- <div class="card">
+                <div class="card-body">
+                  <div class="m-sm-4">
+                    <div class="text-center">
+                      <img src="./src/img/logo.jpg" alt="Charles Hall"
+                        class="img-fluid rounded-circle" width="132"
+                        height="132" />
+                    </div>
+                    <form class="user" id="myform1">
+                      <div class="mb-3">
+                        <label class="form-label">รหัสพนักงาน</label>
+                        <input class="form-control form-control-lg" type="text"
+                          name="username" id="username"
+                          placeholder="รหัสพนักงาน" />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">รหัสผ่าน</label>
+                        <input class="form-control form-control-lg"
+                          type="password" name="password" id="password"
+                          placeholder="รหัสผ่านเข้าเครื่องคอมพิวเตอร์" />
+                        <small> </small>
+                      </div>
+                      <div class="text-center mt-3">
+                        <input type="button" value="Sign in" name="but_submit"
+                          id="but_submit"
+                          class="btn btn-lg btn-primary" />
+                      </div>
+                    </form>
                   </div>
-                  <form class="user" id="myform1">
-                    <div class="mb-3">
-                      <label class="form-label">รหัสพนักงาน</label>
-                      <input class="form-control form-control-lg" type="text" name="username" id="username"
-                        placeholder="รหัสพนักงาน" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">รหัสผ่าน</label>
-                      <input class="form-control form-control-lg" type="password" name="password" id="password"
-                        placeholder="รหัสผ่านเข้าเครื่องคอมพิวเตอร์" />
-                      <small> </small>
-                    </div>
-                    <div>
-                      <label class="form-check"> </label>
-                    </div>
-                    <div class="text-center mt-3">
-                      <!-- <a href="index.html" class="btn btn-lg btn-primary">Sign in</a> -->
-                      <!-- <button type="submit" id="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-                      <input type="button" value="Sign in" name="but_submit" id="but_submit"
-                        class="btn btn-lg btn-primary" />
-                    </div>
-                  </form>
                 </div>
-              </div>
-            </div>
+              </div> -->
+
           </div>
         </div>
       </div>
@@ -111,9 +120,159 @@
 
 </html>
 <script>
-   const hostname = "172.21.1.60";
+  function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  function setSessionStorage(key, value) {
+    sessionStorage.setItem(key, value);
+  }
+
+  function getSessionStorage(key) {
+    return sessionStorage.getItem(key);
+  }
+
+  async function fetchToken(code) {
+    const url = `${location.protocol}//${location.host}`;
+    const response = await fetch(
+      url + "/everest/serviceslogin/proxy2.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        code: code,
+        client_id: "pea-queuex-softkey",
+        client_secret: "ZnO5xEia9YEJdrznI0YeU399ClJWYtVl",
+        grant_type: "authorization_code",
+        redirect_uri: url + "/everest/sign-in.html",
+      }),
+    }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.access_token;
+    } else {
+      console.error("Error fetching token:", response.statusText);
+      return null;
+    }
+  }
+
+  async function fetchUserInfo(token) {
+    const url = `${location.protocol}//${location.host}`;
+    const response = await fetch(
+      `${url}/everest/serviceslogin/proxy3.php?token=${token}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+
+      // displayValues(data);
+      if (data.hr_employee_id) {
+        console.log('proxy3:', data);
+        setSessionStorage('hr_employee_id', data.hr_employee_id); // Store employee ID in session storage
+        setSessionStorage('hr_data', JSON.stringify(data)); // Store employee ID in session storage
+      }
+    } else {
+      console.error("Error fetching user info:", response.statusText);
+    }
+  }
+
+  function redirectToIndex(data) {
+    console.log(data.hr_fullname_th, " ", data.hr_employee_id);
+    window.location.href = "./index.html";
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    let code = params.get("code");
+    console.log('code:', code);
+
+    if (code) {
+      // Only fetch token and user info if the code is present
+      console.log('in fetchToken');
+
+      fetchToken(code).then(async (token) => { // Change to an async function
+        if (token) {
+          setCookie('access_token', token, 1); // Store token in a cookie for 1 day
+          console.log('Cookie stored.');
+
+          await fetchUserInfo(token); // Await the completion of fetchUserInfo
+
+          const hr_data = JSON.parse(getSessionStorage('hr_data'));
+          console.log('hr_data_fetch:', hr_data);
+          localStorage.setItem('Username', hr_data.hr_employee_id);
+          localStorage.setItem('Fullname', hr_data.hr_fullname_th);
+          localStorage.setItem('BaName', hr_data.hr_business_area);
+          localStorage.setItem('department', hr_data.hr_department);
+          localStorage.setItem('Peacode', hr_data.hr_cost_center);
+          redirectToIndex(hr_data);
+        }
+      });
+    }
+
+    function checkHr() {
+      const data = JSON.parse(getSessionStorage('hr_data'));
+      console.log('hr_data', data);
+
+      if (data) {
+        window.location.href = "./index.html";
+      }
+    }
+    checkHr();
+
+  });
+
+  function handleButtonClick() {
+    const employeeId = getSessionStorage('hr_employee_id'); // Check session storage for employee ID
+    console.log('employeeId in ss:', employeeId);
+
+
+    if (employeeId) {
+      // If employee ID exists in session storage, fetch user info directly
+      const hr_data = JSON.parse(getSessionStorage('hr_data'));
+      console.log('fetch from hr_data:', hr_data);
+      code = null;
+      redirectToIndex(hr_data);
+    } else {
+      // Redirect to the login page using the first proxy
+      const url = `${location.protocol}//${location.host}`;
+      const redirectUrl = url + "/everest/serviceslogin/proxy1.php";
+      const queryParams = new URLSearchParams({
+        redirect_uri: url + "/everest/sign-in.html",
+        response_type: "code",
+        scope: "openid profile",
+        client_id: "pea-queuex-softkey",
+      });
+      window.location.href = `${redirectUrl}?${queryParams.toString()}`;
+    }
+  }
+
+  // Add an event listener to your button
+  document.getElementById('loginButton').addEventListener('click', handleButtonClick);
+</script>
+<!-- <script>
+  const hostname = "172.21.1.60";
   $(document).ready(function () {
-   
+
     $("#overlay").hide();
     $("#but_submit").click(function () {
       $("#overlay").fadeOut();
@@ -174,7 +333,7 @@
       }
     });
   });
-</script>
+</script> -->
 
 <script type="text/javascript">
   // $(function(){

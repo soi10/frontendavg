@@ -139,11 +139,11 @@
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-bs-toggle="dropdown">
                                 <span class="text-dark"><span id="Name"></span> <span id="DepartmentShortName"></span>
-                                    <span id="BaName"></span>
+                                    <!-- <span id="BaName"></span> -->
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <span id="outer">
-                                    <a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+                                    <a class="dropdown-item" href="#" id="btnLogout" type="button">Log out</a>
                                 </span>
                             </div>
                         </li>
@@ -179,7 +179,8 @@
                                             <h3>ข้อมูลจำนวนหน่วยที่เฉลี่ยรวม</h3>
                                         </div>
                                         <div class="card-body">
-                                            <div id="sumSap" style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
+                                            <div id="sumSap"
+                                                style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
                                             <div style="font-size: 20px">หน่วย</div>
                                         </div>
                                     </div>
@@ -190,7 +191,8 @@
                                             <h3>จำนวนรายที่เฉลี่ยหน่วย</h3>
                                         </div>
                                         <div class="card-body">
-                                            <div id="countSap" style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
+                                            <div id="countSap"
+                                                style="font-size: 60px; font-weight: bold;  color: #74045F;"></div>
                                             <div style="font-size: 20px">ฉบับ</div>
                                         </div>
                                     </div>
@@ -276,17 +278,18 @@
 <!-- Chart code -->
 <script>
     var Token = localStorage.getItem("token");
+    var FullName = localStorage.getItem("Fullname");
 
-    if (Token == null) {
+    if (FullName == null) {
         window.location = "./sign-in.html";
     } else {
         const hostname = "172.21.1.60";
         var yearChart = $("#yearChart").val((new Date).getFullYear());
-		
 
-        $("#Name").html(localStorage.getItem("FullName"));
+
+        $("#Name").html(localStorage.getItem("Fullname"));
         $("#BaName").html(localStorage.getItem("BaName"));
-        $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+        $("#DepartmentShortName").html(localStorage.getItem("department"));
         let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
 
         $(document).ready(function () {
@@ -296,7 +299,7 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-					peacode: PeaCode
+                    peacode: PeaCode
                     //peacode: 'E141'
                 },
                 success: function (data1) {
@@ -422,15 +425,15 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-					peacode: PeaCode
+                    peacode: PeaCode
                     //peacode: 'E141'
                 },
                 success: function (data2) {
-					//console.log(data2)
+                    //console.log(data2)
                     var majorSum = data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0;
-					var minorSum = data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0;
-					var sumSap = majorSum + minorSum;
-					//console.log(sumSap)
+                    var minorSum = data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0;
+                    var sumSap = majorSum + minorSum;
+                    //console.log(sumSap)
                     $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
                     const chartColors = [
                         am5.color("#C7911B"),
@@ -447,15 +450,15 @@
 
                     // Define data
                     var data = [
-						{
-							country: "ผู้ใช้ไฟรายใหญ่",
-							sales: data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0,
-						},
-						{
-							country: "ผู้ใช้ไฟรายย่อย",
-							sales: data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0,
-						}
-					];
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0,
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0,
+                        }
+                    ];
 
                     // Create series
                     var series = chart.series.push(
@@ -487,13 +490,13 @@
                 data: {
                     yearChart: yearChart.val(),
                     peacode: PeaCode
-					//peacode: 'E141'
+                    //peacode: 'E141'
                 },
                 success: function (data3) {
 
                     var majorCount = data3.major && data3.major.count ? parseFloat(data3.major.count) : 0;
-					var minorCount = data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0;
-					var countSap = majorCount + minorCount;
+                    var minorCount = data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0;
+                    var countSap = majorCount + minorCount;
                     $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
 
                     const chartColors = [
@@ -510,16 +513,16 @@
                     );
 
                     // Define data
-                   var data = [
-						{
-							country: "ผู้ใช้ไฟรายใหญ่",
-							sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
-						},
-						{
-							country: "ผู้ใช้ไฟรายย่อย",
-							sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
-						}
-					];
+                    var data = [
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
+                        }
+                    ];
 
                     // Create series
                     var series = chart.series.push(
@@ -542,28 +545,12 @@
                     legend.data.setAll(series.dataItems);
                 }
             });
+
         })
 
-
-        $("#btnLogout").click(function (event) {
-            event.preventDefault();
-            localStorage.clear();
-            Swal.fire({
-                icon: "success",
-                title: "ออกจากระบบเรียบร้อย",
-                showCancelButton: false,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "ตกลง",
-            }).then((response) => {
-                if (response.isConfirmed) {
-                    window.location = "./sign-in.html";
-                }
-            });
-        })
 
         $("#showChart").click(function () {
-		
+
             var divId = "chartdiv";
 
             // Dispose existing root elements with matching divId
@@ -596,7 +583,7 @@
                 method: "POST",
                 data: {
                     yearChart: yearChart.val(),
-					peacode: PeaCode
+                    peacode: PeaCode
                     //peacode: 'E141'
                 },
                 success: function (data1) {
@@ -704,8 +691,8 @@
                 success: function (data2) {
                     $("#sumSap").text(" ");
                     var majorSum = data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0;
-var minorSum = data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0;
-var sumSap = majorSum + minorSum;
+                    var minorSum = data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0;
+                    var sumSap = majorSum + minorSum;
                     $("#sumSap").text(sumSap.toLocaleString('en-US', { maximumFractionDigits: 2 }));
 
                     const chartColors = [
@@ -723,15 +710,15 @@ var sumSap = majorSum + minorSum;
 
                     // Define data
                     var data = [
-    {
-        country: "ผู้ใช้ไฟรายใหญ่",
-        sales: data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0,
-    },
-    {
-        country: "ผู้ใช้ไฟรายย่อย",
-        sales: data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0,
-    }
-];
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: data2.major && data2.major.sum ? parseFloat(data2.major.sum) : 0,
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: data2.minor && data2.minor.sum ? parseFloat(data2.minor.sum) : 0,
+                        }
+                    ];
 
                     // Create series
                     var series = chart.series.push(
@@ -764,9 +751,9 @@ var sumSap = majorSum + minorSum;
                 },
                 success: function (data3) {
                     $("#countSap").text(" ");
-                   var majorCount = data3.major && data3.major.count ? parseFloat(data3.major.count) : 0;
-var minorCount = data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0;
-var countSap = majorCount + minorCount;
+                    var majorCount = data3.major && data3.major.count ? parseFloat(data3.major.count) : 0;
+                    var minorCount = data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0;
+                    var countSap = majorCount + minorCount;
                     $("#countSap").text(countSap.toLocaleString('en-US', { maximumFractionDigits: 0 }));
 
                     const chartColors = [
@@ -783,15 +770,15 @@ var countSap = majorCount + minorCount;
                     );
 
                     var data = [
-    {
-        country: "ผู้ใช้ไฟรายใหญ่",
-        sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
-    },
-    {
-        country: "ผู้ใช้ไฟรายย่อย",
-        sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
-    }
-];
+                        {
+                            country: "ผู้ใช้ไฟรายใหญ่",
+                            sales: data3.major && data3.major.count ? parseFloat(data3.major.count) : 0,
+                        },
+                        {
+                            country: "ผู้ใช้ไฟรายย่อย",
+                            sales: data3.minor && data3.minor.count ? parseFloat(data3.minor.count) : 0,
+                        }
+                    ];
 
                     // Create series
                     var series = chart.series.push(
@@ -818,5 +805,29 @@ var countSap = majorCount + minorCount;
 
 
         });
+    }
+</script>
+
+<!-- Logout -->
+<script>
+    document.getElementById('btnLogout').addEventListener('click', handleButtonClick);
+    const Fullname = localStorage.getItem('Fullname');
+    $('#Fullname').text(Fullname);
+    const department = localStorage.getItem('department');
+    $('#department').text(Fullname + "|" + department);
+
+    function removeSessionStorage(key) {
+        sessionStorage.removeItem(key);
+    }
+    function handleButtonClick() {
+        event.preventDefault();
+        //alert(this.id);
+        // Set the cookie with a past expiration date to delete it
+        removeSessionStorage('hr_employee_id');
+        removeSessionStorage('hr_data');
+        localStorage.clear();
+        const url = `${location.protocol}//${location.host}/everest/sign-in.html`;
+        window.location.href =
+            `https://sso2.pea.co.th/realms/pea-users/protocol/openid-connect/logout?redirect_uri=${url}`;
     }
 </script>
