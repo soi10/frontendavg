@@ -226,8 +226,8 @@
 			$("#Name").html(localStorage.getItem("Fullname"));
 			$("#BaName").html(localStorage.getItem("BaName"));
 			$("#DepartmentShortName").html(localStorage.getItem("department"));
-			let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
-			console.log(localStorage.getItem("Peacode").substring(0, 4))
+			let PeaCode = localStorage.getItem("Peacode").replace("3", "").substring(0, 4);
+			//console.log(localStorage.getItem("Peacode").substring(0, 4))
 			$("#dateHoliday").datepicker({
 				dateFormat: "yy-mm-dd", // กำหนดรูปแบบวันที่ให้เป็น yyyy-mm-dd
 			});

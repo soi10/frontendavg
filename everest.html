@@ -1524,8 +1524,8 @@
 		$(document).ready(function () {
 
 			$("#Name").html(localStorage.getItem("Fullname"));
-			$("#BaName").html(localStorage.getItem("BaName"));
-			$("#DepartmentShortName").html(localStorage.getItem("department"));
+        	$("#BaName").html(localStorage.getItem("BaName"));
+        	$("#DepartmentShortName").html(localStorage.getItem("department"));
 			// console.log(localStorage.getItem("Peacode").substring(0, 4))
 
 			$("#page1").show();
@@ -2004,7 +2004,7 @@
 
 
 
-		let PeaCode = localStorage.getItem("Peacode").substring(0, 4);
+		let PeaCode = localStorage.getItem("Peacode").replace("3", "").substring(0, 4);
 		$.ajax({
 			url: "http://" + hostname + ":442/uploads/bacode",
 			type: "GET",

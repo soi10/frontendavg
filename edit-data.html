@@ -118,7 +118,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <span id="outer">
-                                    <a class="dropdown-item" href="#" id="btnLogout">Log out</a>
+                                    <a class="dropdown-item" href="#" id="btnLogout" type="button">Log out</a>
                                 </span>
                             </div>
                         </li>
@@ -1631,9 +1631,9 @@
 </script>
 <script>
     $(document).ready(function () {
-        $("#Name").html(localStorage.getItem("FullName"));
+        $("#Name").html(localStorage.getItem("Fullname"));
         $("#BaName").html(localStorage.getItem("BaName"));
-        $("#DepartmentShortName").html(localStorage.getItem("DepartmentShortName"));
+        $("#DepartmentShortName").html(localStorage.getItem("department"));
         // console.log(localStorage.getItem("Peacode").substring(0, 4))
 
 
